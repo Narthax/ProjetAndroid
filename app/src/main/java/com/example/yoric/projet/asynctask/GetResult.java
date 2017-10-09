@@ -35,10 +35,12 @@ public class GetResult extends AsyncTask<String, Void, String> {
             value = "title";
         }else if (value.equals("1")){
             value = "actor";
+        }else if (value.equals("2")){
+            value = "director";
         }
 
         try{
-            URL url = new URL(URL+value+"="+params[0]);
+            URL url = new URL((URL+value+"="+params[0]).replaceAll(" ","%20"));
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             Log.i("URL", connection.toString());

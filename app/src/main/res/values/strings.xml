@@ -6,5 +6,6 @@
     <string-array name="s_choix">
         <item>Titre</item>
         <item>Acteur</item>
+        <item>Réalisateur</item>
     </string-array>
 </resources>

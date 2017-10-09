@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.yoric.projet.asynctask.GetResult;
 
@@ -16,6 +17,7 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements GetResult.ICallBack, View.OnClickListener {
 
+    private TextView tv_main;
     private Button bt_rechercher;
     private EditText et_recherche;
     private Spinner spinner;
@@ -51,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
     @Override
     public void parseData(String string) throws JSONException {
         Log.i("STRING_GET", string);
+        tv_main = (TextView) findViewById(R.id.tv_main);
+        tv_main.setText(string);
+
         //JSONObject object = new JSONObject(string);
     }
 }
