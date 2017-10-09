@@ -9,9 +9,13 @@ import android.widget.EditText;
 
 import com.example.yoric.projet.asynctask.GetResult;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity implements GetResult.ICallBack, View.OnClickListener {
 
     private Button bt_rechercher;
+    private EditText et_recherche;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,15 +28,7 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.bt_rechercher:
-                startGetResult();
-                break;
-        }
-    }
-
-    private void startGetResult() {
-        EditText et_recherche= (EditText) findViewById(R.id.et_recherche);
+        et_recherche= (EditText) findViewById(R.id.et_recherche);
 
         GetResult task = new GetResult();
         task.setCallback(this);
@@ -40,12 +36,11 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
         task.execute(
                 et_recherche.getText().toString()
         );
-
     }
 
     @Override
-
-    public void parseData(String string) {
+    public void parseData(String string) throws JSONException {
         Log.i("STRING_GET", string);
+        JSONObject object = new JSONObject(string);
     }
 }

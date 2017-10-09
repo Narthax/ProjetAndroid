@@ -3,7 +3,11 @@ package com.example.yoric.projet.asynctask;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONException;
+
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -25,31 +29,36 @@ public class GetResult extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
 
+        String txt = params[0];
+
         try{
+            //URL url = new URL(URL+params[0]);
+            URL url = new URL("http://netflixroulette.net/api/api.php?actor=Nicolas%20Cage");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-            URL url = new URL("http://netflixroulette.net/api/api.php?director=Quentin%20Tarantino");
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            Log.i("CO",connection.toString());
 
-            try {
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            connection.setRequestMethod("GET");
+            connection.connect();
+            Log.i("MSG", "cc");
 
-                StringBuilder stringBuilder = new StringBuilder();
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(line).append("\n");
-                }
-                //PROBLEME URL + connection correcte mais il ne recupere pas les données du site
-                bufferedReader.close();
-                return stringBuilder.toString();
-            } catch (Exception e){
-                Log.e("ERROR", e.getMessage());
-            } finally{
-                urlConnection.disconnect();
+            InputStream stream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            StringBuilder builder = new StringBuilder();
+            String line = "";
+
+            while((line = reader.readLine()) != null){
+                builder.append(line);
             }
-        }catch (Exception e){
-            Log.e("ERROR_BACKGROUND", e.getMessage());
+
+            reader.close();
+            connection.disconnect();
+            Log.i("MSG2",builder.toString());
+            return builder.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        
+
         return null;
     }
 
@@ -57,10 +66,14 @@ public class GetResult extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
 
-        callback.parseData(s);
+        try {
+            callback.parseData(s);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public interface ICallBack{
-        void parseData(String string);
+        void parseData(String string) throws JSONException;
     }
 }
