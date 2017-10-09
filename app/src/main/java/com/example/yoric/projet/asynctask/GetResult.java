@@ -18,7 +18,7 @@ import java.net.URL;
 
 public class GetResult extends AsyncTask<String, Void, String> {
 
-    private static final String URL = "http://netflixroulette.net/api/api.php?title=";
+    private static final String URL = "https://netflixroulette.net/api/api.php?";
     private ICallBack callback;
 
 
@@ -29,18 +29,22 @@ public class GetResult extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
 
-        String txt = params[0];
+        String value = params[1];
+
+        if (value.equals("0")){
+            value = "title";
+        }else if (value.equals("1")){
+            value = "actor";
+        }
 
         try{
-            //URL url = new URL(URL+params[0]);
-            URL url = new URL("http://netflixroulette.net/api/api.php?actor=Nicolas%20Cage");
+            URL url = new URL(URL+value+"="+params[0]);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-            Log.i("CO",connection.toString());
+            Log.i("URL", connection.toString());
 
             connection.setRequestMethod("GET");
             connection.connect();
-            Log.i("MSG", "cc");
 
             InputStream stream = connection.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
@@ -53,7 +57,6 @@ public class GetResult extends AsyncTask<String, Void, String> {
 
             reader.close();
             connection.disconnect();
-            Log.i("MSG2",builder.toString());
             return builder.toString();
         } catch (IOException e) {
             e.printStackTrace();

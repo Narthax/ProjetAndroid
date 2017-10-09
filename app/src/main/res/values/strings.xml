@@ -2,4 +2,9 @@
     <string name="app_name">Projet</string>
     <string name="et_recherche">Rechercher...</string>
     <string name="bt_recherhcer">Afficher</string>
+
+    <string-array name="s_choix">
+        <item>Titre</item>
+        <item>Acteur</item>
+    </string-array>
 </resources>
