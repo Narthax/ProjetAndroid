@@ -9,8 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.yoric.projet.asynctask.GetResult;
+import com.example.yoric.projet.model.ListeFilm;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +59,13 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
         tv_main = (TextView) findViewById(R.id.tv_main);
         tv_main.setText(string);
 
-        //JSONObject object = new JSONObject(string);
+        JSONObject object = new JSONObject(string);
+        Gson gson = new Gson();
+        ListeFilm listeFilm = gson.fromJson(object.toString(), ListeFilm.class);
+
+        Toast.makeText(this, listeFilm.getShowTitle()+ "", Toast.LENGTH_LONG).show();
+
+        //Gson fait
+        //Suite mettre dans liste view
     }
 }
