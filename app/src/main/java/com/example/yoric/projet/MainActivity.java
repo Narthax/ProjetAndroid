@@ -63,13 +63,13 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
         tv_main = (TextView) findViewById(R.id.tv_main);
         tv_main.setText(string);
 
-        if (spinner.getSelectedItemPosition()==0) {     //Pour un seul film
+        if (spinner.getSelectedItemPosition()==0) {         //Pour un seul film
             JSONObject object = new JSONObject(string);
             Gson gson = new Gson();
             ListeFilm listeFilm = gson.fromJson(object.toString(), ListeFilm.class);
 
             Log.i("TITRE", listeFilm.getShowTitle());
-        }else {                                         //Pour une liste de film
+        }else {                                             //Pour une liste de film
             Type listType = new TypeToken<ArrayList<ListeFilm>>() {
             }.getType();
             ArrayList<ListeFilm> list = new Gson().fromJson(string, listType);
