@@ -14,9 +14,13 @@ import android.widget.Toast;
 import com.example.yoric.projet.asynctask.GetResult;
 import com.example.yoric.projet.model.ListeFilm;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements GetResult.ICallBack, View.OnClickListener {
 
@@ -59,11 +63,22 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
         tv_main = (TextView) findViewById(R.id.tv_main);
         tv_main.setText(string);
 
-        JSONObject object = new JSONObject(string);
-        Gson gson = new Gson();
-        ListeFilm listeFilm = gson.fromJson(object.toString(), ListeFilm.class);
+        if (spinner.getSelectedItemPosition()==0) {     //Pour un seul film
+            JSONObject object = new JSONObject(string);
+            Gson gson = new Gson();
+            ListeFilm listeFilm = gson.fromJson(object.toString(), ListeFilm.class);
 
-        Toast.makeText(this, listeFilm.getShowTitle()+ "", Toast.LENGTH_LONG).show();
+            Log.i("TITRE", listeFilm.getShowTitle());
+        }else {                                         //Pour une liste de film
+            Type listType = new TypeToken<ArrayList<ListeFilm>>() {
+            }.getType();
+            ArrayList<ListeFilm> list = new Gson().fromJson(string, listType);
+
+            for (ListeFilm film : list) {
+                Log.i("TITRE", film.getShowTitle());
+            }
+        }
+
 
         //Gson fait
         //Suite mettre dans liste view
