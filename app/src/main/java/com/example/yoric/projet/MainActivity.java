@@ -22,6 +22,7 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,15 +78,36 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
         tv_main = (TextView) findViewById(R.id.tv_main);
         tv_main.setText(string);
 
+        //Voir yorick pour comprendre pk faire
+        //variable listeFilms a utiliser
+
+
         JSONObject object = new JSONObject(string);
         Log.i("aloooo   ",object.toString());
         Gson gson = new Gson();
         java.lang.reflect.Type collectionType = new TypeToken<List<ListeFilm>>() {}.getType();
         listeFilms = gson.fromJson(object.toString(), collectionType);
+        if (spinner.getSelectedItemPosition()==0) {         //Pour un seul film
+            JSONObject object = new JSONObject(string);
+            Gson gson = new Gson();
+            ListeFilm listeFilm = gson.fromJson(object.toString(), ListeFilm.class);
 
         Log.i("TEST          ffff",listeFilms.get(0).getDirector());
 
         Toast.makeText(this, listeFilms.get(0).getShowTitle()+ "", Toast.LENGTH_LONG).show();
+            Log.i("TITRE", listeFilm.getShowTitle());
+        }else {                                             //Pour une liste de film
+            Type listType = new TypeToken<ArrayList<ListeFilm>>() {
+            }.getType();
+            ArrayList<ListeFilm> list = new Gson().fromJson(string, listType);
+
+            for (ListeFilm film : list) {
+                Log.i("TITRE", film.getShowTitle());
+            }
+        }
+
+
+
 
         //Gson fait
         //Suite mettre dans liste view
