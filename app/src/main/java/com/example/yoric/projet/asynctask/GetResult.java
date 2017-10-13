@@ -3,6 +3,9 @@ package com.example.yoric.projet.asynctask;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.yoric.projet.utils.Utils;
+import com.google.gson.Gson;
+
 import org.json.JSONException;
 
 import java.io.BufferedReader;
@@ -39,7 +42,8 @@ public class GetResult extends AsyncTask<String, Void, String> {
             value = "director";
         }
 
-        try{
+       /* try{
+
             URL url = new URL((URL+value+"="+params[0]).replaceAll(" ","%20"));
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
@@ -64,7 +68,9 @@ public class GetResult extends AsyncTask<String, Void, String> {
             e.printStackTrace();
         }
 
-        return null;
+
+        return null;*/
+        return Utils.Intent.TAG_REALISATEUR;
     }
 
     @Override

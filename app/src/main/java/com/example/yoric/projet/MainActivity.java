@@ -19,6 +19,7 @@ import com.example.yoric.projet.model.ListeFilm;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,6 +36,10 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
     private List<ListeFilm> listeFilms = new ArrayList<ListeFilm>();
 
 
+    private RecyclerView recyclerView;
+    private CustomAdapter adapterListe;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,14 +54,16 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-
-
         listeFilms.add(new ListeFilm());
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list_layout);
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
-        CustomAdapter adapterListe = new CustomAdapter(listeFilms,MainActivity.this);
+        recyclerView = (RecyclerView) findViewById(R.id.list_layout);
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        adapterListe = new CustomAdapter(listeFilms,MainActivity.this);
         recyclerView.setAdapter(adapterListe);
+
+
+
+
     }
 
     @Override
@@ -74,42 +81,36 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
 
     @Override
     public void parseData(String string) throws JSONException {
-        Log.i("STRING_GET", string);
+        Log.i("STRING_GET       -     ", string);
         tv_main = (TextView) findViewById(R.id.tv_main);
         tv_main.setText(string);
 
         //Voir yorick pour comprendre pk faire
         //variable listeFilms a utiliser
 
-/*
-        JSONObject object = new JSONObject(string);
-        Log.i("aloooo   ",object.toString());
         Gson gson = new Gson();
-        java.lang.reflect.Type collectionType = new TypeToken<List<ListeFilm>>() {}.getType();
-        listeFilms = gson.fromJson(object.toString(), collectionType);
- */
+        JSONObject object = new JSONObject(string);
 
         if (spinner.getSelectedItemPosition()==0) {         //Pour un seul film
-            JSONObject object = new JSONObject(string);
-            Gson gson = new Gson();
-            ListeFilm listeFilm = gson.fromJson(object.toString(), ListeFilm.class);
+           // JSONObject object = new JSONObject(string);
+            ListeFilm film = gson.fromJson(object.toString(), ListeFilm.class);
+            listeFilms.add(film);
 
-        Log.i("TEST          ffff",listeFilms.get(0).getDirector());
+            Log.i("TEST         ",listeFilms.get(0).getDirector());
 
-        Toast.makeText(this, listeFilms.get(0).getShowTitle()+ "", Toast.LENGTH_LONG).show();
-            Log.i("TITRE", listeFilm.getShowTitle());
-        }else {                                             //Pour une liste de film
-            Type listType = new TypeToken<ArrayList<ListeFilm>>() {
-            }.getType();
-            ArrayList<ListeFilm> list = new Gson().fromJson(string, listType);
+            Toast.makeText(this, listeFilms.get(0).getShowTitle()+ "", Toast.LENGTH_LONG).show();
+            Log.i("TITRE", listeFilms.get(0).getShowTitle());
+        }
+        else {
+            Type listType = new TypeToken<List<ListeFilm>>() {}.getType();
+            listeFilms = gson.fromJson(object.toString(), listType);
 
-            for (ListeFilm film : list) {
-                Log.i("TITRE", film.getShowTitle());
+            for (ListeFilm film : listeFilms) {
+                Log.i("TITRE      -          ", film.getShowTitle());
             }
         }
-
-
-
+        adapterListe.setList(listeFilms);
+        adapterListe.notifyDataSetChanged();
 
         //Gson fait
         //Suite mettre dans liste view

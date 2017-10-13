@@ -2,11 +2,13 @@ package com.example.yoric.projet.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.yoric.projet.R;
 import com.example.yoric.projet.model.ListeFilm;
@@ -20,6 +22,12 @@ import java.util.List;
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
     private List<ListeFilm> list;
     private Context context;
+
+    public void setList(List<ListeFilm> list){
+        Log.i("SALUT UPDATE","ok");
+        this.list.clear();
+        this.list = list;
+    }
 
     public CustomAdapter(List<ListeFilm> list, Context con){
         this.list = list;
