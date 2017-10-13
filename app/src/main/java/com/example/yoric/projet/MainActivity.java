@@ -81,12 +81,14 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
         //Voir yorick pour comprendre pk faire
         //variable listeFilms a utiliser
 
-
+/*
         JSONObject object = new JSONObject(string);
         Log.i("aloooo   ",object.toString());
         Gson gson = new Gson();
         java.lang.reflect.Type collectionType = new TypeToken<List<ListeFilm>>() {}.getType();
         listeFilms = gson.fromJson(object.toString(), collectionType);
+ */
+
         if (spinner.getSelectedItemPosition()==0) {         //Pour un seul film
             JSONObject object = new JSONObject(string);
             Gson gson = new Gson();
