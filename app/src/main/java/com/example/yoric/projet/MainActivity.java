@@ -81,38 +81,28 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
 
     @Override
     public void parseData(String string) throws JSONException {
-        Log.i("STRING_GET       -     ", string);
+        Log.i("STRING_GET", string);
         tv_main = (TextView) findViewById(R.id.tv_main);
         tv_main.setText(string);
 
-        //Voir yorick pour comprendre pk faire
-        //variable listeFilms a utiliser
-
-        Gson gson = new Gson();
-        JSONObject object = new JSONObject(string);
-
         if (spinner.getSelectedItemPosition()==0) {         //Pour un seul film
-           // JSONObject object = new JSONObject(string);
+            JSONObject object = new JSONObject(string);
+            Gson gson = new Gson();
             ListeFilm film = gson.fromJson(object.toString(), ListeFilm.class);
             listeFilms.add(film);
-
-            Log.i("TEST         ",listeFilms.get(0).getDirector());
-
-            Toast.makeText(this, listeFilms.get(0).getShowTitle()+ "", Toast.LENGTH_LONG).show();
-            Log.i("TITRE", listeFilms.get(0).getShowTitle());
+        }else {                                             //Pour une liste de film
+            Type listType = new TypeToken<ArrayList<ListeFilm>>() {
+            }.getType();
+            listeFilms = new Gson().fromJson(string, listType);
         }
-        else {
-            Type listType = new TypeToken<List<ListeFilm>>() {}.getType();
-            listeFilms = gson.fromJson(object.toString(), listType);
 
+        if (listeFilms.size()>0){
             for (ListeFilm film : listeFilms) {
-                Log.i("TITRE      -          ", film.getShowTitle());
+                Log.i("TITRE", film.getShowTitle());
             }
         }
         adapterListe.setList(listeFilms);
         adapterListe.notifyDataSetChanged();
 
-        //Gson fait
-        //Suite mettre dans liste view
     }
 }
