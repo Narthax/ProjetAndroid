@@ -82,15 +82,14 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
     @Override
     public void parseData(String string) throws JSONException {
         Log.i("STRING_GET", string);
-        tv_main = (TextView) findViewById(R.id.tv_main);
-        tv_main.setText(string);
 
         if (spinner.getSelectedItemPosition()==0) {         //Pour un seul film
             JSONObject object = new JSONObject(string);
             Gson gson = new Gson();
             ListeFilm film = gson.fromJson(object.toString(), ListeFilm.class);
             listeFilms.add(film);
-        }else {                                             //Pour une liste de film
+        }
+        else {                                             //Pour une liste de film
             Type listType = new TypeToken<ArrayList<ListeFilm>>() {
             }.getType();
             listeFilms = new Gson().fromJson(string, listType);
@@ -102,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
             }
         }
         adapterListe.setList(listeFilms);
-        adapterListe.notifyDataSetChanged();
+
 
     }
 }

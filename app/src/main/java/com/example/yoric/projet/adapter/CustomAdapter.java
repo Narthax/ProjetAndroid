@@ -27,6 +27,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         Log.i("SALUT UPDATE","ok");
         this.list.clear();
         this.list = list;
+        this.notifyDataSetChanged();
     }
 
     public CustomAdapter(List<ListeFilm> list, Context con){
