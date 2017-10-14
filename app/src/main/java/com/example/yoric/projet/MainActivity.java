@@ -83,13 +83,13 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
     public void parseData(String string) throws JSONException {
         Log.i("STRING_GET", string);
 
-        if (spinner.getSelectedItemPosition()==0) {         //Pour un seul film
+        if (string.substring(0,1).equals("{")) {         //Pour un seul film
             JSONObject object = new JSONObject(string);
             Gson gson = new Gson();
             ListeFilm film = gson.fromJson(object.toString(), ListeFilm.class);
             listeFilms.add(film);
         }
-        else {                                             //Pour une liste de film
+        else if (string.substring(0,1).equals("[")){                                             //Pour une liste de film
             Type listType = new TypeToken<ArrayList<ListeFilm>>() {
             }.getType();
             listeFilms = new Gson().fromJson(string, listType);
