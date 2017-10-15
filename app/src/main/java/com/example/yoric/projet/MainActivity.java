@@ -2,24 +2,22 @@ package com.example.yoric.projet;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.yoric.projet.adapter.CustomAdapter;
+
+
 import com.example.yoric.projet.asynctask.GetResult;
+import com.example.yoric.projet.fragments.FragmentList;
 import com.example.yoric.projet.model.ListeFilm;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,17 +25,14 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements GetResult.ICallBack, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements GetResult.ICallBack, View.OnClickListener, FragmentList.ListCallBack{
 
-    private TextView tv_main;
     private Button bt_rechercher;
     private EditText et_recherche;
     private Spinner spinner;
+
     private List<ListeFilm> listeFilms = new ArrayList<ListeFilm>();
-
-
-    private RecyclerView recyclerView;
-    private CustomAdapter adapterListe;
+    private FragmentList fragmentList = FragmentList.getInstance();
 
 
     @Override
@@ -47,22 +42,20 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
 
         bt_rechercher = (Button) findViewById(R.id.bt_rechercher);
         bt_rechercher.setOnClickListener(this);
-
         //Liste déroulante
         spinner = (Spinner) findViewById(R.id.s_choix);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.s_choix, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        listeFilms.add(new ListeFilm());
-
-        recyclerView = (RecyclerView) findViewById(R.id.list_layout);
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-        adapterListe = new CustomAdapter(listeFilms,MainActivity.this);
-        recyclerView.setAdapter(adapterListe);
 
 
 
+        //Fragment contenant la liste de film après la recherche
+        android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        fragmentList.setListCallBack(this);
+        transaction.add(R.id.fl_main_fragment_list,fragmentList);
+        transaction.commit();
 
     }
 
@@ -100,8 +93,14 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
                 Log.i("TITRE", film.getShowTitle());
             }
         }
-        adapterListe.setList(listeFilms);
 
 
+
+        fragmentList.envoyerListe(listeFilms);
+    }
+
+    @Override
+    public ListeFilm infoFilm(ListeFilm film) {
+        return null;
     }
 }
