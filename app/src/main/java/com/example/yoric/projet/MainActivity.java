@@ -14,7 +14,6 @@ import android.widget.Spinner;
 
 import com.example.yoric.projet.asynctask.GetResult;
 import com.example.yoric.projet.fragments.FragmentList;
-import com.example.yoric.projet.model.ListeFilm;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

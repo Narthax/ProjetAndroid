@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.example.yoric.projet.R;
 import com.example.yoric.projet.adapter.CustomAdapter;
-import com.example.yoric.projet.model.ListeFilm;
 
 import java.util.ArrayList;
 import java.util.List;

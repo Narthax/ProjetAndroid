@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.yoric.projet.R;
-import com.example.yoric.projet.model.ListeFilm;
 
 import java.util.List;
 
