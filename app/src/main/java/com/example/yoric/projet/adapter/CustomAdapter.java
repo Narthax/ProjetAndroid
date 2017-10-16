@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by Simon on 26-09-17.
  */
-
+/*
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
     private List<ListeFilm> list;
     private Context context;
@@ -70,5 +70,5 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             tvReal = (TextView) itemView.findViewById(R.id.tv_listFilm_realisateur);
         }
     }
-}
+}*/
 

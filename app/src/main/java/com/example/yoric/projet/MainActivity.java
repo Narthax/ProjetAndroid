@@ -13,7 +13,7 @@ import android.widget.Spinner;
 
 
 import com.example.yoric.projet.asynctask.GetResult;
-import com.example.yoric.projet.fragments.FragmentList;
+//import com.example.yoric.projet.fragments.FragmentList;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -24,14 +24,14 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements GetResult.ICallBack, View.OnClickListener, FragmentList.ListCallBack{
+public class MainActivity extends AppCompatActivity implements GetResult.ICallBack, View.OnClickListener/*, FragmentList.ListCallBack*/{
 
     private Button bt_rechercher;
     private EditText et_recherche;
     private Spinner spinner;
 
-    private List<ListeFilm> listeFilms = new ArrayList<ListeFilm>();
-    private FragmentList fragmentList = FragmentList.getInstance();
+ // private List<ListeFilm> listeFilms = new ArrayList<ListeFilm>();
+   // private FragmentList fragmentList = FragmentList.getInstance();
 
 
     @Override
@@ -49,12 +49,12 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
 
 
 
-
+/*
         //Fragment contenant la liste de film après la recherche
         android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
         fragmentList.setListCallBack(this);
         transaction.add(R.id.fl_main_fragment_list,fragmentList);
-        transaction.commit();
+        transaction.commit();*/
 
     }
 
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
     @Override
     public void parseData(String string) throws JSONException {
         Log.i("STRING_GET", string);
-
+/*
         if (string.substring(0,1).equals("{")) {         //Pour un seul film
             JSONObject object = new JSONObject(string);
             Gson gson = new Gson();
@@ -87,19 +87,11 @@ public class MainActivity extends AppCompatActivity implements GetResult.ICallBa
             listeFilms = new Gson().fromJson(string, listType);
         }
 
-        if (listeFilms.size()>0){
-            for (ListeFilm film : listeFilms) {
-                Log.i("TITRE", film.getShowTitle());
-            }
-        }
-
-
-
-        fragmentList.envoyerListe(listeFilms);
+        fragmentList.envoyerListe(listeFilms);*/
     }
-
+/*
     @Override
     public ListeFilm infoFilm(ListeFilm film) {
         return null;
-    }
+    }*/
 }

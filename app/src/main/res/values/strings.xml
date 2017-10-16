@@ -4,8 +4,8 @@
     <string name="bt_recherhcer">Afficher</string>
 
     <string-array name="s_choix">
-        <item>Titre</item>
+        <item>Film</item>
+        <item>Série</item>
         <item>Acteur</item>
-        <item>Réalisateur</item>
     </string-array>
 </resources>

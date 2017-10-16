@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.yoric.projet.R;
-import com.example.yoric.projet.adapter.CustomAdapter;
+//import com.example.yoric.projet.adapter.CustomAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by Kista on 15-10-17.
  */
-
+/*
 public class FragmentList extends Fragment {
     private RecyclerView recyclerView;
     private CustomAdapter adapterListe;
@@ -66,4 +66,4 @@ public class FragmentList extends Fragment {
 
         return v;
     }
-}
+}*/

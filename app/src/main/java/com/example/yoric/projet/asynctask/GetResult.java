@@ -3,9 +3,6 @@ package com.example.yoric.projet.asynctask;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.yoric.projet.utils.Utils;
-import com.google.gson.Gson;
-
 import org.json.JSONException;
 
 import java.io.BufferedReader;
@@ -21,7 +18,8 @@ import java.net.URL;
 
 public class GetResult extends AsyncTask<String, Void, String> {
 
-    private static final String URL = "https://netflixroulette.net/api/api.php?";
+    private static final String URL = "https://api.themoviedb.org/3/search/";
+    private static final String KEY = "ea9e2a5a6ab2b2321c066e0632186430";
     private ICallBack callback;
 
 
@@ -35,16 +33,16 @@ public class GetResult extends AsyncTask<String, Void, String> {
         String value = params[1];
 
         if (value.equals("0")){
-            value = "title";
+            value = "movie";
         }else if (value.equals("1")){
-            value = "actor";
+            value = "tv";
         }else if (value.equals("2")){
-            value = "director";
+            value = "person";
         }
 
-       /* try{
+        try{
 
-            URL url = new URL((URL+value+"="+params[0]).replaceAll(" ","%20"));
+            URL url = new URL((URL+value+"?query="+params[0]).replaceAll(" ","+")+"&api_key="+KEY);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             Log.i("URL", connection.toString());
@@ -69,8 +67,7 @@ public class GetResult extends AsyncTask<String, Void, String> {
         }
 
 
-        return null;*/
-        return Utils.Intent.TAG_REALISATEUR;
+        return null;
     }
 
     @Override
