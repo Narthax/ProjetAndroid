@@ -10,7 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.yoric.projet.R;
-//import com.example.yoric.projet.adapter.CustomAdapter;
+import com.example.yoric.projet.adapter.CustomAdapterFilm;
+import com.example.yoric.projet.model.Film;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,17 +19,17 @@ import java.util.List;
 /**
  * Created by Kista on 15-10-17.
  */
-/*
-public class FragmentList extends Fragment {
-    private RecyclerView recyclerView;
-    private CustomAdapter adapterListe;
 
-    private static FragmentList fragmentList=null;
-    public static FragmentList getInstance(){
-        if(fragmentList==null){
-            fragmentList = new FragmentList();
+public class FragmentListFilm extends Fragment {
+    private RecyclerView recyclerView;
+    private CustomAdapterFilm adapterListeFilm;
+
+    private static FragmentListFilm fragmentListFilm =null;
+    public static FragmentListFilm getInstance(){
+        if(fragmentListFilm ==null){
+            fragmentListFilm = new FragmentListFilm();
         }
-        return fragmentList;
+        return fragmentListFilm;
     }
 
 
@@ -38,19 +39,21 @@ public class FragmentList extends Fragment {
         this.listCallBack = list;
     }
     public interface ListCallBack{
-        ListeFilm infoFilm(ListeFilm film);
+
     }
 
 
 
-    private List<ListeFilm> listeFragment = new ArrayList<>();
-    public void envoyerListe(List<ListeFilm> list) {
-        this.listeFragment = list;
+    private List<Film> listeFragmentFilm = new ArrayList<>();
+    public void envoyerListe(List<Film> list) {
+        listeFragmentFilm = list;
         update();
     }
     private void update(){
-        adapterListe.setList(listeFragment);
+        adapterListeFilm.setList(listeFragmentFilm);
     }
+
+
 
     @Nullable
     @Override
@@ -59,11 +62,11 @@ public class FragmentList extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_liste_films,container,false);
 
-        recyclerView = (RecyclerView) v.findViewById(R.id.list_layout);
+        recyclerView = (RecyclerView) v.findViewById(R.id.list_layout_films);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapterListe = new CustomAdapter(listeFragment,this.getContext());
-        recyclerView.setAdapter(adapterListe);
+        adapterListeFilm = new CustomAdapterFilm(listeFragmentFilm,this.getContext());
+        recyclerView.setAdapter(adapterListeFilm);
 
         return v;
     }
-}*/
+}
