@@ -22,7 +22,7 @@ public class CustomAdapterSerie extends RecyclerView.Adapter<CustomAdapterSerie.
     private List<Serie> list;
     private Context context;
 
-    public void setList(List<Serie> list){
+    public void updateAffichage(List<Serie> list){
         this.list.clear();
         this.list = list;
         this.notifyDataSetChanged();

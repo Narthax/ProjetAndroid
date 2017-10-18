@@ -2,7 +2,6 @@ package com.example.yoric.projet.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,7 @@ public class CustomAdapterFilm extends RecyclerView.Adapter<CustomAdapterFilm.My
     private List<Film> list;
     private Context context;
 
-    public void setList(List<Film> list){
+    public void updateAffichage(List<Film> list){
         this.list.clear();
         this.list = list;
         this.notifyDataSetChanged();
