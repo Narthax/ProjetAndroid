@@ -1,6 +1,7 @@
 package com.example.yoric.projet.fragments;
 
 import android.app.Fragment;
+import android.app.ListFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import com.example.yoric.projet.adapter.CustomAdapterSerie;
 import com.example.yoric.projet.model.Film;
 import com.example.yoric.projet.model.Personne;
 import com.example.yoric.projet.model.Serie;
+import com.example.yoric.projet.utils.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,7 @@ import java.util.List;
 public class FragmentList extends Fragment {
     private RecyclerView recyclerView;
     private CustomAdapterFilm adapterListeFilm;
+    private String type = "0";
 
     private static FragmentList fragmentList =null;
     public static FragmentList getInstance(){
@@ -44,7 +47,7 @@ public class FragmentList extends Fragment {
         this.listCallBack = list;
     }
     public interface ListCallBack{
-
+        
     }
 
 
@@ -57,16 +60,19 @@ public class FragmentList extends Fragment {
         listeFragmentFilm = list;
         recyclerView.setAdapter(getAdapterListeFilm());
         getAdapterListeFilm().updateAffichage(list);
+        type = "0";
     }
     public void setListeSerie(List<Serie> list) {
         listeFragmentSerie = list;
         recyclerView.setAdapter(getAdapterListeSerie());
         getAdapterListeSerie().updateAffichage(list);
+        type = "1";
     }
     public void setListePersonne(List<Personne> list) {
         listeFragmentPersonne = list;
         recyclerView.setAdapter(getAdapterListePersonne());
         getAdapterListePersonne().updateAffichage(list);
+        type = "2";
     }
 
 
@@ -103,6 +109,22 @@ public class FragmentList extends Fragment {
 
         recyclerView = (RecyclerView) v.findViewById(R.id.list_layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(),recyclerView,new RecyclerItemClickListener.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(View view, int position) {
+                switch (type){
+                    case "0" : Film f = listeFragmentFilm.get(position);break;
+                    case "1" : Serie s = listeFragmentSerie.get(position);break;
+                    case "2" : Personne p = listeFragmentPersonne.get(position);break;
+                }
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
 
         //On crée les adapters, sinon bug au premier affichage
         getAdapterListeFilm();
