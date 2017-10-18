@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.yoric.projet.R;
 import com.example.yoric.projet.model.Film;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class CustomAdapterFilm extends RecyclerView.Adapter<CustomAdapterFilm.My
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Film m = list.get(position);
 
-        holder.ivImage.setImageResource(R.drawable.a);
+        Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+m.getPosterPath()).into(holder.ivImage);
         holder.tvTitre.setText(m.getTitle());
         holder.tvReal.setText(m.getId()+"");
     }

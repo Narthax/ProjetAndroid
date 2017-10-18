@@ -47,7 +47,7 @@ public class FragmentList extends Fragment {
         this.listCallBack = list;
     }
     public interface ListCallBack{
-        
+
     }
 
 
