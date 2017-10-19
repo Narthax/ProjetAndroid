@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.yoric.projet.R;
@@ -47,6 +48,7 @@ public class CustomAdapterFilm extends RecyclerView.Adapter<CustomAdapterFilm.My
         Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+m.getPosterPath()).into(holder.ivImage);
         holder.tvTitre.setText(m.getTitle());
         holder.tvReal.setText(m.getId()+"");
+        holder.ratingBar.setRating((Float.parseFloat(m.getVoteAverage().toString()))/2);
     }
 
     @Override
@@ -61,6 +63,7 @@ public class CustomAdapterFilm extends RecyclerView.Adapter<CustomAdapterFilm.My
         public ImageView ivImage;
         public TextView tvTitre;
         public TextView tvReal;
+        public RatingBar ratingBar;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -68,6 +71,7 @@ public class CustomAdapterFilm extends RecyclerView.Adapter<CustomAdapterFilm.My
             ivImage = (ImageView) itemView.findViewById(R.id.iv_listFilm_image);
             tvTitre = (TextView) itemView.findViewById(R.id.tv_listFilm_titre);
             tvReal = (TextView) itemView.findViewById(R.id.tv_listFilm_realisateur);
+            ratingBar = (RatingBar) itemView.findViewById(R.id.rb_listeFilm);
         }
     }
 }
