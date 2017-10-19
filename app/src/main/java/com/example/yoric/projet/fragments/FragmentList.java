@@ -113,11 +113,7 @@ public class FragmentList extends Fragment {
 
             @Override
             public void onItemClick(View view, int position) {
-                switch (type){
-                    case "0" : Film f = listeFragmentFilm.get(position);break;
-                    case "1" : Serie s = listeFragmentSerie.get(position);break;
-                    case "2" : Personne p = listeFragmentPersonne.get(position);break;
-                }
+
             }
 
             @Override
