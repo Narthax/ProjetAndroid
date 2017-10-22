@@ -38,6 +38,7 @@ public class FragmentList extends Fragment {
     }
 
 
+
     private ListCallBack listCallBack;
     public void setListCallBack(ListCallBack list){
         this.listCallBack = list;
@@ -72,6 +73,7 @@ public class FragmentList extends Fragment {
     }
 
 
+
     private CustomAdapterFilm customAdapterFilm = null;
     private CustomAdapterSerie customAdapterSerie = null;
     private CustomAdapterPersonne customAdapterPersonne = null;
@@ -94,6 +96,7 @@ public class FragmentList extends Fragment {
         }
         return customAdapterPersonne;
     }
+
 
 
     @Nullable

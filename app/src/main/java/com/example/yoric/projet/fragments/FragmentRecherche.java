@@ -54,11 +54,9 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
     }
 
     private RechercheCallBack rechercheCallBack;
-
     public void setRechercheCallBack(RechercheCallBack recherche) {
         this.rechercheCallBack = recherche;
     }
-
     public interface RechercheCallBack {}
 
     @Nullable

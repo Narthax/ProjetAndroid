@@ -38,7 +38,11 @@
             <RatingBar
                 android:id="@+id/rb_details_ratinbar"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"
+                android:numStars="5"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:stepSize="0.25" />
 
         </LinearLayout>
 
@@ -48,10 +52,5 @@
         android:id="@+id/tv_details_description"
         android:layout_width="match_parent"
         android:layout_height="100dp" />
-
-    <android.support.v7.app.AlertController.RecycleListView
-        android:id="@+id/rv_details_acteurs"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 </LinearLayout>
