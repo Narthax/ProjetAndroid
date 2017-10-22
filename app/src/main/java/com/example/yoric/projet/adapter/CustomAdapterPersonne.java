@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.yoric.projet.R;
 import com.example.yoric.projet.model.Personne;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class CustomAdapterPersonne extends RecyclerView.Adapter<CustomAdapterPer
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Personne p = list.get(position);
 
-        holder.ivImage.setImageResource(R.drawable.a);
+        Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+p.getProfilePath()).into(holder.ivImage);
         holder.tvTitre.setText(p.getName());
     }
 

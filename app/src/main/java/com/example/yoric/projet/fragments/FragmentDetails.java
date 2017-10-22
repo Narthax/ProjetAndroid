@@ -48,6 +48,8 @@ public class FragmentDetails extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_details,container,false);
 
+
+
         return v;
     }
 }
