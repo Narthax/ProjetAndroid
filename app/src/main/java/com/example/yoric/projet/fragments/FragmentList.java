@@ -1,12 +1,10 @@
 package com.example.yoric.projet.fragments;
 
 import android.app.Fragment;
-import android.app.ListFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +27,6 @@ import java.util.List;
 
 public class FragmentList extends Fragment {
     private RecyclerView recyclerView;
-    private CustomAdapterFilm adapterListeFilm;
     private String type = "0";
 
     private static FragmentList fragmentList =null;
@@ -41,13 +38,12 @@ public class FragmentList extends Fragment {
     }
 
 
-
     private ListCallBack listCallBack;
     public void setListCallBack(ListCallBack list){
         this.listCallBack = list;
     }
     public interface ListCallBack{
-
+        void afficher(Object o, String type);
     }
 
 
@@ -113,7 +109,14 @@ public class FragmentList extends Fragment {
 
             @Override
             public void onItemClick(View view, int position) {
-
+                switch (type){
+                    case "0": listCallBack.afficher(listeFragmentFilm.get(position),type);
+                        ;break;
+                    case "1": listCallBack.afficher(listeFragmentSerie.get(position),type);
+                        ;break;
+                    case "2": listCallBack.afficher(listeFragmentPersonne.get(position),type);
+                        ;break;
+                }
             }
 
             @Override
