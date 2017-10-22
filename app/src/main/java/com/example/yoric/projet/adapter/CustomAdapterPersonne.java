@@ -45,7 +45,6 @@ public class CustomAdapterPersonne extends RecyclerView.Adapter<CustomAdapterPer
 
         holder.ivImage.setImageResource(R.drawable.a);
         holder.tvTitre.setText(p.getName());
-        holder.tvReal.setText(p.getId()+"");
     }
 
     @Override
@@ -59,14 +58,12 @@ public class CustomAdapterPersonne extends RecyclerView.Adapter<CustomAdapterPer
     public class MyViewHolder extends RecyclerView.ViewHolder{
         public ImageView ivImage;
         public TextView tvTitre;
-        public TextView tvReal;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             ivImage = (ImageView) itemView.findViewById(R.id.iv_listFilm_image);
             tvTitre = (TextView) itemView.findViewById(R.id.tv_listFilm_titre);
-            tvReal = (TextView) itemView.findViewById(R.id.tv_listFilm_realisateur);
         }
     }
 }

@@ -47,7 +47,7 @@ public class CustomAdapterFilm extends RecyclerView.Adapter<CustomAdapterFilm.My
 
         Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+m.getPosterPath()).into(holder.ivImage);
         holder.tvTitre.setText(m.getTitle());
-        holder.tvReal.setText(m.getId()+"");
+        holder.tvDate.setText(m.getReleaseDate()+"");
         holder.ratingBar.setRating((Float.parseFloat(m.getVoteAverage().toString()))/2);
     }
 
@@ -62,7 +62,7 @@ public class CustomAdapterFilm extends RecyclerView.Adapter<CustomAdapterFilm.My
     public class MyViewHolder extends RecyclerView.ViewHolder{
         public ImageView ivImage;
         public TextView tvTitre;
-        public TextView tvReal;
+        public TextView tvDate;
         public RatingBar ratingBar;
 
         public MyViewHolder(View itemView) {
@@ -70,7 +70,7 @@ public class CustomAdapterFilm extends RecyclerView.Adapter<CustomAdapterFilm.My
 
             ivImage = (ImageView) itemView.findViewById(R.id.iv_listFilm_image);
             tvTitre = (TextView) itemView.findViewById(R.id.tv_listFilm_titre);
-            tvReal = (TextView) itemView.findViewById(R.id.tv_listFilm_realisateur);
+            tvDate = (TextView) itemView.findViewById(R.id.tv_listFilm_date);
             ratingBar = (RatingBar) itemView.findViewById(R.id.rb_listeFilm);
         }
     }
