@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.yoric.projet.R;
 
 import com.example.yoric.projet.model.Serie;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class CustomAdapterSerie extends RecyclerView.Adapter<CustomAdapterSerie.
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Serie s = list.get(position);
 
-        holder.ivImage.setImageResource(R.drawable.a);
+        Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+s.getPosterPath()).into(holder.ivImage);
         holder.tvTitre.setText(s.getName());
         holder.tvDate.setText(s.getFirstAirDate()+"");
         holder.ratingBar.setRating((Float.parseFloat(s.getVoteAverage().toString()))/2);
