@@ -16,10 +16,9 @@ import java.net.URL;
  * Created by yoric on 07-10-17.
  */
 
-public class GetResult extends AsyncTask<String, Void, String> {
-
-    private static final String URL = "https://api.themoviedb.org/3/search/";
-    private static final String KEY = "ea9e2a5a6ab2b2321c066e0632186430";
+public class GetResultDetails extends AsyncTask<String, Void, String> {
+    private static final String URL = "https://api.themoviedb.org/3/";
+    private static final String KEY = "/credits?api_key=ea9e2a5a6ab2b2321c066e0632186430";
     private ICallBack callback;
 
 
@@ -30,7 +29,7 @@ public class GetResult extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
 
-        String value = params[1];
+        String value = params[0];
 
         if (value.equals("0")){
             value = "movie";
@@ -43,7 +42,7 @@ public class GetResult extends AsyncTask<String, Void, String> {
         }
 
         try{
-            URL url = new URL((URL+value+"?query="+params[0]).replaceAll(" ","+")+"&api_key="+KEY);
+            URL url = new URL(URL+value+"/"+params[1]+KEY);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             Log.i("URL", connection.toString());

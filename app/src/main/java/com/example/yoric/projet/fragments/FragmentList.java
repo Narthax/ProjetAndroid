@@ -3,6 +3,7 @@ package com.example.yoric.projet.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -55,18 +56,21 @@ public class FragmentList extends Fragment {
 
     public void setListeFilm(List<Film> list) {
         listeFragmentFilm = list;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(getAdapterListeFilm());
         getAdapterListeFilm().updateAffichage(list);
         type = "0";
     }
     public void setListeSerie(List<Serie> list) {
         listeFragmentSerie = list;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(getAdapterListeSerie());
         getAdapterListeSerie().updateAffichage(list);
         type = "1";
     }
     public void setListePersonne(List<Personne> list) {
         listeFragmentPersonne = list;
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         recyclerView.setAdapter(getAdapterListePersonne());
         getAdapterListePersonne().updateAffichage(list);
         type = "2";
@@ -106,8 +110,7 @@ public class FragmentList extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_liste,container,false);
 
-        recyclerView = (RecyclerView) v.findViewById(R.id.list_layout);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView = (RecyclerView) v.findViewById(R.id.rv_list_layout);
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(),recyclerView,new RecyclerItemClickListener.OnItemClickListener(){
 
             @Override

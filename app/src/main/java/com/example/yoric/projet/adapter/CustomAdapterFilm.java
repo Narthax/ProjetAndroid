@@ -36,7 +36,7 @@ public class CustomAdapterFilm extends RecyclerView.Adapter<CustomAdapterFilm.My
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.layout_list,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.layout_list_film_serie,parent,false);
         return new MyViewHolder(v);
     }
 
@@ -45,9 +45,19 @@ public class CustomAdapterFilm extends RecyclerView.Adapter<CustomAdapterFilm.My
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Film m = list.get(position);
 
-        Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+m.getPosterPath()).into(holder.ivImage);
+        String date="";
+        if(!m.getReleaseDate().toString().equals("")){
+            date = m.getReleaseDate().substring(0,4);
+        }
+
+        if(m.getPosterPath()==null){
+            holder.ivImage.setImageResource(R.drawable.noimage);
+        }
+        else {
+            Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+m.getPosterPath()).into(holder.ivImage);
+        }
         holder.tvTitre.setText(m.getTitle());
-        holder.tvDate.setText(m.getReleaseDate()+"");
+        holder.tvDate.setText(date);
         holder.ratingBar.setRating((Float.parseFloat(m.getVoteAverage().toString()))/2);
     }
 
@@ -68,10 +78,10 @@ public class CustomAdapterFilm extends RecyclerView.Adapter<CustomAdapterFilm.My
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            ivImage = (ImageView) itemView.findViewById(R.id.iv_listFilm_image);
-            tvTitre = (TextView) itemView.findViewById(R.id.tv_listFilm_titre);
-            tvDate = (TextView) itemView.findViewById(R.id.tv_listFilm_date);
-            ratingBar = (RatingBar) itemView.findViewById(R.id.rb_listeFilm);
+            ivImage = (ImageView) itemView.findViewById(R.id.iv_listFilmSerie_image);
+            tvTitre = (TextView) itemView.findViewById(R.id.tv_listFilmSerie_titre);
+            tvDate = (TextView) itemView.findViewById(R.id.tv_listFilmSerie_date);
+            ratingBar = (RatingBar) itemView.findViewById(R.id.rb_listeFilmSerie_rating);
         }
     }
 }

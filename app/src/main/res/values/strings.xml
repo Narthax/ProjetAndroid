@@ -6,6 +6,7 @@
     <string name="bt_personne">Acteur</string>
     <string name="bt_serie">Série</string>
     <string name="bt_film">Film</string>
+    <string name="Search_trailer">Search trailer</string>
 
     <string-array name="s_choix">
         <item>Film</item>

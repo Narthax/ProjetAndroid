@@ -35,7 +35,7 @@ public class CustomAdapterPersonne extends RecyclerView.Adapter<CustomAdapterPer
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.layout_list,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.layout_list_personne,parent,false);
         return new MyViewHolder(v);
     }
 
@@ -44,8 +44,13 @@ public class CustomAdapterPersonne extends RecyclerView.Adapter<CustomAdapterPer
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Personne p = list.get(position);
 
-        Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+p.getProfilePath()).into(holder.ivImage);
-        holder.tvTitre.setText(p.getName());
+        if(p.getProfilePath()==null){
+            holder.ivImage.setImageResource(R.drawable.noimage);
+        }
+        else {
+            Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+p.getProfilePath()).into(holder.ivImage);
+        }
+        holder.tvNom.setText(p.getName());
     }
 
     @Override
@@ -58,13 +63,13 @@ public class CustomAdapterPersonne extends RecyclerView.Adapter<CustomAdapterPer
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         public ImageView ivImage;
-        public TextView tvTitre;
+        public TextView tvNom;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            ivImage = (ImageView) itemView.findViewById(R.id.iv_listFilm_image);
-            tvTitre = (TextView) itemView.findViewById(R.id.tv_listFilm_titre);
+            ivImage = (ImageView) itemView.findViewById(R.id.iv_listPersonne_image);
+            tvNom = (TextView) itemView.findViewById(R.id.tv_listPersonne_nom);
         }
     }
 }

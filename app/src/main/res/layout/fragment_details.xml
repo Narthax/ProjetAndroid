@@ -6,6 +6,7 @@
     <TextView
         android:id="@+id/tv_details_titre"
         android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_height="50dp" />
 
     <LinearLayout
@@ -25,14 +26,16 @@
             <TextView
                 android:id="@+id/tv_details_genre"
                 android:layout_width="match_parent"
+                android:gravity="center_vertical"
                 android:layout_height="50dp" />
             <TextView
                 android:id="@+id/tv_details_date"
                 android:layout_width="match_parent"
+                android:gravity="center_vertical"
                 android:layout_height="50dp" />
-            <TextView
-                android:id="@+id/tv_details_bandeAnnonce"
-                android:autoLink="web"
+            <Button
+                android:id="@+id/bt_details_bandeAnnonce"
+                android:text="@string/Search_trailer"
                 android:layout_width="match_parent"
                 android:layout_height="50dp" />
             <RatingBar
@@ -51,6 +54,13 @@
     <TextView
         android:id="@+id/tv_details_description"
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_gravity="center_vertical"
+        android:layout_height="90dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_details_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

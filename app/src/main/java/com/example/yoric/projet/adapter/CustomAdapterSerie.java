@@ -1,13 +1,11 @@
 package com.example.yoric.projet.adapter;
 
 import android.content.Context;
-import android.media.Rating;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -39,7 +37,7 @@ public class CustomAdapterSerie extends RecyclerView.Adapter<CustomAdapterSerie.
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.layout_list,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.layout_list_film_serie,parent,false);
         return new MyViewHolder(v);
     }
 
@@ -48,9 +46,19 @@ public class CustomAdapterSerie extends RecyclerView.Adapter<CustomAdapterSerie.
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Serie s = list.get(position);
 
-        Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+s.getPosterPath()).into(holder.ivImage);
+        String date="";
+        if(!s.getFirstAirDate().toString().equals("")){
+            date = s.getFirstAirDate().substring(0,4);
+        }
+
+        if(s.getPosterPath()==null){
+            holder.ivImage.setImageResource(R.drawable.noimage);
+        }
+        else {
+            Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+s.getPosterPath()).into(holder.ivImage);
+        }
         holder.tvTitre.setText(s.getName());
-        holder.tvDate.setText(s.getFirstAirDate()+"");
+        holder.tvDate.setText(date);
         holder.ratingBar.setRating((Float.parseFloat(s.getVoteAverage().toString()))/2);
     }
 
@@ -71,10 +79,10 @@ public class CustomAdapterSerie extends RecyclerView.Adapter<CustomAdapterSerie.
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            ivImage = (ImageView) itemView.findViewById(R.id.iv_listFilm_image);
-            tvTitre = (TextView) itemView.findViewById(R.id.tv_listFilm_titre);
-            tvDate = (TextView) itemView.findViewById(R.id.tv_listFilm_date);
-            ratingBar = (RatingBar) itemView.findViewById(R.id.rb_listeFilm);
+            ivImage = (ImageView) itemView.findViewById(R.id.iv_listFilmSerie_image);
+            tvTitre = (TextView) itemView.findViewById(R.id.tv_listFilmSerie_titre);
+            tvDate = (TextView) itemView.findViewById(R.id.tv_listFilmSerie_date);
+            ratingBar = (RatingBar) itemView.findViewById(R.id.rb_listeFilmSerie_rating);
         }
     }
 }

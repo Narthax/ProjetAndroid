@@ -2,7 +2,6 @@ package com.example.yoric.projet;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.yoric.projet.fragments.FragmentDetails;
 import com.example.yoric.projet.fragments.FragmentList;

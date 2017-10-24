@@ -84,19 +84,11 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.bt_film: changeSelectedButton(bt_film,bt_serie,bt_personne);break;
-            case R.id.bt_serie: changeSelectedButton(bt_serie,bt_film,bt_personne);break;
-            case R.id.bt_personne: changeSelectedButton(bt_personne,bt_serie,bt_film);break;
+            case R.id.bt_film: changeSelectedButton(bt_film,bt_serie,bt_personne);lancerGetResult();break;
+            case R.id.bt_serie: changeSelectedButton(bt_serie,bt_film,bt_personne);lancerGetResult();break;
+            case R.id.bt_personne: changeSelectedButton(bt_personne,bt_serie,bt_film);lancerGetResult();break;
 
-            case R.id.bt_rechercher:
-                GetResult task = new GetResult();
-                task.setCallback(this);
-                Log.i("test",et_recherche.getText().toString());
-                task.execute(
-                        et_recherche.getText().toString(),
-                        typeRecherche
-                );
-                break;
+            case R.id.bt_rechercher:lancerGetResult();break;
         }
     }
 
@@ -140,6 +132,22 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
             case R.id.bt_film : typeRecherche="0";break;
             case R.id.bt_serie : typeRecherche="1";break;
             case R.id.bt_personne : typeRecherche="2";break;
+        }
+    }
+
+
+    private void lancerGetResult(){
+        GetResult task = new GetResult();
+        task.setCallback(this);
+
+        if(et_recherche.getText().toString().isEmpty() || et_recherche.getText().toString()==null){
+
+        }
+        else {
+            task.execute(
+                    et_recherche.getText().toString(),
+                    typeRecherche
+            );
         }
     }
 }
