@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-import com.example.yoric.projet.MainActivity;
 import com.example.yoric.projet.R;
 import com.example.yoric.projet.adapter.CustomAdapterPersonnePetit;
 import com.example.yoric.projet.asynctask.GetResultDetails;
@@ -139,7 +138,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                         "0",
                         film.getId()+""
                 );
-                ;break;
+                break;
             case "1":
                 serie = (Serie) o;
                 this.type = "1";
@@ -148,7 +147,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                         "1",
                         serie.getId()+""
                 );
-                ;break;
+                break;
             case "2":
                 personne = (Personne) o;
                 this.type = "2";
@@ -156,7 +155,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                         "2",
                         personne.getId()+""
                 );
-                ;break;
+                break;
         }
     }
     private void initialiseDetails(){
@@ -208,8 +207,13 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                 ;break;
 
             case "2":
+                tv_titre.setText(personne.getName());
+                Picasso.with(this.getContext()).load("https://image.tmdb.org/t/p/original"+personne.getProfilePath()).into(iv_Image);
+                tv_date.setText(personne.getBirthday());
+                tv_description.setText(personne.getBiography());
+                bt_bandeAnnonce.setText("Google");
 
-                ;break;
+                break;
         }
     }
 

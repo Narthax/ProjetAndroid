@@ -2,7 +2,6 @@
 package com.example.yoric.projet.model;
 
 import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 
 @SuppressWarnings("unused")
@@ -10,12 +9,26 @@ public class Personne {
 
     @SerializedName("adult")
     private Boolean mAdult;
+    @SerializedName("also_known_as")
+    private List<Object> mAlsoKnownAs;
+    @SerializedName("biography")
+    private String mBiography;
+    @SerializedName("birthday")
+    private String mBirthday;
+    @SerializedName("deathday")
+    private String mDeathday;
+    @SerializedName("gender")
+    private Long mGender;
+    @SerializedName("homepage")
+    private String mHomepage;
     @SerializedName("id")
     private Long mId;
-    @SerializedName("known_for")
-    private List<KnownFor> mKnownFor;
+    @SerializedName("imdb_id")
+    private String mImdbId;
     @SerializedName("name")
     private String mName;
+    @SerializedName("place_of_birth")
+    private String mPlaceOfBirth;
     @SerializedName("popularity")
     private Double mPopularity;
     @SerializedName("profile_path")
@@ -29,6 +42,54 @@ public class Personne {
         mAdult = adult;
     }
 
+    public List<Object> getAlsoKnownAs() {
+        return mAlsoKnownAs;
+    }
+
+    public void setAlsoKnownAs(List<Object> alsoKnownAs) {
+        mAlsoKnownAs = alsoKnownAs;
+    }
+
+    public String getBiography() {
+        return mBiography;
+    }
+
+    public void setBiography(String biography) {
+        mBiography = biography;
+    }
+
+    public String getBirthday() {
+        return mBirthday;
+    }
+
+    public void setBirthday(String birthday) {
+        mBirthday = birthday;
+    }
+
+    public String getDeathday() {
+        return mDeathday;
+    }
+
+    public void setDeathday(String deathday) {
+        mDeathday = deathday;
+    }
+
+    public Long getGender() {
+        return mGender;
+    }
+
+    public void setGender(Long gender) {
+        mGender = gender;
+    }
+
+    public String getHomepage() {
+        return mHomepage;
+    }
+
+    public void setHomepage(String homepage) {
+        mHomepage = homepage;
+    }
+
     public Long getId() {
         return mId;
     }
@@ -37,12 +98,12 @@ public class Personne {
         mId = id;
     }
 
-    public List<KnownFor> getKnownFor() {
-        return mKnownFor;
+    public String getImdbId() {
+        return mImdbId;
     }
 
-    public void setKnownFor(List<KnownFor> knownFor) {
-        mKnownFor = knownFor;
+    public void setImdbId(String imdbId) {
+        mImdbId = imdbId;
     }
 
     public String getName() {
@@ -51,6 +112,14 @@ public class Personne {
 
     public void setName(String name) {
         mName = name;
+    }
+
+    public String getPlaceOfBirth() {
+        return mPlaceOfBirth;
+    }
+
+    public void setPlaceOfBirth(String placeOfBirth) {
+        mPlaceOfBirth = placeOfBirth;
     }
 
     public Double getPopularity() {

@@ -2,6 +2,8 @@ package com.example.yoric.projet;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.example.yoric.projet.fragments.FragmentDetails;
 import com.example.yoric.projet.fragments.FragmentList;
@@ -14,6 +16,13 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
     private FragmentList fragmentList = FragmentList.getInstance();
     private FragmentDetails fragmentDetails = FragmentDetails.getInstance();
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
 
 
     @Override
