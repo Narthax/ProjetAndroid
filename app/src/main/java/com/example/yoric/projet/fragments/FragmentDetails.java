@@ -13,12 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 
+import com.example.yoric.projet.MainActivity;
 import com.example.yoric.projet.R;
-import com.example.yoric.projet.adapter.CustomAdapterPersonne;
+import com.example.yoric.projet.adapter.CustomAdapterPersonnePetit;
 import com.example.yoric.projet.asynctask.GetResultDetails;
 import com.example.yoric.projet.model.Film;
 import com.example.yoric.projet.model.KnownFor;
@@ -46,7 +46,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
     private TextView tv_date;
     private TextView tv_genre;
     private Button bt_bandeAnnonce;
-    private RatingBar rb_rating;
+    private TextView tv_note;
     private TextView tv_description;
     private RecyclerView recyclerView;
 
@@ -83,15 +83,15 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
 
     public void setListPersonne(List<Personne> list) {
         personnes = list;
-        recyclerView.setAdapter(getAdapterListePersonne());
-        getAdapterListePersonne().updateAffichage(list);
+        recyclerView.setAdapter(getAdapterListePersonnePetit());
+        getAdapterListePersonnePetit().updateAffichage(list);
         type = "0";
     }
 
-    private CustomAdapterPersonne customAdapterPersonne = null;
-    public CustomAdapterPersonne getAdapterListePersonne(){
+    private CustomAdapterPersonnePetit customAdapterPersonne = null;
+    public CustomAdapterPersonnePetit getAdapterListePersonnePetit(){
         if(customAdapterPersonne==null){
-            customAdapterPersonne = new CustomAdapterPersonne(personnes,this.getContext());
+            customAdapterPersonne = new CustomAdapterPersonnePetit(personnes,this.getContext());
         }
         return customAdapterPersonne;
     }
@@ -110,10 +110,10 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
         tv_date = (TextView) v.findViewById(R.id.tv_details_date);
         tv_genre = (TextView) v.findViewById(R.id.tv_details_genre);
         bt_bandeAnnonce = (Button) v.findViewById(R.id.bt_details_bandeAnnonce);
-        rb_rating = (RatingBar) v.findViewById(R.id.rb_details_ratinbar);
+        tv_note = (TextView) v.findViewById(R.id.bt_details_Note);
         tv_description = (TextView) v.findViewById(R.id.tv_details_description);
 
-        getAdapterListePersonne();
+        getAdapterListePersonnePetit();
 
         recyclerView = (RecyclerView) v.findViewById(R.id.rv_details_layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false));
@@ -180,9 +180,10 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                         startActivity(intent);
                     }
                 });
-                rb_rating.setRating((Float.parseFloat(film.getVoteAverage().toString()))/2);
+                tv_note.setText("Note : "+film.getVoteAverage()+" / 10");
                 tv_description.setText(film.getOverview());
                 ;break;
+
             case "1":
                 tv_titre.setText(serie.getName());
                 Picasso.with(this.getContext()).load("https://image.tmdb.org/t/p/original"+serie.getPosterPath()).into(iv_Image);
@@ -202,10 +203,12 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                         startActivity(intent);
                     }
                 });
-                rb_rating.setRating((Float.parseFloat(serie.getVoteAverage().toString()))/2);
+                tv_note.setText("Note : "+serie.getVoteAverage()+" / 10");
                 tv_description.setText(serie.getOverview());
                 ;break;
+
             case "2":
+
                 ;break;
         }
     }

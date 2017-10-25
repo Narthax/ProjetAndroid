@@ -7,7 +7,7 @@
         android:id="@+id/tv_details_titre"
         android:layout_width="match_parent"
         android:gravity="center"
-        android:layout_height="50dp" />
+        android:layout_height="40dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,40 +15,34 @@
 
         <ImageView
             android:id="@+id/iv_details_image"
-            android:layout_width="150dp"
-            android:layout_height="200dp" />
+            android:layout_width="170dp"
+            android:layout_height="220dp" />
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="220dp">
 
             <TextView
                 android:id="@+id/tv_details_genre"
                 android:layout_width="match_parent"
                 android:gravity="center_vertical"
-                android:layout_height="50dp" />
+                android:layout_height="55dp" />
             <TextView
                 android:id="@+id/tv_details_date"
                 android:layout_width="match_parent"
                 android:gravity="center_vertical"
-                android:layout_height="50dp" />
+                android:layout_height="55dp" />
+            <TextView
+                android:id="@+id/bt_details_Note"
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_height="55dp" />
             <Button
                 android:id="@+id/bt_details_bandeAnnonce"
                 android:text="@string/Search_trailer"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
-            <RatingBar
-                android:id="@+id/rb_details_ratinbar"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:isIndicator="true"
-                android:numStars="5"
-                android:stepSize="0.25" />
+                android:layout_height="55dp" />
 
         </LinearLayout>
 
@@ -57,7 +51,8 @@
     <TextView
         android:id="@+id/tv_details_description"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
         android:layout_margin="10dp"
         android:gravity="center_vertical"/>
 
