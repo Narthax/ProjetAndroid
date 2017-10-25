@@ -209,9 +209,8 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
             case "2":
                 tv_titre.setText(personne.getName());
                 Picasso.with(this.getContext()).load("https://image.tmdb.org/t/p/original"+personne.getProfilePath()).into(iv_Image);
-                tv_date.setText(personne.getBirthday());
-                tv_description.setText(personne.getBiography());
-                bt_bandeAnnonce.setText("Google");
+                //tv_date.setText(personne.getBirthday());
+                //v_description.setText(personne.getBiography());
 
                 break;
         }
