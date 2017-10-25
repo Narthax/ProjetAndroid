@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_margin="15dp"
 
     app:cardBackgroundColor="@android:color/white"
     app:cardCornerRadius="2dp"
@@ -17,19 +17,26 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/tv_known_for_titre"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
         <ImageView
-            android:id="@+id/iv_listPersonne_imagePetit"
-            android:layout_width="75dp"
-            android:layout_height="100dp"
+            android:id="@+id/iv_known_for_image"
+            android:layout_width="100dp"
+            android:layout_height="120dp"
             android:src="@drawable/noimage"/>
 
         <TextView
-            android:id="@+id/tv_listPersonne_nomPetit"
+            android:id="@+id/tv_known_for_type"
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="10sp"
             android:textStyle="bold" />
-        </LinearLayout>
-
+    </LinearLayout>
 </android.support.v7.widget.CardView>

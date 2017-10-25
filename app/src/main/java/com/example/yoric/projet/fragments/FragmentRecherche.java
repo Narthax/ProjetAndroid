@@ -14,11 +14,13 @@ import android.widget.EditText;
 import com.example.yoric.projet.R;
 import com.example.yoric.projet.asynctask.GetResult;
 import com.example.yoric.projet.model.Film;
+import com.example.yoric.projet.model.KnownFor;
 import com.example.yoric.projet.model.Personne;
 import com.example.yoric.projet.model.Serie;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,6 +44,7 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
     private List<Film> films = new ArrayList<>();
     private List<Serie> series = new ArrayList<>();
     private List<Personne> personnes = new ArrayList<>();
+    private List<KnownFor> knownFors = new ArrayList<>();
 
     private static FragmentRecherche fragmentRecherche = null;
     private FragmentList fragmentList = FragmentList.getInstance();
@@ -136,7 +139,7 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
     }
 
 
-    private void lancerGetResult(){
+    public void lancerGetResult(){
         GetResult task = new GetResult();
         task.setCallback(this);
 

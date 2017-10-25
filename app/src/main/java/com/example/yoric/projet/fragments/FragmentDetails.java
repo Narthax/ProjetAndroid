@@ -17,11 +17,13 @@ import android.widget.TextView;
 
 
 import com.example.yoric.projet.R;
+import com.example.yoric.projet.adapter.CustomAdapterKnownFor;
 import com.example.yoric.projet.adapter.CustomAdapterPersonnePetit;
 import com.example.yoric.projet.asynctask.GetResultDetails;
 import com.example.yoric.projet.model.Film;
 import com.example.yoric.projet.model.KnownFor;
 import com.example.yoric.projet.model.Personne;
+import com.example.yoric.projet.model.PersonneDetail;
 import com.example.yoric.projet.model.Serie;
 import com.example.yoric.projet.utils.EnumGenre;
 import com.google.gson.Gson;
@@ -54,8 +56,11 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
     private Film film;
     private Serie serie;
     private Personne personne;
+    private PersonneDetail personneDetail;
+
     private List<Personne> personnes = new ArrayList<Personne>();
     private List<KnownFor> knownFors = new ArrayList<KnownFor>();;
+
     private String type="0";
 
     private static final String YOUTUBE="https://www.youtube.com/results?search_query=";
@@ -82,17 +87,29 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
 
     public void setListPersonne(List<Personne> list) {
         personnes = list;
-        recyclerView.setAdapter(getAdapterListePersonnePetit());
-        getAdapterListePersonnePetit().updateAffichage(list);
-        type = "0";
+        recyclerView.setAdapter(getAdapterPersonnePetit());
+        getAdapterPersonnePetit().updateAffichage(list);
+    }
+    public void setListKnownFors(List<KnownFor> list) {
+        knownFors = list;
+        recyclerView.setAdapter(getAdapterKnownFor());
+        getAdapterKnownFor().updateAffichage(knownFors);
     }
 
     private CustomAdapterPersonnePetit customAdapterPersonne = null;
-    public CustomAdapterPersonnePetit getAdapterListePersonnePetit(){
+    public CustomAdapterPersonnePetit getAdapterPersonnePetit(){
         if(customAdapterPersonne==null){
             customAdapterPersonne = new CustomAdapterPersonnePetit(personnes,this.getContext());
         }
         return customAdapterPersonne;
+    }
+
+    private CustomAdapterKnownFor customAdapterKnownFor = null;
+    public CustomAdapterKnownFor getAdapterKnownFor(){
+        if(customAdapterKnownFor==null){
+            customAdapterKnownFor = new CustomAdapterKnownFor(knownFors,this.getContext());
+        }
+        return customAdapterKnownFor;
     }
 
 
@@ -112,7 +129,8 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
         tv_note = (TextView) v.findViewById(R.id.bt_details_Note);
         tv_description = (TextView) v.findViewById(R.id.tv_details_description);
 
-        getAdapterListePersonnePetit();
+        getAdapterPersonnePetit();
+        getAdapterKnownFor();
 
         recyclerView = (RecyclerView) v.findViewById(R.id.rv_details_layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false));
@@ -151,6 +169,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
             case "2":
                 personne = (Personne) o;
                 this.type = "2";
+
                 task.execute(
                         "2",
                         personne.getId()+""
@@ -179,7 +198,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                         startActivity(intent);
                     }
                 });
-                tv_note.setText("Note : "+film.getVoteAverage()+" / 10");
+                tv_note.setText("Note : "+(double)Math.round(film.getVoteAverage() * 100) / 100d+" / 10");
                 tv_description.setText(film.getOverview());
                 ;break;
 
@@ -202,36 +221,86 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                         startActivity(intent);
                     }
                 });
-                tv_note.setText("Note : "+serie.getVoteAverage()+" / 10");
+                tv_note.setText("Note : "+(double)Math.round(serie.getVoteAverage() * 100) / 100d+" / 10");
                 tv_description.setText(serie.getOverview());
                 ;break;
 
             case "2":
-                tv_titre.setText(personne.getName());
-                Picasso.with(this.getContext()).load("https://image.tmdb.org/t/p/original"+personne.getProfilePath()).into(iv_Image);
-                //tv_date.setText(personne.getBirthday());
-                //v_description.setText(personne.getBiography());
-
-                break;
+                setListKnownFors(personne.getKnownFor());
+                ;break;
         }
     }
 
 
     @Override
     public void parseData(String string) throws JSONException {
-        Log.i("JSON : ",string);
+        Log.i("JSONSS : ",string);
         Gson gson = new Gson();
         JSONObject jsonObject = new JSONObject(string);
         Type listType;
 
         if(type.equals("2")){
-
+            personneDetail = new Gson().fromJson(jsonObject.toString(), PersonneDetail.class);
+            initialisePersonneDetails();
         }
         else {
             listType = new TypeToken<ArrayList<Personne>>() {}.getType();
             personnes = new Gson().fromJson(jsonObject.getJSONArray("cast").toString(), listType);
             this.setListPersonne(personnes);
         }
+    }
+
+
+    private void initialisePersonneDetails(){
+        tv_titre.setText(personneDetail.getName());
+        Picasso.with(this.getContext()).load("https://image.tmdb.org/t/p/original"+personneDetail.getProfilePath()).into(iv_Image);
+
+        String death=" , ";
+        String birth="Birthday not found";
+        if(personneDetail.getDeathday()!=null){
+            death += personneDetail.getDeathday();
+        }
+        else {
+            death="";
+        }
+        if(personneDetail.getBirthday()!=null){
+            birth = personneDetail.getBirthday();
+        }
+        tv_date.setText(birth+death);
+
+
+        String genre="Homme";
+        if(personneDetail.getGender().equals(1L)){
+            genre = "Femme";
+        }
+        tv_genre.setText(genre);
+
+
+        tv_note.setText("Popularité : "+(double)Math.round(personneDetail.getPopularity() * 100) / 100d+" / 10");
+
+
+        if(personneDetail.getBiography().equals("")){
+            tv_description.setText("---Biography not found---");
+        }
+        else {
+            tv_description.setText(personneDetail.getBiography());
+        }
+
+        bt_bandeAnnonce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url="";
+                if(personneDetail.getHomepage()==null || personneDetail.getHomepage().equals("")) {
+                    url = "https://www.google.be/search?&q=" + personneDetail.getName() + "+wikipedia";
+                }
+                else {
+                    url = personneDetail.getHomepage();
+                }
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
     }
 
 }

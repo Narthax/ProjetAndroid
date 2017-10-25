@@ -19,6 +19,7 @@ import java.net.URL;
 public class GetResultDetails extends AsyncTask<String, Void, String> {
     private static final String URL = "https://api.themoviedb.org/3/";
     private static final String KEY = "/credits?api_key=ea9e2a5a6ab2b2321c066e0632186430";
+    private static final String KEYPERSONNE = "?api_key=ea9e2a5a6ab2b2321c066e0632186430";
     private ICallBack callback;
 
 
@@ -29,20 +30,23 @@ public class GetResultDetails extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
 
-        String value = params[0];
+        try {
+            String value = params[0];
+            URL url=null;
 
-        if (value.equals("0")){
-            value = "movie";
-        }
-        else if (value.equals("1")){
-            value = "tv";
-        }
-        else if (value.equals("2")){
-            value = "person";
-        }
+            if (value.equals("0")){
+                value = "movie";
+                url = new URL(URL+value+"/"+params[1]+KEY);
+            }
+            else if (value.equals("1")){
+                value = "tv";
+                url = new URL(URL+value+"/"+params[1]+KEY);
+            }
+            else if (value.equals("2")){
+                value = "person";
+                url = new URL(URL+value+"/"+params[1]+KEYPERSONNE);
+            }
 
-        try{
-            URL url = new URL(URL+value+"/"+params[1]+KEY);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             Log.i("URL", connection.toString());
