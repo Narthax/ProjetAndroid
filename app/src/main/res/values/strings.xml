@@ -7,7 +7,12 @@
     <string name="bt_serie">Série</string>
     <string name="bt_film">Film</string>
     <string name="Search_trailer">Search trailer</string>
-    <string name="accueil">Home</string>
+    <string name="accueil">Accueil</string>
+    <string name="label_password">Mot de passe...</string>
+    <string name="label_username">Pseudo...</string>
+    <string name="label_remember">Maintenir la connexion</string>
+    <string name="submit">Connexion</string>
+    <string name="confirmer">Confirmer</string>
 
     <string-array name="s_choix">
         <item>Film</item>

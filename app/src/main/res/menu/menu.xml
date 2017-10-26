@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/action_edit"
+    <item android:id="@+id/menu_accueil"
         android:icon="@drawable/house"
         android:title="@string/accueil"
-        android:showAsAction="ifRoom" />
-    <item android:id="@+id/action_add"
-        android:title="ifRoom"
-        android:showAsAction="never" />
-    <item android:id="@+id/action_delete"
-        android:title="Delete"
-        android:showAsAction="never" />
+        app:showAsAction="ifRoom" />
+    <item android:id="@+id/menu_connect"
+        android:title="Connexion"
+        app:showAsAction="never" />
+    <item android:id="@+id/menu_inscription"
+        android:title="S'enregistrer"
+        app:showAsAction="never" />
+    <item android:id="@+id/menu_inscription"
+        android:title="Deconnection"
+        app:showAsAction="never" />
 </menu>
