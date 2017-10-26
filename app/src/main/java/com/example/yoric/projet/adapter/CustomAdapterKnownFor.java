@@ -12,6 +12,7 @@ import com.example.yoric.projet.R;
 import com.example.yoric.projet.model.KnownFor;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,8 +24,11 @@ public class CustomAdapterKnownFor extends RecyclerView.Adapter<CustomAdapterKno
     private Context context;
 
     public void updateAffichage(List<KnownFor> list){
+        List<KnownFor> var  = new ArrayList<>();
+        var.addAll(list);
+
         this.list.clear();
-        this.list = list;
+        this.list = var;
         this.notifyDataSetChanged();
     }
 

@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
     public void onBackPressed() {
         android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.remove(fragmentDetails);
-            fragmentRecherche.lancerGetResult();    //Obligé sinon liste de knownFor disparait apres un reclick
             transaction.show(fragmentRecherche);
             transaction.show(fragmentList);
         transaction.commit();

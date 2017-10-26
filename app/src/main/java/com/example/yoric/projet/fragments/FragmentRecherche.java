@@ -139,7 +139,7 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
     }
 
 
-    public void lancerGetResult(){
+    private void lancerGetResult(){
         GetResult task = new GetResult();
         task.setCallback(this);
 
