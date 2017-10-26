@@ -1,5 +1,6 @@
 package com.example.yoric.projet;
 
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        android.app.FragmentTransaction transaction;
+        FragmentTransaction transaction;
         switch (item.getItemId()){
             case R.id.menu_accueil:
                 transaction = getFragmentManager().beginTransaction();

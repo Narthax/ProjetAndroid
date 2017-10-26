@@ -4,8 +4,6 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -44,7 +42,7 @@ public class FragmentConnexion extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View v = inflater.inflate(R.layout.layout_connexion,container,false);
+        View v = inflater.inflate(R.layout.fragment_connexion,container,false);
 
         etPseudo = (EditText) v.findViewById(R.id.et_password);
         btConnexion = (Button) v.findViewById(R.id.btn_login_submit);

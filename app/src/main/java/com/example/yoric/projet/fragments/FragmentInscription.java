@@ -41,7 +41,7 @@ public class FragmentInscription extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View v = inflater.inflate(R.layout.layout_inscription,container,false);
+        View v = inflater.inflate(R.layout.fragment_inscription,container,false);
 
         etPseudo = (EditText) v.findViewById(R.id.et_login_username);
         etMDP = (EditText) v.findViewById(R.id.et_password);
