@@ -253,7 +253,13 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
 
     private void initialisePersonneDetails(){
         tv_titre.setText(personneDetail.getName());
-        Picasso.with(this.getContext()).load("https://image.tmdb.org/t/p/original"+personneDetail.getProfilePath()).into(iv_Image);
+
+        if(personneDetail.getProfilePath()==null){
+            iv_Image.setImageResource(R.drawable.noimage);
+        }
+        else {
+            Picasso.with(this.getContext()).load("https://image.tmdb.org/t/p/original"+personneDetail.getProfilePath()).into(iv_Image);
+        }
 
         String death=" , ";
         String birth="Birthday not found";
