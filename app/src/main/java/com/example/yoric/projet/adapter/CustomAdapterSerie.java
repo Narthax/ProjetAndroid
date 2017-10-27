@@ -25,7 +25,6 @@ public class CustomAdapterSerie extends RecyclerView.Adapter<CustomAdapterSerie.
     private Context context;
 
     public void updateAffichage(List<Serie> list){
-        this.list.clear();
         this.list = list;
         this.notifyDataSetChanged();
     }

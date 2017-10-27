@@ -14,7 +14,7 @@ import com.example.yoric.projet.fragments.FragmentList;
 import com.example.yoric.projet.fragments.FragmentRecherche;
 
 
-public class MainActivity extends AppCompatActivity implements FragmentRecherche.RechercheCallBack, FragmentDetails.DetailsCallBack, FragmentConnexion.ConnexionCallBack, FragmentInscription.InscriptionCallBack
+public class MainActivity extends AppCompatActivity implements FragmentRecherche.RechercheCallBack, FragmentDetails.DetailsCallBack, FragmentDetails.BoucleCallBack,FragmentConnexion.ConnexionCallBack, FragmentInscription.InscriptionCallBack
 {
 
     private FragmentRecherche fragmentRecherche = FragmentRecherche.getInstance();
@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
         fragmentRecherche.setRechercheCallBack(this);
         fragmentList.setListCallBack(fragmentDetails);
         fragmentDetails.setDetailsCallBack(this);
+        fragmentDetails.setBoucleCallBack(this);
         fragmentConnexion.setCallBack(this);
         fragmentInscription.setCallBack(this);
 
@@ -102,6 +103,13 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
             transaction.add(R.id.fl_main_fragment_details,fragmentDetails);
             transaction.hide(fragmentList);
             transaction.hide(fragmentRecherche);
+        transaction.commit();
+    }
+
+    @Override
+    public void goToBoucle() {
+        android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.fl_main_fragment_details,fragmentDetails);
         transaction.commit();
     }
 

@@ -23,7 +23,6 @@ public class CustomAdapterPersonne extends RecyclerView.Adapter<CustomAdapterPer
     private Context context;
 
     public void updateAffichage(List<Personne> list){
-        this.list.clear();
         this.list = list;
         this.notifyDataSetChanged();
     }

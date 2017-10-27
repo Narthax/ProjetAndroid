@@ -23,12 +23,8 @@ public class CustomAdapterKnownFor extends RecyclerView.Adapter<CustomAdapterKno
     private List<KnownFor> list;
     private Context context;
 
-    public void updateAffichage(List<KnownFor> list){
-        List<KnownFor> var  = new ArrayList<>();
-        var.addAll(list);
-
-        this.list.clear();
-        this.list = var;
+    public void updateAffichageKnownFor(List<KnownFor> list){
+        this.list = list;
         this.notifyDataSetChanged();
     }
 

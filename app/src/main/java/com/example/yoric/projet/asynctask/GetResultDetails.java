@@ -79,13 +79,13 @@ public class GetResultDetails extends AsyncTask<String, Void, String> {
         super.onPostExecute(s);
 
         try {
-            callback.parseData(s);
+            callback.parseDataDetail(s);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
     public interface ICallBack{
-        void parseData(String string) throws JSONException;
+        void parseDataDetail(String string) throws JSONException;
     }
 }

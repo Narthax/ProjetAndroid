@@ -24,7 +24,6 @@ public class CustomAdapterFilm extends RecyclerView.Adapter<CustomAdapterFilm.My
     private Context context;
 
     public void updateAffichage(List<Film> list){
-        this.list.clear();
         this.list = list;
         this.notifyDataSetChanged();
     }

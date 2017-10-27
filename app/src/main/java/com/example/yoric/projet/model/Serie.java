@@ -138,4 +138,20 @@ public class Serie {
         mVoteCount = voteCount;
     }
 
+
+    public Serie(String mBackdropPath, String mFirstAirDate, List<Long> mGenreIds, Long mId, String mName, List<String> mOriginCountry, String mOriginalLanguage, String mOriginalName, String mOverview, Double mPopularity, String mPosterPath, Double mVoteAverage, Long mVoteCount) {
+        this.mBackdropPath = mBackdropPath;
+        this.mFirstAirDate = mFirstAirDate;
+        this.mGenreIds = mGenreIds;
+        this.mId = mId;
+        this.mName = mName;
+        this.mOriginCountry = mOriginCountry;
+        this.mOriginalLanguage = mOriginalLanguage;
+        this.mOriginalName = mOriginalName;
+        this.mOverview = mOverview;
+        this.mPopularity = mPopularity;
+        this.mPosterPath = mPosterPath;
+        this.mVoteAverage = mVoteAverage;
+        this.mVoteCount = mVoteCount;
+    }
 }

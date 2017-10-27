@@ -69,4 +69,13 @@ public class Personne {
         mProfilePath = profilePath;
     }
 
+
+    public Personne(Boolean mAdult, Long mId, List<KnownFor> mKnownFor, String mName, Double mPopularity, String mProfilePath) {
+        this.mAdult = mAdult;
+        this.mId = mId;
+        this.mKnownFor = mKnownFor;
+        this.mName = mName;
+        this.mPopularity = mPopularity;
+        this.mProfilePath = mProfilePath;
+    }
 }

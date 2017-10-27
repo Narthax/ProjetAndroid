@@ -22,8 +22,7 @@ public class CustomAdapterPersonnePetit extends RecyclerView.Adapter<CustomAdapt
     private List<Personne> list;
     private Context context;
 
-    public void updateAffichage(List<Personne> list){
-        this.list.clear();
+    public void updateAffichagePersonnePetit(List<Personne> list){
         this.list = list;
         this.notifyDataSetChanged();
     }

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.yoric.projet.R;
 import com.example.yoric.projet.adapter.CustomAdapterKnownFor;
 import com.example.yoric.projet.adapter.CustomAdapterPersonnePetit;
+import com.example.yoric.projet.asynctask.GetResult;
 import com.example.yoric.projet.asynctask.GetResultDetails;
 import com.example.yoric.projet.model.Film;
 import com.example.yoric.projet.model.KnownFor;
@@ -26,6 +27,7 @@ import com.example.yoric.projet.model.Personne;
 import com.example.yoric.projet.model.PersonneDetail;
 import com.example.yoric.projet.model.Serie;
 import com.example.yoric.projet.utils.EnumGenre;
+import com.example.yoric.projet.utils.RecyclerItemClickListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
@@ -41,7 +43,7 @@ import java.util.List;
  * Created by Kista on 22-10-17.
  */
 
-public class FragmentDetails extends Fragment implements FragmentList.ListCallBack, GetResultDetails.ICallBack{
+public class FragmentDetails extends Fragment implements FragmentList.ListCallBack, GetResultDetails.ICallBack, GetResult.ICallBack{
     private TextView tv_titre;
     private ImageView iv_Image;
     private TextView tv_date;
@@ -57,11 +59,15 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
     private Serie serie;
     private Personne personne;
     private PersonneDetail personneDetail;
+    private boolean boucleType=true;
+    private Long idPersonneBoucle;
 
     private List<Personne> personnes = new ArrayList<Personne>();
     private List<KnownFor> knownFors = new ArrayList<KnownFor>();;
 
-    private String type="0";
+    private String type="";
+
+
 
     private static final String YOUTUBE="https://www.youtube.com/results?search_query=";
 
@@ -84,17 +90,29 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
         void afficherDetails();
     }
 
+    private BoucleCallBack boucleCallBack;
+    public void setBoucleCallBack(BoucleCallBack boucle){
+        this.boucleCallBack = boucle;
+    }
+    public interface BoucleCallBack{
+        void goToBoucle();
+    }
+
+
+
 
     public void setListPersonne(List<Personne> list) {
         personnes = list;
         recyclerView.setAdapter(getAdapterPersonnePetit());
-        getAdapterPersonnePetit().updateAffichage(list);
+        getAdapterPersonnePetit().updateAffichagePersonnePetit(list);
     }
     public void setListKnownFors(List<KnownFor> list) {
         knownFors = list;
         recyclerView.setAdapter(getAdapterKnownFor());
-        getAdapterKnownFor().updateAffichage(knownFors);
+        getAdapterKnownFor().updateAffichageKnownFor(list);
     }
+
+
 
     private CustomAdapterPersonnePetit customAdapterPersonne = null;
     public CustomAdapterPersonnePetit getAdapterPersonnePetit(){
@@ -135,7 +153,33 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
         recyclerView = (RecyclerView) v.findViewById(R.id.rv_details_layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false));
 
-        initialiseDetails();
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(),recyclerView,new RecyclerItemClickListener.OnItemClickListener(){
+            @Override
+            public void onItemClick(View view, int position) {
+                if(boucleType){
+                    String test = knownFors.get(position).getMediaType();
+                    if(test.equals("movie")){
+                        afficherBoucle(knownFors.get(position),"0");
+                        Log.i("test",knownFors.get(position).getTitle());
+                    }
+                    else {
+                        afficherBoucle(knownFors.get(position),"1");
+                    }
+                }
+                else {
+                    afficherBoucle(personnes.get(position),"2");
+                    personne = personnes.get(position);
+                }
+           }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
+
+        boucleCallBack.goToBoucle();
+
         return v;
     }
 
@@ -177,6 +221,60 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                 break;
         }
     }
+    private void afficherBoucle(Object o, String objStr){
+        boucleCallBack.goToBoucle();
+        GetResultDetails task = new GetResultDetails();
+        task.setCallback(this);
+
+        switch (objStr){
+            case "0":
+                KnownFor kFilm = (KnownFor) o;
+
+                film = new Film(kFilm.getAdult(),kFilm.getBackdropPath(),kFilm.getGenreIds(),kFilm.getId(),kFilm.getOriginalLanguage(),kFilm.getOriginalTitle(),kFilm.getOverview(),kFilm.getPopularity(),kFilm.getPosterPath(),kFilm.getReleaseDate(),kFilm.getTitle(),kFilm.getVideo(),kFilm.getVoteAverage(),kFilm.getVoteCount());
+                this.type = "0";
+
+                task.execute(
+                        "0",
+                        film.getId()+""
+                );
+                break;
+            case "1":
+                KnownFor kSerie = (KnownFor) o;
+
+                serie = new Serie(kSerie.getBackdropPath(),kSerie.getFirstAirDate(),kSerie.getGenreIds(),kSerie.getId(),kSerie.getName(),kSerie.getOriginCountry(),kSerie.getOriginalLanguage(),kSerie.getOriginalName(),kSerie.getOverview(),kSerie.getPopularity(),kSerie.getPosterPath(),kSerie.getVoteAverage(),kSerie.getVoteCount());
+                this.type = "1";
+
+                task.execute(
+                        "1",
+                        serie.getId()+""
+                );
+                break;
+            case "2":
+                personne = (Personne) o;
+                this.type = "2";
+
+                //Récupère l'ID pour faire une comparaison pour récupérer la liste de film pour laquelle la personne est connue
+                idPersonneBoucle = personne.getId();
+
+                //On doit lancer une lecture pour récupérer la liste de film pour laquelle la personne est connue
+                GetResult get = new GetResult();
+                get.setCallback(this);
+                get.execute(
+                        personne.getName(),
+                        "2"
+                );
+
+
+                task.execute(
+                        "2",
+                        personne.getId()+""
+                );
+                break;
+        }
+    }
+
+
+
     private void initialiseDetails(){
         switch (type){
             case "0":
@@ -188,7 +286,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                     @Override
                     public void onClick(View view) {
                         String date="";
-                        if(!film.getReleaseDate().toString().equals("")){
+                        if(!film.getReleaseDate().equals("")){
                             date = film.getReleaseDate().substring(0,4);
                         }
 
@@ -200,7 +298,8 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                 });
                 tv_note.setText("Note : "+(double)Math.round(film.getVoteAverage() * 100) / 100d+" / 10");
                 tv_description.setText(film.getOverview());
-                ;break;
+
+                break;
 
             case "1":
                 tv_titre.setText(serie.getName());
@@ -211,7 +310,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                     @Override
                     public void onClick(View view) {
                         String date="";
-                        if(!serie.getFirstAirDate().toString().equals("")){
+                        if(!serie.getFirstAirDate().equals("")){
                             date = serie.getFirstAirDate().substring(0,4);
                         }
 
@@ -223,90 +322,102 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                 });
                 tv_note.setText("Note : "+(double)Math.round(serie.getVoteAverage() * 100) / 100d+" / 10");
                 tv_description.setText(serie.getOverview());
-                ;break;
+
+                break;
 
             case "2":
-                setListKnownFors(personne.getKnownFor());
-                ;break;
+                tv_titre.setText(personneDetail.getName());
+
+                if(personneDetail.getProfilePath()==null){
+                    iv_Image.setImageResource(R.drawable.noimage);
+                }
+                else {
+                    Picasso.with(this.getContext()).load("https://image.tmdb.org/t/p/original"+personneDetail.getProfilePath()).into(iv_Image);
+                }
+
+                String death=" , ";
+                String birth="Birthday not found";
+                if(personneDetail.getDeathday()!=null){
+                    death += personneDetail.getDeathday();
+                }
+                else {
+                    death="";
+                }
+                if(personneDetail.getBirthday()!=null){
+                    birth = personneDetail.getBirthday();
+                }
+                tv_date.setText(birth+death);
+
+
+                String genre="Homme";
+                if(personneDetail.getGender().equals(1L)){
+                    genre = "Femme";
+                }
+                tv_genre.setText(genre);
+
+
+                tv_note.setText("Popularité : "+(double)Math.round(personneDetail.getPopularity() * 100) / 100d+" / 10");
+
+
+                if(personneDetail.getBiography().equals("")){
+                    tv_description.setText("---Biography not found---");
+                }
+                else {
+                    tv_description.setText(personneDetail.getBiography());
+                }
+
+                bt_bandeAnnonce.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String url="";
+                        if(personneDetail.getHomepage()==null || personneDetail.getHomepage().equals("")) {
+                            url = "https://www.google.be/search?&q=" + personneDetail.getName() + "+wikipedia";
+                        }
+                        else {
+                            url = personneDetail.getHomepage();
+                        }
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(url));
+                        startActivity(intent);
+                    }
+                });
+                break;
         }
     }
 
 
+
+
     @Override
     public void parseData(String string) throws JSONException {
-        Log.i("JSONSS : ",string);
-        Gson gson = new Gson();
+        JSONObject jsonObject = new JSONObject(string);
+        Type listType = new TypeToken<ArrayList<Personne>>() {}.getType();
+        personnes = new Gson().fromJson(jsonObject.getJSONArray("results").toString(), listType);
+
+        for(int i=0;i<personnes.size();i++){
+            if(personnes.get(i).getId().equals(idPersonneBoucle)){
+                Personne p = personnes.get(i);
+                personne = new Personne(p.getAdult(),p.getId(),p.getKnownFor(),p.getName(),p.getPopularity(),p.getProfilePath());
+            }
+        }
+    }
+    @Override
+    public void parseDataDetail(String string) throws JSONException {
         JSONObject jsonObject = new JSONObject(string);
         Type listType;
 
         if(type.equals("2")){
             personneDetail = new Gson().fromJson(jsonObject.toString(), PersonneDetail.class);
-            initialisePersonneDetails();
+            this.setListKnownFors(personne.getKnownFor());
+            initialiseDetails();
+            boucleType =true;
         }
         else {
             listType = new TypeToken<ArrayList<Personne>>() {}.getType();
             personnes = new Gson().fromJson(jsonObject.getJSONArray("cast").toString(), listType);
             this.setListPersonne(personnes);
+            initialiseDetails();
+            boucleType =false;
         }
     }
-
-
-    private void initialisePersonneDetails(){
-        tv_titre.setText(personneDetail.getName());
-
-        if(personneDetail.getProfilePath()==null){
-            iv_Image.setImageResource(R.drawable.noimage);
-        }
-        else {
-            Picasso.with(this.getContext()).load("https://image.tmdb.org/t/p/original"+personneDetail.getProfilePath()).into(iv_Image);
-        }
-
-        String death=" , ";
-        String birth="Birthday not found";
-        if(personneDetail.getDeathday()!=null){
-            death += personneDetail.getDeathday();
-        }
-        else {
-            death="";
-        }
-        if(personneDetail.getBirthday()!=null){
-            birth = personneDetail.getBirthday();
-        }
-        tv_date.setText(birth+death);
-
-
-        String genre="Homme";
-        if(personneDetail.getGender().equals(1L)){
-            genre = "Femme";
-        }
-        tv_genre.setText(genre);
-
-
-        tv_note.setText("Popularité : "+(double)Math.round(personneDetail.getPopularity() * 100) / 100d+" / 10");
-
-
-        if(personneDetail.getBiography().equals("")){
-            tv_description.setText("---Biography not found---");
-        }
-        else {
-            tv_description.setText(personneDetail.getBiography());
-        }
-
-        bt_bandeAnnonce.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String url="";
-                if(personneDetail.getHomepage()==null || personneDetail.getHomepage().equals("")) {
-                    url = "https://www.google.be/search?&q=" + personneDetail.getName() + "+wikipedia";
-                }
-                else {
-                    url = personneDetail.getHomepage();
-                }
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(url));
-                startActivity(intent);
-            }
-        });
-    }
-
 }
