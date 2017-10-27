@@ -45,8 +45,15 @@ public class CustomAdapterKnownFor extends RecyclerView.Adapter<CustomAdapterKno
         KnownFor k = list.get(position);
 
         String date="";
-        if(!k.getReleaseDate().toString().equals("")){
-            date = k.getReleaseDate().substring(0,4);
+        if(k.getMediaType().equals("movie")){
+            if(!k.getReleaseDate().toString().equals("")){
+                date = k.getReleaseDate().substring(0,4);
+            }
+        }
+        else{
+            if(!k.getFirstAirDate().toString().equals("")) {
+                date = k.getFirstAirDate().substring(0, 4);
+            }
         }
 
         if(k.getPosterPath()==null){
@@ -58,7 +65,7 @@ public class CustomAdapterKnownFor extends RecyclerView.Adapter<CustomAdapterKno
         holder.tvTitre.setText(k.getTitle()+" ("+date+")");
 
         String type="";
-        if(k.getMediaType()=="movie"){
+        if(k.getMediaType().equals("movie")){
             type = "Film";
         }
         else {
