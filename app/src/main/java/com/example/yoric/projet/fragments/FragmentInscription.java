@@ -3,6 +3,7 @@ package com.example.yoric.projet.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,9 @@ import android.widget.EditText;
 
 import com.example.yoric.projet.MainActivity;
 import com.example.yoric.projet.R;
+import com.example.yoric.projet.model.User;
+import com.example.yoric.projet.model.UserManagement;
+import com.example.yoric.projet.utils.Serialisation;
 
 /**
  * Created by yoric on 26-10-17.
@@ -52,7 +56,19 @@ public class FragmentInscription extends Fragment {
         btConfirmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).goHome();
+
+                if (!etPseudo.getText().toString().isEmpty()&&!etMDP.getText().toString().isEmpty()&&!etMDP2.getText().toString().isEmpty()){
+                    if (etMDP.getText().toString().equals(etMDP2.getText().toString())){
+
+                        User user = new User(etPseudo.getText().toString(),etMDP.getText().toString());
+                        if (!UserManagement.getInstance().getListUser().contains(user)){
+                            UserManagement.getInstance().addUser(user);
+                            Serialisation.writeJson("User.json", Serialisation.writeUser());
+
+                            ((MainActivity)getActivity()).goConnexion();
+                        }
+                    }
+                }
             }
         });
         return v;

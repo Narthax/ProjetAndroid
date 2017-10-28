@@ -13,6 +13,9 @@ import com.example.yoric.projet.fragments.FragmentInscription;
 import com.example.yoric.projet.fragments.FragmentList;
 import com.example.yoric.projet.fragments.FragmentRecherche;
 import com.example.yoric.projet.model.User;
+import com.example.yoric.projet.utils.Serialisation;
+
+import org.json.JSONException;
 
 
 public class MainActivity extends AppCompatActivity implements FragmentRecherche.RechercheCallBack, FragmentDetails.DetailsCallBack, FragmentDetails.BoucleCallBack,FragmentConnexion.ConnexionCallBack, FragmentInscription.InscriptionCallBack
@@ -111,6 +114,10 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
         fragmentInscription.setCallBack(this);
 
 
+        Serialisation.initializationList("user");
+
+
+
         android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.add(R.id.fl_main_fragment_rechercher,fragmentRecherche);
             transaction.add(R.id.fl_main_fragment_list, fragmentList);
@@ -150,8 +157,17 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
         transaction.show(fragmentRecherche);
         transaction.show(fragmentList);
         FragmentConnexion.getInstance().setFragmentConnexion();
-        FragmentInscription.getInstance().setFragmentInscription();
         transaction.commit();
     }
 
+    public  void goConnexion(){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.remove(fragmentDetails);
+        transaction.remove(fragmentInscription);
+        transaction.add(R.id.fl_main_fragment_connexion,fragmentConnexion);
+        FragmentInscription.getInstance().setFragmentInscription();
+        m.getItem(1).setVisible(false);
+        m.getItem(2).setVisible(true);
+        transaction.commit();
+    }
 }

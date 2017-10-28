@@ -16,6 +16,7 @@ import android.widget.EditText;
 import com.example.yoric.projet.MainActivity;
 import com.example.yoric.projet.R;
 import com.example.yoric.projet.model.User;
+import com.example.yoric.projet.model.UserManagement;
 
 /**
  * Created by yoric on 26-10-17.
@@ -67,24 +68,26 @@ public class FragmentConnexion extends Fragment {
         btConnexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (etPseudo.getText().toString().equals("test")&&etMDP.getText().toString().equals("test")){
+                User user = new User(etPseudo.getText().toString(), etMDP.getText().toString());
+
+                if (UserManagement.getInstance().getListUser().contains(user)) {
                     SharedPreferences.Editor editor = preferences.edit();
                     if (cbRemember.isChecked()) {
                         editor.putString("username", etPseudo.getText().toString());
                         editor.putString("password", etMDP.getText().toString());
                         editor.putBoolean("remember_me", true);
-                    }else{
+                    } else {
                         editor.putString("username", "");
                         editor.putString("password", "");
                         editor.putBoolean("remember_me", false);
                     }
                     editor.apply();
 
-                    ((MainActivity)getActivity()).setUser(new User(etPseudo.getText().toString(),etMDP.getText().toString()));
-                    ((MainActivity)getActivity()).getMenu().getItem(3).setVisible(true);
-                    ((MainActivity)getActivity()).getMenu().getItem(1).setVisible(false);
-                    ((MainActivity)getActivity()).getMenu().getItem(2).setVisible(false);
-                    ((MainActivity)getActivity()).goHome();
+                    ((MainActivity) getActivity()).setUser(new User(etPseudo.getText().toString(), etMDP.getText().toString()));
+                    ((MainActivity) getActivity()).getMenu().getItem(3).setVisible(true);
+                    ((MainActivity) getActivity()).getMenu().getItem(1).setVisible(false);
+                    ((MainActivity) getActivity()).getMenu().getItem(2).setVisible(false);
+                    ((MainActivity) getActivity()).goHome();
                 }
 
             }
