@@ -1,10 +1,18 @@
 package com.example.yoric.projet.utils;
 
+import com.example.yoric.projet.model.User;
+import com.example.yoric.projet.model.UserManagement;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * Created by yoric on 28-10-17.
@@ -73,5 +81,21 @@ public abstract class Serialisation {
             }
         }
         return text;
+    }
+
+    public static void initializationList(String type){
+        Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+
+        if (type.equals("user")){
+            Type collectionType = new TypeToken<List<User>>() {}.getType();
+            List<User> userList = gson.fromJson(Serialisation.readJson("file/User.json"), collectionType);
+
+            if(userList!=null){
+                for (User user : userList){
+                    UserManagement.getInstance().addUser(user);
+                }
+            }
+
+        }
     }
 }
