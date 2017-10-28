@@ -144,8 +144,12 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
     public void onBackPressed() {
         android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.remove(fragmentDetails);
+            transaction.remove(fragmentConnexion);
+            transaction.remove(fragmentInscription);
             transaction.show(fragmentRecherche);
             transaction.show(fragmentList);
+            m.getItem(1).setVisible(true);
+            m.getItem(2).setVisible(true);
         transaction.commit();
     }
 
