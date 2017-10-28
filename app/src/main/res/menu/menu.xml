@@ -12,7 +12,7 @@
     <item android:id="@+id/menu_inscription"
         android:title="S'enregistrer"
         app:showAsAction="never" />
-    <item android:id="@+id/menu_inscription"
+    <item android:id="@+id/menu_deconnection"
         android:title="Deconnection"
         app:showAsAction="never" />
 </menu>

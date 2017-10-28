@@ -12,6 +12,7 @@ import com.example.yoric.projet.fragments.FragmentDetails;
 import com.example.yoric.projet.fragments.FragmentInscription;
 import com.example.yoric.projet.fragments.FragmentList;
 import com.example.yoric.projet.fragments.FragmentRecherche;
+import com.example.yoric.projet.model.User;
 
 
 public class MainActivity extends AppCompatActivity implements FragmentRecherche.RechercheCallBack, FragmentDetails.DetailsCallBack, FragmentDetails.BoucleCallBack,FragmentConnexion.ConnexionCallBack, FragmentInscription.InscriptionCallBack
@@ -24,6 +25,19 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
     private FragmentInscription fragmentInscription = FragmentInscription.getInstance();
 
     private Menu m = null;
+    private User user = null;
+
+    public Menu getMenu(){
+        return m;
+    }
+
+    public User getUser(){
+        return user;
+    }
+
+    public void setUser(User newUser){
+        user = newUser;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -71,6 +85,12 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
                 m.getItem(2).setVisible(false);
                 m.getItem(1).setVisible(true);
                 transaction.commit();
+                return true;
+            case R.id.menu_deconnection:
+                user =null;
+                m.getItem(2).setVisible(true);
+                m.getItem(1).setVisible(true);
+                m.getItem(3).setVisible(false);
                 return true;
         }
 
@@ -121,4 +141,17 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
             transaction.show(fragmentList);
         transaction.commit();
     }
+
+    public  void goHome(){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.remove(fragmentDetails);
+        transaction.remove(fragmentConnexion);
+        transaction.remove(fragmentInscription);
+        transaction.show(fragmentRecherche);
+        transaction.show(fragmentList);
+        FragmentConnexion.getInstance().setFragmentConnexion();
+        FragmentInscription.getInstance().setFragmentInscription();
+        transaction.commit();
+    }
+
 }

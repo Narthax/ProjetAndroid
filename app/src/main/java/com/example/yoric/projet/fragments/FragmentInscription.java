@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.yoric.projet.MainActivity;
 import com.example.yoric.projet.R;
 
 /**
@@ -47,6 +48,19 @@ public class FragmentInscription extends Fragment {
         etMDP = (EditText) v.findViewById(R.id.et_password);
         etMDP2 = (EditText) v.findViewById(R.id.et_password2);
         btConfirmer = (Button) v.findViewById(R.id.btn_login_submit);
+
+        btConfirmer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).goHome();
+            }
+        });
         return v;
+    }
+
+    public void setFragmentInscription(){
+        etMDP.setText("");
+        etMDP2.setText("");
+        etPseudo.setText("");
     }
 }
