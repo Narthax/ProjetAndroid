@@ -116,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.setTitle("YosiFlix");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

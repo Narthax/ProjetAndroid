@@ -56,6 +56,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
     private TextView tv_note;
     private TextView tv_description;
     private RecyclerView recyclerView;
+    private TextView tv_list;
 
 
 
@@ -150,6 +151,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
         bt_bandeAnnonce = (Button) v.findViewById(R.id.bt_details_bandeAnnonce);
         tv_note = (TextView) v.findViewById(R.id.bt_details_Note);
         tv_description = (TextView) v.findViewById(R.id.tv_details_description);
+        tv_list = (TextView) v.findViewById(R.id.tv_details_list);
 
         getAdapterPersonnePetit();
         getAdapterKnownFor();
@@ -181,7 +183,8 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                         personne = personnes.get(position);
                     }
 
-                } else {
+                }
+                else {
                     Toast.makeText(getActivity(), "Pas de connexion internet !", Toast.LENGTH_LONG).show();
                 }
            }
@@ -292,6 +295,8 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
     private void initialiseDetails(){
         switch (type){
             case "0":
+                bt_bandeAnnonce.setText("Search Trailer");
+                tv_list.setText("Actors : ");
                 tv_titre.setText(film.getTitle());
                 Picasso.with(this.getContext()).load("https://image.tmdb.org/t/p/original"+film.getPosterPath()).into(iv_Image);
                 tv_date.setText(film.getReleaseDate());
@@ -316,6 +321,8 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                 break;
 
             case "1":
+                bt_bandeAnnonce.setText("Search Trailer");
+                tv_list.setText("Actors : ");
                 tv_titre.setText(serie.getName());
                 Picasso.with(this.getContext()).load("https://image.tmdb.org/t/p/original"+serie.getPosterPath()).into(iv_Image);
                 tv_date.setText(serie.getFirstAirDate());
@@ -340,6 +347,9 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                 break;
 
             case "2":
+                bt_bandeAnnonce.setText("More informations");
+                tv_list.setText("Known for : ");
+
                 tv_titre.setText(personneDetail.getName());
 
                 if(personneDetail.getProfilePath()==null){
@@ -350,7 +360,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                 }
 
                 String death=" , ";
-                String birth="Birthday not found";
+                String birth="---Birthday not found---";
                 if(personneDetail.getDeathday()!=null){
                     death += personneDetail.getDeathday();
                 }
@@ -363,18 +373,18 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                 tv_date.setText(birth+death);
 
 
-                String genre="Homme";
+                String genre="Man";
                 if(personneDetail.getGender().equals(1L)){
-                    genre = "Femme";
+                    genre = "Woman";
                 }
                 tv_genre.setText(genre);
 
 
-                tv_note.setText("Popularité : "+(double)Math.round(personneDetail.getPopularity() * 100) / 100d+" / 10");
+                tv_note.setText("Popularity : "+(double)Math.round(personneDetail.getPopularity() * 100) / 100d+" / 10");
 
 
                 if(personneDetail.getBiography().equals("")){
-                    tv_description.setText("---Biography not found---");
+                    tv_description.setText("\n---Biography not found---");
                 }
                 else {
                     tv_description.setText(personneDetail.getBiography());

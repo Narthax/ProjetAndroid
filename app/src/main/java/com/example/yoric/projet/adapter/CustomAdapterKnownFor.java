@@ -45,16 +45,25 @@ public class CustomAdapterKnownFor extends RecyclerView.Adapter<CustomAdapterKno
         KnownFor k = list.get(position);
 
         String date="";
+        String title="";
+        String type="";
+
         if(k.getMediaType().equals("movie")){
             if(!k.getReleaseDate().toString().equals("")){
                 date = k.getReleaseDate().substring(0,4);
+                title = k.getTitle();
+                type = "Movie";
             }
         }
         else{
             if(!k.getFirstAirDate().toString().equals("")) {
                 date = k.getFirstAirDate().substring(0, 4);
+                title = k.getName();
+                type = "TV serie";
             }
         }
+        holder.tvTitre.setText(title+" ("+date+")");
+        holder.tvType.setText(type);
 
         if(k.getPosterPath()==null){
             holder.ivImage.setImageResource(R.drawable.noimage);
@@ -62,16 +71,6 @@ public class CustomAdapterKnownFor extends RecyclerView.Adapter<CustomAdapterKno
         else {
             Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+k.getPosterPath()).into(holder.ivImage);
         }
-        holder.tvTitre.setText(k.getTitle()+" ("+date+")");
-
-        String type="";
-        if(k.getMediaType().equals("movie")){
-            type = "Film";
-        }
-        else {
-            type = "Série";
-        }
-        holder.tvType.setText(type);
     }
 
     @Override

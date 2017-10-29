@@ -49,6 +49,7 @@ public class CustomAdapterSerie extends RecyclerView.Adapter<CustomAdapterSerie.
         if(!s.getFirstAirDate().toString().equals("")){
             date = s.getFirstAirDate().substring(0,4);
         }
+        holder.tvDate.setText(date);
 
         if(s.getPosterPath()==null){
             holder.ivImage.setImageResource(R.drawable.noimage);
@@ -57,7 +58,6 @@ public class CustomAdapterSerie extends RecyclerView.Adapter<CustomAdapterSerie.
             Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+s.getPosterPath()).into(holder.ivImage);
         }
         holder.tvTitre.setText(s.getName());
-        holder.tvDate.setText(date);
         holder.ratingBar.setRating((Float.parseFloat(s.getVoteAverage().toString()))/2);
     }
 

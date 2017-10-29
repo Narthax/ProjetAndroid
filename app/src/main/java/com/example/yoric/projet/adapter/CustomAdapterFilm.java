@@ -48,6 +48,7 @@ public class CustomAdapterFilm extends RecyclerView.Adapter<CustomAdapterFilm.My
         if(!m.getReleaseDate().toString().equals("")){
             date = m.getReleaseDate().substring(0,4);
         }
+        holder.tvDate.setText(date);
 
         if(m.getPosterPath()==null){
             holder.ivImage.setImageResource(R.drawable.noimage);
@@ -56,7 +57,6 @@ public class CustomAdapterFilm extends RecyclerView.Adapter<CustomAdapterFilm.My
             Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+m.getPosterPath()).into(holder.ivImage);
         }
         holder.tvTitre.setText(m.getTitle());
-        holder.tvDate.setText(date);
         holder.ratingBar.setRating((Float.parseFloat(m.getVoteAverage().toString()))/2);
     }
 
