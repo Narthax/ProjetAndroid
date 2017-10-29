@@ -1,5 +1,6 @@
 package com.example.yoric.projet.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
@@ -11,10 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.yoric.projet.MainActivity;
 import com.example.yoric.projet.R;
 import com.example.yoric.projet.asynctask.GetResult;
 import com.example.yoric.projet.model.Film;
@@ -89,6 +92,7 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
 
     @Override
     public void onClick(View v) {
+        ((MainActivity) getActivity()).hideSoftKeyboard(getActivity(), v);
 
         ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -99,7 +103,6 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
                 case R.id.bt_film: changeSelectedButton(bt_film,bt_serie,bt_personne);lancerGetResult();break;
                 case R.id.bt_serie: changeSelectedButton(bt_serie,bt_film,bt_personne);lancerGetResult();break;
                 case R.id.bt_personne: changeSelectedButton(bt_personne,bt_serie,bt_film);lancerGetResult();break;
-
                 case R.id.bt_rechercher:lancerGetResult();break;
             }
 

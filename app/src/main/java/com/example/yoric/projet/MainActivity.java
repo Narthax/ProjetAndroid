@@ -1,5 +1,6 @@
 package com.example.yoric.projet;
 
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.yoric.projet.fragments.FragmentConnexion;
 import com.example.yoric.projet.fragments.FragmentDetails;
@@ -223,5 +226,11 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
             }
 
         }
+    }
+
+    public static void hideSoftKeyboard (Activity activity, View view)
+    {
+        InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
     }
 }

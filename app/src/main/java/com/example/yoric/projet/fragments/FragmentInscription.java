@@ -58,6 +58,7 @@ public class FragmentInscription extends Fragment {
         btConfirmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((MainActivity) getActivity()).hideSoftKeyboard(getActivity(), v);
 
                 if (!etPseudo.getText().toString().isEmpty()&&!etMDP.getText().toString().isEmpty()&&!etMDP2.getText().toString().isEmpty()){
                     if (etMDP.getText().toString().equals(etMDP2.getText().toString())){

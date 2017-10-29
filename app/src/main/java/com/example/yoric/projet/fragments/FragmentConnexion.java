@@ -69,6 +69,7 @@ public class FragmentConnexion extends Fragment {
         btConnexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((MainActivity) getActivity()).hideSoftKeyboard(getActivity(), v);
                 if (!etPseudo.getText().toString().isEmpty()&&!etMDP.getText().toString().isEmpty()) {
                     User user = new User(etPseudo.getText().toString(), etMDP.getText().toString());
 
