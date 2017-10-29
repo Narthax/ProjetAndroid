@@ -1,6 +1,9 @@
 package com.example.yoric.projet.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.yoric.projet.R;
 import com.example.yoric.projet.adapter.CustomAdapterFilm;
@@ -115,14 +119,24 @@ public class FragmentList extends Fragment {
 
             @Override
             public void onItemClick(View view, int position) {
-                switch (type){
-                    case "0": listCallBack.afficher(listeFragmentFilm.get(position),type);
-                        ;break;
-                    case "1": listCallBack.afficher(listeFragmentSerie.get(position),type);
-                        ;break;
-                    case "2": listCallBack.afficher(listeFragmentPersonne.get(position),type);
-                        ;break;
+                ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+                if (networkInfo != null && networkInfo.isConnected()) {
+
+                    switch (type){
+                        case "0": listCallBack.afficher(listeFragmentFilm.get(position),type);
+                            break;
+                        case "1": listCallBack.afficher(listeFragmentSerie.get(position),type);
+                            break;
+                        case "2": listCallBack.afficher(listeFragmentPersonne.get(position),type);
+                            break;
+                    }
+
+                } else {
+                    Toast.makeText(getActivity(), "Pas de connexion internet !", Toast.LENGTH_LONG).show();
                 }
+
             }
 
             @Override

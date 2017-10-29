@@ -1,7 +1,10 @@
 package com.example.yoric.projet.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -10,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.yoric.projet.R;
 import com.example.yoric.projet.asynctask.GetResult;
@@ -85,13 +89,24 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.bt_film: changeSelectedButton(bt_film,bt_serie,bt_personne);lancerGetResult();break;
-            case R.id.bt_serie: changeSelectedButton(bt_serie,bt_film,bt_personne);lancerGetResult();break;
-            case R.id.bt_personne: changeSelectedButton(bt_personne,bt_serie,bt_film);lancerGetResult();break;
 
-            case R.id.bt_rechercher:lancerGetResult();break;
+        ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()) {
+
+            switch (v.getId()) {
+                case R.id.bt_film: changeSelectedButton(bt_film,bt_serie,bt_personne);lancerGetResult();break;
+                case R.id.bt_serie: changeSelectedButton(bt_serie,bt_film,bt_personne);lancerGetResult();break;
+                case R.id.bt_personne: changeSelectedButton(bt_personne,bt_serie,bt_film);lancerGetResult();break;
+
+                case R.id.bt_rechercher:lancerGetResult();break;
+            }
+
+        } else {
+            Toast.makeText(getActivity(), "Pas de connexion internet !", Toast.LENGTH_LONG).show();
         }
+
     }
 
     @Override

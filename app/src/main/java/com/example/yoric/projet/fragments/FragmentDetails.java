@@ -1,7 +1,10 @@
 package com.example.yoric.projet.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.yoric.projet.R;
@@ -156,19 +160,29 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(),recyclerView,new RecyclerItemClickListener.OnItemClickListener(){
             @Override
             public void onItemClick(View view, int position) {
-                if(boucleType){
-                    String test = knownFors.get(position).getMediaType();
-                    if(test.equals("movie")){
-                        afficherBoucle(knownFors.get(position),"0");
-                        Log.i("test",knownFors.get(position).getTitle());
+
+                ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+                if (networkInfo != null && networkInfo.isConnected()) {
+
+                    if(boucleType){
+                        String test = knownFors.get(position).getMediaType();
+                        if(test.equals("movie")){
+                            afficherBoucle(knownFors.get(position),"0");
+                            Log.i("test",knownFors.get(position).getTitle());
+                        }
+                        else {
+                            afficherBoucle(knownFors.get(position),"1");
+                        }
                     }
                     else {
-                        afficherBoucle(knownFors.get(position),"1");
+                        afficherBoucle(personnes.get(position),"2");
+                        personne = personnes.get(position);
                     }
-                }
-                else {
-                    afficherBoucle(personnes.get(position),"2");
-                    personne = personnes.get(position);
+
+                } else {
+                    Toast.makeText(getActivity(), "Pas de connexion internet !", Toast.LENGTH_LONG).show();
                 }
            }
 
