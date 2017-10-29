@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.yoric.projet.MainActivity;
 import com.example.yoric.projet.R;
@@ -65,10 +66,15 @@ public class FragmentInscription extends Fragment {
                         if (!UserManagement.getInstance().getListUser().contains(user)){
                             UserManagement.getInstance().addUser(user);
                             Serialisation.writeJson("User.json", Serialisation.writeUser(), getActivity());
-                            Log.i("OUHOUHOUH",Serialisation.writeUser());
                             ((MainActivity)getActivity()).goConnexion();
+                        }else{
+                            Toast.makeText(getActivity(), "Pseudo déjà utilisé!", Toast.LENGTH_LONG).show();
                         }
+                    }else{
+                        Toast.makeText(getActivity(), "Mot de passe incorrect!", Toast.LENGTH_LONG).show();
                     }
+                }else{
+                    Toast.makeText(getActivity(), "Champs vide!", Toast.LENGTH_LONG).show();
                 }
             }
         });

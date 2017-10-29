@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.yoric.projet.MainActivity;
 import com.example.yoric.projet.R;
@@ -68,26 +69,32 @@ public class FragmentConnexion extends Fragment {
         btConnexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User user = new User(etPseudo.getText().toString(), etMDP.getText().toString());
+                if (!etPseudo.getText().toString().isEmpty()&&!etMDP.getText().toString().isEmpty()) {
+                    User user = new User(etPseudo.getText().toString(), etMDP.getText().toString());
 
-                if (UserManagement.getInstance().getListUser().contains(user)) {
-                    SharedPreferences.Editor editor = preferences.edit();
-                    if (cbRemember.isChecked()) {
-                        editor.putString("username", etPseudo.getText().toString());
-                        editor.putString("password", etMDP.getText().toString());
-                        editor.putBoolean("remember_me", true);
+                    if (UserManagement.getInstance().getListUser().contains(user)) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        if (cbRemember.isChecked()) {
+                            editor.putString("username", etPseudo.getText().toString());
+                            editor.putString("password", etMDP.getText().toString());
+                            editor.putBoolean("remember_me", true);
+                        } else {
+                            editor.putString("username", "");
+                            editor.putString("password", "");
+                            editor.putBoolean("remember_me", false);
+                        }
+                        editor.apply();
+
+                        ((MainActivity) getActivity()).setUser(new User(etPseudo.getText().toString(), etMDP.getText().toString()));
+                        ((MainActivity) getActivity()).getMenu().getItem(3).setVisible(true);
+                        ((MainActivity) getActivity()).getMenu().getItem(1).setVisible(false);
+                        ((MainActivity) getActivity()).getMenu().getItem(2).setVisible(false);
+                        ((MainActivity) getActivity()).goHome();
                     } else {
-                        editor.putString("username", "");
-                        editor.putString("password", "");
-                        editor.putBoolean("remember_me", false);
+                        Toast.makeText(getActivity(), "Pseudo / mot de passe incorrect!", Toast.LENGTH_LONG).show();
                     }
-                    editor.apply();
-
-                    ((MainActivity) getActivity()).setUser(new User(etPseudo.getText().toString(), etMDP.getText().toString()));
-                    ((MainActivity) getActivity()).getMenu().getItem(3).setVisible(true);
-                    ((MainActivity) getActivity()).getMenu().getItem(1).setVisible(false);
-                    ((MainActivity) getActivity()).getMenu().getItem(2).setVisible(false);
-                    ((MainActivity) getActivity()).goHome();
+                }else{
+                    Toast.makeText(getActivity(), "Champs vide!", Toast.LENGTH_LONG).show();
                 }
 
             }
