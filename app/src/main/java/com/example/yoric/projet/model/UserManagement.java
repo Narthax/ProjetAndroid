@@ -1,5 +1,6 @@
 package com.example.yoric.projet.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Created by yoric on 28-10-17.
  */
 
-public class UserManagement {
+public class UserManagement implements Serializable {
     private static UserManagement instance = null;
     private List<User> listUser;
 
@@ -38,14 +39,4 @@ public class UserManagement {
         }
         return listUser;
     }
-
-/*
-    public User getUser(String mail){
-        for (int i=0;i<listUser.size();i++){
-            if (listUser.get(i).getMail().equals(mail)){
-                return listUser.get(i);
-            }
-        }
-        return null;
-    }*/
 }

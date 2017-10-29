@@ -1,6 +1,7 @@
 package com.example.yoric.projet;
 
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,9 +14,18 @@ import com.example.yoric.projet.fragments.FragmentInscription;
 import com.example.yoric.projet.fragments.FragmentList;
 import com.example.yoric.projet.fragments.FragmentRecherche;
 import com.example.yoric.projet.model.User;
+import com.example.yoric.projet.model.UserManagement;
 import com.example.yoric.projet.utils.Serialisation;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements FragmentRecherche.RechercheCallBack, FragmentDetails.DetailsCallBack, FragmentDetails.BoucleCallBack,FragmentConnexion.ConnexionCallBack, FragmentInscription.InscriptionCallBack
@@ -114,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
         fragmentInscription.setCallBack(this);
 
 
-        Serialisation.initializationList("user");
+        initializationList("user");
 
 
 
@@ -173,5 +183,45 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
         m.getItem(1).setVisible(false);
         m.getItem(2).setVisible(true);
         transaction.commit();
+    }
+
+    public String readJson(String file){
+        BufferedReader input = null;
+        try {
+            input = new BufferedReader(new InputStreamReader(openFileInput(file)));
+            String line;
+            StringBuffer buffer = new StringBuffer();
+            while ((line = input.readLine()) != null) {
+                buffer.append(line);
+            }
+            return buffer.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
+    public void initializationList(String type){
+
+        if (type.equals("user")){
+            String txt =readJson("User.json");
+            Type collectionType = new TypeToken<List<User>>() {}.getType();
+            List<User> userList = new Gson().fromJson(txt, collectionType);
+
+            if(userList!=null){
+                for (User user : userList){
+                    UserManagement.getInstance().addUser(user);
+                }
+            }
+
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.yoric.projet.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -63,8 +64,8 @@ public class FragmentInscription extends Fragment {
                         User user = new User(etPseudo.getText().toString(),etMDP.getText().toString());
                         if (!UserManagement.getInstance().getListUser().contains(user)){
                             UserManagement.getInstance().addUser(user);
-                            Serialisation.writeJson("User.json", Serialisation.writeUser());
-
+                            Serialisation.writeJson("User.json", Serialisation.writeUser(), getActivity());
+                            Log.i("OUHOUHOUH",Serialisation.writeUser());
                             ((MainActivity)getActivity()).goConnexion();
                         }
                     }

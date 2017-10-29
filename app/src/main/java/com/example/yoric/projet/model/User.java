@@ -1,10 +1,12 @@
 package com.example.yoric.projet.model;
 
+import java.io.Serializable;
+
 /**
  * Created by yoric on 28-10-17.
  */
 
-public class User {
+public class User implements Serializable{
     private String name, password;
 
     public User(String name, String password){
