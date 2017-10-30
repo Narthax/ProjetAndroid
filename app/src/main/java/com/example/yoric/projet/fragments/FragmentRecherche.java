@@ -82,7 +82,6 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 boolean handled = false;
                 if(i == EditorInfo.IME_ACTION_DONE){
-                    getButtonSelected(bt_film,bt_serie,bt_personne);
                     lancerGetResult();
                     handled = true;
                 }
@@ -153,22 +152,7 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
         }
     }
 
-    private void getButtonSelected(Button a, Button b, Button c){
-        int colorA = ((ColorDrawable)a.getBackground()).getColor();
-        int colorB = ((ColorDrawable)b.getBackground()).getColor();
-
-        if(colorA == Color.GREEN){
-            setTypeRecherche(a.getId());
-        }
-        else {
-            if(colorB == Color.GREEN){
-                setTypeRecherche(b.getId());
-            }
-            else {
-                setTypeRecherche(c.getId());
-            }
-        }
-    }
+    
     private void changeSelectedButton(Button select, Button b2, Button b3){
         select.setBackgroundColor(Color.GREEN);
         setTypeRecherche(select.getId());
