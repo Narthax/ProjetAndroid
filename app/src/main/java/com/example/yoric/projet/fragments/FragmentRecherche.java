@@ -1,20 +1,22 @@
 package com.example.yoric.projet.fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yoric.projet.MainActivity;
@@ -50,7 +52,6 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
     private List<Film> films = new ArrayList<>();
     private List<Serie> series = new ArrayList<>();
     private List<Personne> personnes = new ArrayList<>();
-    private List<KnownFor> knownFors = new ArrayList<>();
 
     private static FragmentRecherche fragmentRecherche = null;
     private FragmentList fragmentList = FragmentList.getInstance();
@@ -76,6 +77,18 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
         View v = inflater.inflate(R.layout.fragment_recherche,container,false);
 
         et_recherche = (EditText) v.findViewById(R.id.et_recherche);
+        et_recherche.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                boolean handled = false;
+                if(i == EditorInfo.IME_ACTION_DONE){
+                    getButtonSelected(bt_film,bt_serie,bt_personne);
+                    lancerGetResult();
+                    handled = true;
+                }
+                return handled;
+            }
+        });
         bt_film = (Button) v.findViewById(R.id.bt_film);
         bt_serie = (Button) v.findViewById(R.id.bt_serie);
         bt_personne = (Button) v.findViewById(R.id.bt_personne);
@@ -140,7 +153,22 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
         }
     }
 
+    private void getButtonSelected(Button a, Button b, Button c){
+        int colorA = ((ColorDrawable)a.getBackground()).getColor();
+        int colorB = ((ColorDrawable)b.getBackground()).getColor();
 
+        if(colorA == Color.GREEN){
+            setTypeRecherche(a.getId());
+        }
+        else {
+            if(colorB == Color.GREEN){
+                setTypeRecherche(b.getId());
+            }
+            else {
+                setTypeRecherche(c.getId());
+            }
+        }
+    }
     private void changeSelectedButton(Button select, Button b2, Button b3){
         select.setBackgroundColor(Color.GREEN);
         setTypeRecherche(select.getId());
