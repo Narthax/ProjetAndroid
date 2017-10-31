@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
         inflater.inflate(R.menu.menu, menu);
         m = menu;
         menu.getItem(3).setVisible(false);
+        menu.getItem(4).setVisible(false);
         return true;
     }
 
@@ -106,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
                 m.getItem(2).setVisible(true);
                 m.getItem(1).setVisible(true);
                 m.getItem(3).setVisible(false);
+                m.getItem(4).setVisible(false);
                 return true;
         }
 

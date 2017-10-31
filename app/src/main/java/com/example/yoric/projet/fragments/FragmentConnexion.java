@@ -86,6 +86,7 @@ public class FragmentConnexion extends Fragment {
                         editor.apply();
 
                         ((MainActivity) getActivity()).setUser(new User(etPseudo.getText().toString(), etMDP.getText().toString()));
+                        ((MainActivity) getActivity()).getMenu().getItem(4).setVisible(true);
                         ((MainActivity) getActivity()).getMenu().getItem(3).setVisible(true);
                         ((MainActivity) getActivity()).getMenu().getItem(1).setVisible(false);
                         ((MainActivity) getActivity()).getMenu().getItem(2).setVisible(false);

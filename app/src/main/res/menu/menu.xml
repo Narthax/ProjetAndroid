@@ -9,13 +9,11 @@
     <item android:id="@+id/menu_connect"
         android:title="Connexion"
         app:showAsAction="never" />
- <!--
-    <item android:id="@+id/menu_favoris"
-        android:title="Favoris"
-        app:showAsAction="never" />
- -->
     <item android:id="@+id/menu_inscription"
         android:title="S'enregistrer"
+        app:showAsAction="never" />
+    <item android:id="@+id/menu_favoris"
+        android:title="Favoris"
         app:showAsAction="never" />
     <item android:id="@+id/menu_deconnection"
         android:title="Deconnection"
