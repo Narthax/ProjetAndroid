@@ -79,7 +79,7 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 boolean handled = false;
-
+                ((MainActivity) getActivity()).hideSoftKeyboard(getActivity(), getView());
                 ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
