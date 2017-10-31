@@ -12,7 +12,6 @@ import com.example.yoric.projet.R;
 import com.example.yoric.projet.model.KnownFor;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -123,7 +123,6 @@ public class FragmentList extends Fragment {
                 NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
                 if (networkInfo != null && networkInfo.isConnected()) {
-
                     switch (type){
                         case "0": listCallBack.afficher(listeFragmentFilm.get(position),type);
                             break;
@@ -132,8 +131,8 @@ public class FragmentList extends Fragment {
                         case "2": listCallBack.afficher(listeFragmentPersonne.get(position),type);
                             break;
                     }
-
-                } else {
+                }
+                else {
                     Toast.makeText(getActivity(), "Pas de connexion internet !", Toast.LENGTH_LONG).show();
                 }
 

@@ -13,16 +13,14 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.example.yoric.projet.fragments.FragmentConnexion;
 import com.example.yoric.projet.fragments.FragmentDetails;
+import com.example.yoric.projet.fragments.FragmentFavoris;
 import com.example.yoric.projet.fragments.FragmentInscription;
 import com.example.yoric.projet.fragments.FragmentList;
 import com.example.yoric.projet.fragments.FragmentRecherche;
 import com.example.yoric.projet.model.User;
 import com.example.yoric.projet.model.UserManagement;
-import com.example.yoric.projet.utils.Serialisation;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,7 +29,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements FragmentRecherche.RechercheCallBack, FragmentDetails.DetailsCallBack, FragmentDetails.BoucleCallBack,FragmentConnexion.ConnexionCallBack, FragmentInscription.InscriptionCallBack
+public class MainActivity extends AppCompatActivity implements FragmentFavoris.FavorisCallBack, FragmentRecherche.RechercheCallBack, FragmentDetails.DetailsCallBack, FragmentDetails.BoucleCallBack,FragmentConnexion.ConnexionCallBack, FragmentInscription.InscriptionCallBack
 {
 
     private FragmentRecherche fragmentRecherche = FragmentRecherche.getInstance();
@@ -39,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
     private FragmentDetails fragmentDetails = FragmentDetails.getInstance();
     private FragmentConnexion fragmentConnexion = FragmentConnexion.getInstance();
     private FragmentInscription fragmentInscription = FragmentInscription.getInstance();
+    private FragmentFavoris fragmentFavoris = FragmentFavoris.getInstance();
 
     private Menu m = null;
     private User user = null;
@@ -71,35 +70,35 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
         switch (item.getItemId()){
             case R.id.menu_accueil:
                 transaction = getFragmentManager().beginTransaction();
-                transaction.remove(fragmentDetails);
-                transaction.remove(fragmentConnexion);
-                transaction.remove(fragmentInscription);
-                transaction.show(fragmentRecherche);
-                transaction.show(fragmentList);
-                m.getItem(1).setVisible(true);
-                m.getItem(2).setVisible(true);
+                    transaction.remove(fragmentDetails);
+                    transaction.remove(fragmentConnexion);
+                    transaction.remove(fragmentInscription);
+                    transaction.show(fragmentRecherche);
+                    transaction.show(fragmentList);
+                    m.getItem(1).setVisible(true);
+                    m.getItem(2).setVisible(true);
                 transaction.commit();
                 return true;
             case R.id.menu_connect:
                 transaction = getFragmentManager().beginTransaction();
-                transaction.remove(fragmentInscription);
-                transaction.remove(fragmentDetails);
-                transaction.add(R.id.fl_main_fragment_connexion,fragmentConnexion);
-                transaction.hide(fragmentList);
-                transaction.hide(fragmentRecherche);
-                m.getItem(1).setVisible(false);
-                m.getItem(2).setVisible(true);
+                    transaction.remove(fragmentInscription);
+                    transaction.remove(fragmentDetails);
+                    transaction.add(R.id.fl_main_fragment_connexion,fragmentConnexion);
+                    transaction.hide(fragmentList);
+                    transaction.hide(fragmentRecherche);
+                    m.getItem(1).setVisible(false);
+                    m.getItem(2).setVisible(true);
                 transaction.commit();
                 return true;
             case R.id.menu_inscription:
                 transaction = getFragmentManager().beginTransaction();
-                transaction.remove(fragmentConnexion);
-                transaction.remove(fragmentDetails);
-                transaction.add(R.id.fl_main_fragment_inscription,fragmentInscription);
-                transaction.hide(fragmentList);
-                transaction.hide(fragmentRecherche);
-                m.getItem(2).setVisible(false);
-                m.getItem(1).setVisible(true);
+                    transaction.remove(fragmentConnexion);
+                    transaction.remove(fragmentDetails);
+                    transaction.add(R.id.fl_main_fragment_inscription,fragmentInscription);
+                    transaction.hide(fragmentList);
+                    transaction.hide(fragmentRecherche);
+                    m.getItem(2).setVisible(false);
+                    m.getItem(1).setVisible(true);
                 transaction.commit();
                 return true;
             case R.id.menu_deconnection:
@@ -126,10 +125,10 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
         fragmentDetails.setBoucleCallBack(this);
         fragmentConnexion.setCallBack(this);
         fragmentInscription.setCallBack(this);
+        fragmentFavoris.setFavorisCallBack(this);
 
 
         initializationList("user");
-
 
 
         android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -137,6 +136,8 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
             transaction.add(R.id.fl_main_fragment_list, fragmentList);
         transaction.commit();
     }
+
+
 
     @Override
     public void afficherDetails() {
@@ -150,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
     @Override
     public void goToBoucle() {
         android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fl_main_fragment_details,fragmentDetails);
+            transaction.replace(R.id.fl_main_fragment_details,fragmentDetails);
         transaction.commit();
     }
 
@@ -167,7 +168,9 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
         transaction.commit();
     }
 
-    public  void goHome(){
+
+
+    public void goHome(){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.remove(fragmentDetails);
         transaction.remove(fragmentConnexion);
@@ -177,7 +180,6 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
         FragmentConnexion.getInstance().setFragmentConnexion();
         transaction.commit();
     }
-
     public  void goConnexion(){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.remove(fragmentDetails);
@@ -188,6 +190,8 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
         m.getItem(2).setVisible(true);
         transaction.commit();
     }
+
+
 
     public String readJson(String file){
         BufferedReader input = null;
@@ -212,9 +216,7 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
         }
         return null;
     }
-
     public void initializationList(String type){
-
         if (type.equals("user")){
             String txt =readJson("User.json");
             Type collectionType = new TypeToken<List<User>>() {}.getType();
@@ -225,12 +227,9 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
                     UserManagement.getInstance().addUser(user);
                 }
             }
-
         }
     }
-
-    public static void hideSoftKeyboard (Activity activity, View view)
-    {
+    public static void hideSoftKeyboard (Activity activity, View view) {
         InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
     }

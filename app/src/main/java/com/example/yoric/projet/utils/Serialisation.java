@@ -23,9 +23,11 @@ public abstract class Serialisation {
         try {
             writer = new BufferedWriter(new OutputStreamWriter(context.openFileOutput(file,Context.MODE_PRIVATE)));
             writer.write(text);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
-        } finally {
+        }
+        finally {
             if (writer != null) {
                 try {
                     writer.close();
@@ -34,7 +36,6 @@ public abstract class Serialisation {
                 }
             }
         }
-
     }
 
 

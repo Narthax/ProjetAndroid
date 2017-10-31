@@ -3,7 +3,6 @@ package com.example.yoric.projet.fragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -23,7 +22,6 @@ import com.example.yoric.projet.MainActivity;
 import com.example.yoric.projet.R;
 import com.example.yoric.projet.asynctask.GetResult;
 import com.example.yoric.projet.model.Film;
-import com.example.yoric.projet.model.KnownFor;
 import com.example.yoric.projet.model.Personne;
 import com.example.yoric.projet.model.Serie;
 import com.google.gson.Gson;
@@ -152,7 +150,7 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
         }
     }
 
-    
+
     private void changeSelectedButton(Button select, Button b2, Button b3){
         select.setBackgroundColor(Color.GREEN);
         setTypeRecherche(select.getId());

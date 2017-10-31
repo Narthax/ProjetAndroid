@@ -68,7 +68,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
     private Long idPersonneBoucle;
 
     private List<Personne> personnes = new ArrayList<Personne>();
-    private List<KnownFor> knownFors = new ArrayList<KnownFor>();;
+    private List<KnownFor> knownFors = new ArrayList<KnownFor>();
 
     private String type="";
 
