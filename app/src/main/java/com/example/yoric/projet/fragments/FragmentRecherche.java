@@ -79,9 +79,19 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 boolean handled = false;
-                if(i == EditorInfo.IME_ACTION_DONE){
-                    lancerGetResult();
-                    handled = true;
+
+                ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+                if (networkInfo != null && networkInfo.isConnected()) {
+
+                    if(i == EditorInfo.IME_ACTION_DONE){
+                        lancerGetResult();
+                        handled = true;
+                    }
+
+                } else {
+                    Toast.makeText(getActivity(), "Pas de connexion internet !", Toast.LENGTH_LONG).show();
                 }
                 return handled;
             }
