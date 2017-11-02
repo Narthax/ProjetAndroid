@@ -71,9 +71,9 @@ public class FragmentConnexion extends Fragment {
                 ((MainActivity) getActivity()).hideSoftKeyboard(getActivity(), v);
                 if (!etPseudo.getText().toString().isEmpty()&&!etMDP.getText().toString().isEmpty()) {
                     User user = new User(etPseudo.getText().toString(), etMDP.getText().toString());
-
-                    if (UserManagement.getInstance().getListUser().contains(user)) {
-                        if (user.getPassword().equals(etMDP.getText().toString())) {
+                    int index = UserManagement.getInstance().getListUser().indexOf(user);
+                    if (UserManagement.getInstance().getListUser().get(index).getPassword().equals(user.getPassword()) &&
+                             UserManagement.getInstance().getListUser().get(index).getName().equals(user.getPassword())) {
                             SharedPreferences.Editor editor = preferences.edit();
                             if (cbRemember.isChecked()) {
                                 editor.putString("username", etPseudo.getText().toString());
@@ -92,11 +92,8 @@ public class FragmentConnexion extends Fragment {
                             ((MainActivity) getActivity()).getMenu().getItem(1).setVisible(false);
                             ((MainActivity) getActivity()).getMenu().getItem(2).setVisible(false);
                             ((MainActivity) getActivity()).goHome();
-                        }else {
-                            Toast.makeText(getActivity(), "Mot de passe incorrect!", Toast.LENGTH_LONG).show();
-                        }
                     } else {
-                        Toast.makeText(getActivity(), "Pseudo incorrect!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Pseudo / Mot de passe incorrect!", Toast.LENGTH_LONG).show();
                     }
                 }else{
                     Toast.makeText(getActivity(), "Champs vide!", Toast.LENGTH_LONG).show();
