@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Projet</string>
+    <string name="app_name">YosiFlix</string>
     <string name="et_recherche">Rechercher...</string>
     <string name="bt_recherhcer">Afficher</string>
     <string name="home">Home</string>
