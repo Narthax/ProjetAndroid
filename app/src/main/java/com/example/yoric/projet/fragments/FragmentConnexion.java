@@ -92,10 +92,12 @@ public class FragmentConnexion extends Fragment {
                             ((MainActivity) getActivity()).getMenu().getItem(1).setVisible(false);
                             ((MainActivity) getActivity()).getMenu().getItem(2).setVisible(false);
                             ((MainActivity) getActivity()).goHome();
-                    } else {
+                    }
+                    else {
                         Toast.makeText(getActivity(), "Pseudo / Mot de passe incorrect!", Toast.LENGTH_LONG).show();
                     }
-                }else{
+                }
+                else{
                     Toast.makeText(getActivity(), "Champs vide!", Toast.LENGTH_LONG).show();
                 }
 
