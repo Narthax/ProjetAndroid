@@ -198,4 +198,46 @@ public class KnownFor {
         mVoteCount = voteCount;
     }
 
+
+    public KnownFor(Serie serie){
+        setBackdropPath(serie.getBackdropPath());
+        setFirstAirDate(serie.getFirstAirDate());
+        setGenreIds(serie.getGenreIds());
+        setId(serie.getId());
+        setName(serie.getName());
+        setOriginCountry(serie.getOriginCountry());
+        setOriginalLanguage(serie.getOriginalLanguage());
+        setOriginalName(serie.getOriginalName());
+        setOverview(serie.getOverview());
+        setPopularity(serie.getPopularity());
+        setPosterPath(serie.getPosterPath());
+        setVoteAverage(serie.getVoteAverage());
+        setVoteCount(serie.getVoteCount());
+        setMediaType("tv");
+    }
+    public KnownFor(Film film){
+        setAdult(film.getAdult());
+        setBackdropPath(film.getBackdropPath());
+        setGenreIds(film.getGenreIds());
+        setId(film.getId());
+        setOriginalLanguage(film.getOriginalLanguage());
+        setOriginalTitle(film.getOriginalTitle());
+        setOverview(film.getOverview());
+        setPopularity(film.getPopularity());
+        setPosterPath(film.getPosterPath());
+        setReleaseDate(film.getReleaseDate());
+        setTitle(film.getTitle());
+        setVideo(film.getVideo());
+        setVoteAverage(film.getVoteAverage());
+        setVoteCount(film.getVoteCount());
+        setMediaType("movie");
+    }
+
+    public boolean equals(Object o){
+        if(o instanceof KnownFor){
+            KnownFor k = (KnownFor)o;
+            return k.getId().equals(mId);
+        }
+        return false;
+    }
 }

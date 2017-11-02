@@ -25,9 +25,13 @@ public class FragmentFavoris extends Fragment {
     private RecyclerView recyclerView;
 
     private List<KnownFor> listFavoris = new ArrayList<>();
-    public void addItemInFavoris(KnownFor knownFor){
-        listFavoris.add(knownFor);
-        getAdapterKnownFor().notifyDataSetChanged();
+    public boolean addItemInFavoris(KnownFor knownFor){
+        if(!listFavoris.contains(knownFor)){
+            listFavoris.add(knownFor);
+            getAdapterKnownFor().notifyDataSetChanged();
+            return  true;
+        }
+        return false;
     }
 
 

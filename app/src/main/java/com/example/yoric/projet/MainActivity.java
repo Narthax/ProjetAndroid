@@ -31,7 +31,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements FragmentFavoris.FavorisCallBack, FragmentRecherche.RechercheCallBack, FragmentDetails.DetailsCallBack, FragmentDetails.BoucleCallBack,FragmentConnexion.ConnexionCallBack, FragmentInscription.InscriptionCallBack
 {
-
     private FragmentRecherche fragmentRecherche = FragmentRecherche.getInstance();
     private FragmentList fragmentList = FragmentList.getInstance();
     private FragmentDetails fragmentDetails = FragmentDetails.getInstance();
@@ -40,19 +39,19 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
     private FragmentFavoris fragmentFavoris = FragmentFavoris.getInstance();
 
     private Menu m = null;
-    private User user = null;
-
     public Menu getMenu(){
         return m;
     }
 
+    private User user = null;
     public User getUser(){
         return user;
     }
-
     public void setUser(User newUser){
         user = newUser;
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -65,20 +64,16 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
         return true;
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         FragmentTransaction transaction;
         switch (item.getItemId()){
             case R.id.menu_accueil:
-                transaction = getFragmentManager().beginTransaction();
-                    transaction.remove(fragmentDetails);
-                    transaction.remove(fragmentConnexion);
-                    transaction.remove(fragmentInscription);
-                    transaction.show(fragmentRecherche);
-                    transaction.show(fragmentList);
-                    m.getItem(1).setVisible(true);
-                    m.getItem(2).setVisible(true);
-                transaction.commit();
+                onBackPressed();
+                fragmentList.clearAllListes();
+                fragmentRecherche.setTextToNull();
                 return true;
             case R.id.menu_connect:
                 transaction = getFragmentManager().beginTransaction();
@@ -104,15 +99,20 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
                 return true;
             case R.id.menu_deconnection:
                 user =null;
-                m.getItem(2).setVisible(true);
-                m.getItem(1).setVisible(true);
-                m.getItem(3).setVisible(false);
-                m.getItem(4).setVisible(false);
+                onBackPressed();
+                return true;
+            case R.id.menu_favoris:
+                transaction = getFragmentManager().beginTransaction();
+                    transaction.remove(fragmentDetails);
+                    transaction.show(fragmentFavoris);
+                    transaction.hide(fragmentList);
+                    transaction.hide(fragmentRecherche);
+                transaction.commit();
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
+
 
 
     @Override
@@ -129,13 +129,14 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
         fragmentInscription.setCallBack(this);
         fragmentFavoris.setFavorisCallBack(this);
 
-
         initializationList("user");
-
 
         android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.add(R.id.fl_main_fragment_rechercher,fragmentRecherche);
             transaction.add(R.id.fl_main_fragment_list, fragmentList);
+
+            transaction.add(R.id.fl_main_fragment_favoris,fragmentFavoris);
+            transaction.hide(fragmentFavoris);
         transaction.commit();
     }
 
@@ -149,47 +150,57 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
             transaction.hide(fragmentRecherche);
         transaction.commit();
     }
-
     @Override
     public void goToBoucle() {
         android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.fl_main_fragment_details,fragmentDetails);
         transaction.commit();
     }
-
     @Override
     public void onBackPressed() {
         android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.remove(fragmentDetails);
             transaction.remove(fragmentConnexion);
             transaction.remove(fragmentInscription);
+            transaction.hide(fragmentFavoris);
             transaction.show(fragmentRecherche);
             transaction.show(fragmentList);
+        transaction.commit();
+
+        if(user==null){
             m.getItem(1).setVisible(true);
             m.getItem(2).setVisible(true);
-        transaction.commit();
+            m.getItem(3).setVisible(false);
+            m.getItem(4).setVisible(false);
+        }
+        else {
+            m.getItem(1).setVisible(false);
+            m.getItem(2).setVisible(false);
+            m.getItem(3).setVisible(true);
+            m.getItem(4).setVisible(true);
+        }
     }
 
 
 
     public void goHome(){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.remove(fragmentDetails);
-        transaction.remove(fragmentConnexion);
-        transaction.remove(fragmentInscription);
-        transaction.show(fragmentRecherche);
-        transaction.show(fragmentList);
-        FragmentConnexion.getInstance().setFragmentConnexion();
+            transaction.remove(fragmentDetails);
+            transaction.remove(fragmentConnexion);
+            transaction.remove(fragmentInscription);
+            transaction.show(fragmentRecherche);
+            transaction.show(fragmentList);
+            FragmentConnexion.getInstance().setFragmentConnexion();
         transaction.commit();
     }
-    public  void goConnexion(){
+    public void goConnexion(){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.remove(fragmentDetails);
-        transaction.remove(fragmentInscription);
-        transaction.add(R.id.fl_main_fragment_connexion,fragmentConnexion);
-        FragmentInscription.getInstance().setFragmentInscription();
-        m.getItem(1).setVisible(false);
-        m.getItem(2).setVisible(true);
+            transaction.remove(fragmentDetails);
+            transaction.remove(fragmentInscription);
+            transaction.add(R.id.fl_main_fragment_connexion,fragmentConnexion);
+            FragmentInscription.getInstance().setFragmentInscription();
+            m.getItem(1).setVisible(false);
+            m.getItem(2).setVisible(true);
         transaction.commit();
     }
 
@@ -205,9 +216,11 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
                 buffer.append(line);
             }
             return buffer.toString();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
-        } finally {
+        }
+        finally {
             if (input != null) {
                 try {
                     input.close();

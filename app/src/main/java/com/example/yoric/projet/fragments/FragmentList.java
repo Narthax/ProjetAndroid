@@ -14,11 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.yoric.projet.MainActivity;
 import com.example.yoric.projet.R;
 import com.example.yoric.projet.adapter.CustomAdapterFilm;
 import com.example.yoric.projet.adapter.CustomAdapterPersonne;
 import com.example.yoric.projet.adapter.CustomAdapterSerie;
 import com.example.yoric.projet.model.Film;
+import com.example.yoric.projet.model.KnownFor;
 import com.example.yoric.projet.model.Personne;
 import com.example.yoric.projet.model.Serie;
 import com.example.yoric.projet.utils.RecyclerItemClickListener;
@@ -33,6 +35,8 @@ import java.util.List;
 public class FragmentList extends Fragment {
     private RecyclerView recyclerView;
     private String type = "0";
+    private FragmentFavoris fragmentFavoris = FragmentFavoris.getInstance();
+
 
     private static FragmentList fragmentList =null;
     public static FragmentList getInstance(){
@@ -140,7 +144,33 @@ public class FragmentList extends Fragment {
 
             @Override
             public void onLongItemClick(View view, int position) {
-
+                if(((MainActivity) getActivity()).getUser() != null) {
+                    KnownFor filmOuSerie;
+                    boolean isFavoris;
+                    String typeChar = "";
+                    if (!type.equals("2")) {
+                        if (type.equals("0")) {
+                            filmOuSerie = new KnownFor(listeFragmentFilm.get(position));
+                            typeChar = "movie";
+                        } else {
+                            filmOuSerie = new KnownFor(listeFragmentSerie.get(position));
+                            typeChar = "serie";
+                        }
+                        isFavoris = fragmentFavoris.addItemInFavoris(filmOuSerie);
+                        if (isFavoris == true) {
+                            Toast.makeText(getActivity(), "Your " + typeChar + " as been added in your favorites", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "This " + typeChar + " is already in your favorites", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else {
+                        Toast.makeText(getActivity(), "You can't add a person to your favorites", Toast.LENGTH_LONG).show();
+                    }
+                }
+                else {
+                    Toast.makeText(getActivity(), "You have to be logged to add films or series in your favorites", Toast.LENGTH_LONG).show();
+                }
             }
         }));
 
@@ -150,5 +180,15 @@ public class FragmentList extends Fragment {
         getAdapterListePersonne();
 
         return v;
+    }
+
+    public void clearAllListes(){
+        listeFragmentFilm.clear();
+        listeFragmentSerie.clear();
+        listeFragmentPersonne.clear();
+
+        getAdapterListeFilm().notifyDataSetChanged();
+        getAdapterListeSerie().notifyDataSetChanged();
+        getAdapterListePersonne().notifyDataSetChanged();
     }
 }

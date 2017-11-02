@@ -135,7 +135,7 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
     @Override
     public void parseData(String string) throws JSONException {
         Log.i("JSON : ",string);
-        Gson gson = new Gson();
+
         JSONObject jsonObject = new JSONObject(string);
         Type listType;
 
@@ -189,5 +189,9 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
                     typeRecherche
             );
         }
+    }
+
+    public void setTextToNull(){
+        et_recherche.setText("");
     }
 }
