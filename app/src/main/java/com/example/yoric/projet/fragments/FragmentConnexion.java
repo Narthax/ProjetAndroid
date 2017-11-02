@@ -73,26 +73,30 @@ public class FragmentConnexion extends Fragment {
                     User user = new User(etPseudo.getText().toString(), etMDP.getText().toString());
 
                     if (UserManagement.getInstance().getListUser().contains(user)) {
-                        SharedPreferences.Editor editor = preferences.edit();
-                        if (cbRemember.isChecked()) {
-                            editor.putString("username", etPseudo.getText().toString());
-                            editor.putString("password", etMDP.getText().toString());
-                            editor.putBoolean("remember_me", true);
-                        } else {
-                            editor.putString("username", "");
-                            editor.putString("password", "");
-                            editor.putBoolean("remember_me", false);
-                        }
-                        editor.apply();
+                        if (user.getPassword().equals(etMDP.getText().toString())) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            if (cbRemember.isChecked()) {
+                                editor.putString("username", etPseudo.getText().toString());
+                                editor.putString("password", etMDP.getText().toString());
+                                editor.putBoolean("remember_me", true);
+                            } else {
+                                editor.putString("username", "");
+                                editor.putString("password", "");
+                                editor.putBoolean("remember_me", false);
+                            }
+                            editor.apply();
 
-                        ((MainActivity) getActivity()).setUser(new User(etPseudo.getText().toString(), etMDP.getText().toString()));
-                        ((MainActivity) getActivity()).getMenu().getItem(4).setVisible(true);
-                        ((MainActivity) getActivity()).getMenu().getItem(3).setVisible(true);
-                        ((MainActivity) getActivity()).getMenu().getItem(1).setVisible(false);
-                        ((MainActivity) getActivity()).getMenu().getItem(2).setVisible(false);
-                        ((MainActivity) getActivity()).goHome();
+                            ((MainActivity) getActivity()).setUser(new User(etPseudo.getText().toString(), etMDP.getText().toString()));
+                            ((MainActivity) getActivity()).getMenu().getItem(4).setVisible(true);
+                            ((MainActivity) getActivity()).getMenu().getItem(3).setVisible(true);
+                            ((MainActivity) getActivity()).getMenu().getItem(1).setVisible(false);
+                            ((MainActivity) getActivity()).getMenu().getItem(2).setVisible(false);
+                            ((MainActivity) getActivity()).goHome();
+                        }else {
+                            Toast.makeText(getActivity(), "Mot de passe incorrect!", Toast.LENGTH_LONG).show();
+                        }
                     } else {
-                        Toast.makeText(getActivity(), "Pseudo / mot de passe incorrect!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Pseudo incorrect!", Toast.LENGTH_LONG).show();
                     }
                 }else{
                     Toast.makeText(getActivity(), "Champs vide!", Toast.LENGTH_LONG).show();
