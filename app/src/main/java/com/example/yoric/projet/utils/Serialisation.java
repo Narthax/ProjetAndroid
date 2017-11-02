@@ -38,11 +38,11 @@ public abstract class Serialisation {
         }
     }
 
-
     public static String writeUser(){
         Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
         String txt ="";
         txt=gson.toJson(UserManagement.getInstance().getListUser());
         return txt;
     }
+
 }
