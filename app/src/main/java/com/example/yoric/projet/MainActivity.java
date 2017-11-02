@@ -60,8 +60,9 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         m = menu;
-        menu.getItem(3).setVisible(false);
+        menu.getItem(1).setVisible(false);
         menu.getItem(4).setVisible(false);
+        menu.getItem(5).setVisible(false);
         return true;
     }
 
@@ -83,8 +84,8 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
                     transaction.add(R.id.fl_main_fragment_connexion,fragmentConnexion);
                     transaction.hide(fragmentList);
                     transaction.hide(fragmentRecherche);
-                    m.getItem(1).setVisible(false);
-                    m.getItem(2).setVisible(true);
+                    m.getItem(2).setVisible(false);
+                    m.getItem(3).setVisible(true);
                 transaction.commit();
                 return true;
             case R.id.menu_inscription:
@@ -94,8 +95,8 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
                     transaction.add(R.id.fl_main_fragment_inscription,fragmentInscription);
                     transaction.hide(fragmentList);
                     transaction.hide(fragmentRecherche);
-                    m.getItem(2).setVisible(false);
-                    m.getItem(1).setVisible(true);
+                    m.getItem(3).setVisible(false);
+                    m.getItem(2).setVisible(true);
                 transaction.commit();
                 return true;
             case R.id.menu_deconnection:
@@ -169,16 +170,18 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
         transaction.commit();
 
         if(user==null){
-            m.getItem(1).setVisible(true);
+            m.getItem(1).setVisible(false);
             m.getItem(2).setVisible(true);
-            m.getItem(3).setVisible(false);
+            m.getItem(3).setVisible(true);
             m.getItem(4).setVisible(false);
+            m.getItem(5).setVisible(false);
         }
         else {
-            m.getItem(1).setVisible(false);
+            m.getItem(1).setVisible(true);
             m.getItem(2).setVisible(false);
-            m.getItem(3).setVisible(true);
+            m.getItem(3).setVisible(false);
             m.getItem(4).setVisible(true);
+            m.getItem(5).setVisible(true);
         }
     }
 
@@ -235,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
     public void initializationList(String type){
         if (type.equals("user")){
             String txt =readJson("User.json");
-            Log.i("TXTTTTTTTTTT",txt+"");
+            Log.i("USER-JSON",txt);
             Type collectionType = new TypeToken<List<User>>() {}.getType();
             List<User> userList = new Gson().fromJson(txt, collectionType);
 

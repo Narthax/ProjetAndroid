@@ -3,9 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/menu_accueil"
-        android:icon="@drawable/ic_action_search"
+        android:icon="@drawable/house"
         android:title="@string/accueil"
         app:showAsAction="ifRoom" />
+    <item android:id="@+id/user"
+        android:title="Empty"
+        app:showAsAction="never" />
     <item android:id="@+id/menu_connect"
         android:title="Connexion"
         app:showAsAction="never" />
