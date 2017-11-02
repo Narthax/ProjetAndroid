@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/menu_accueil"
-        android:icon="@drawable/house"
+        android:icon="@drawable/ic_action_search"
         android:title="@string/accueil"
         app:showAsAction="ifRoom" />
     <item android:id="@+id/menu_connect"
@@ -14,7 +14,8 @@
         app:showAsAction="never" />
     <item android:id="@+id/menu_favoris"
         android:title="Favoris"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_action_favorite"
+        app:showAsAction="ifRoom" />
     <item android:id="@+id/menu_deconnection"
         android:title="Deconnection"
         app:showAsAction="never" />
