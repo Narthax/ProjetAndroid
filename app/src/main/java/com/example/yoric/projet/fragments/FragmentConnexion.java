@@ -73,7 +73,7 @@ public class FragmentConnexion extends Fragment {
                     User user = new User(etPseudo.getText().toString(), etMDP.getText().toString());
                     int index = UserManagement.getInstance().getListUser().indexOf(user);
                     if (index > -1 && UserManagement.getInstance().getListUser().get(index).getPassword().equals(user.getPassword()) &&
-                            UserManagement.getInstance().getListUser().get(index).getName().equals(user.getPassword())) {
+                            UserManagement.getInstance().getListUser().get(index).getName().equals(user.getName())) {
                             SharedPreferences.Editor editor = preferences.edit();
                             if (cbRemember.isChecked()) {
                                 editor.putString("username", etPseudo.getText().toString());

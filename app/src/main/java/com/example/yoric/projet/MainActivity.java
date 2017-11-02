@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -234,6 +235,7 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
     public void initializationList(String type){
         if (type.equals("user")){
             String txt =readJson("User.json");
+            Log.i("TXTTTTTTTTTT",txt+"");
             Type collectionType = new TypeToken<List<User>>() {}.getType();
             List<User> userList = new Gson().fromJson(txt, collectionType);
 
