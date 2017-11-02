@@ -66,14 +66,17 @@ public class FragmentInscription extends Fragment {
                             UserManagement.getInstance().addUser(user);
                             Serialisation.writeJson("User.json", Serialisation.writeUser(), getActivity());
                             ((MainActivity)getActivity()).goConnexion();
-                        }else{
-                            Toast.makeText(getActivity(), "Pseudo déjà utilisé!", Toast.LENGTH_LONG).show();
                         }
-                    }else{
-                        Toast.makeText(getActivity(), "Mot de passe incorrect!", Toast.LENGTH_LONG).show();
+                        else{
+                            Toast.makeText(getActivity(), "Pseudo déjà utilisé !", Toast.LENGTH_LONG).show();
+                        }
                     }
-                }else{
-                    Toast.makeText(getActivity(), "Champs vide!", Toast.LENGTH_LONG).show();
+                    else{
+                        Toast.makeText(getActivity(), "Mot de passe incorrect !", Toast.LENGTH_LONG).show();
+                    }
+                }
+                else{
+                    Toast.makeText(getActivity(), "Champs vide !", Toast.LENGTH_LONG).show();
                 }
             }
         });
