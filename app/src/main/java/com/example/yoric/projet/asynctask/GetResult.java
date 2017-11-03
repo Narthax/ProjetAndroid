@@ -19,7 +19,7 @@ import java.net.URL;
 public class GetResult extends AsyncTask<String, Void, String> {
 
     private static final String URL = "https://api.themoviedb.org/3/search/";
-    private static final String KEY = "ea9e2a5a6ab2b2321c066e0632186430";
+    private static final String KEY = "ea9e2a5a6ab2b2321c066e0632186430&language=fr";
     private ICallBack callback;
 
 

@@ -46,7 +46,7 @@
                 android:layout_height="55dp" />
             <Button
                 android:id="@+id/bt_details_bandeAnnonce"
-                android:text="@string/Search_trailer"
+                android:text="@string/bandeAnnonce"
                 android:layout_width="match_parent"
                 android:layout_height="55dp" />
 
@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:gravity="center_vertical"/>
+        android:gravity="center"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_details_layout"

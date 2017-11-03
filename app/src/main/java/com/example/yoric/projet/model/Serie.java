@@ -139,19 +139,19 @@ public class Serie {
     }
 
 
-    public Serie(String mBackdropPath, String mFirstAirDate, List<Long> mGenreIds, Long mId, String mName, List<String> mOriginCountry, String mOriginalLanguage, String mOriginalName, String mOverview, Double mPopularity, String mPosterPath, Double mVoteAverage, Long mVoteCount) {
-        this.mBackdropPath = mBackdropPath;
-        this.mFirstAirDate = mFirstAirDate;
-        this.mGenreIds = mGenreIds;
-        this.mId = mId;
-        this.mName = mName;
-        this.mOriginCountry = mOriginCountry;
-        this.mOriginalLanguage = mOriginalLanguage;
-        this.mOriginalName = mOriginalName;
-        this.mOverview = mOverview;
-        this.mPopularity = mPopularity;
-        this.mPosterPath = mPosterPath;
-        this.mVoteAverage = mVoteAverage;
-        this.mVoteCount = mVoteCount;
+    public Serie(KnownFor k){
+        this.mBackdropPath = k.getBackdropPath();
+        this.mFirstAirDate = k.getFirstAirDate();
+        this.mGenreIds = k.getGenreIds();
+        this.mId = k.getId();
+        this.mName = k.getName();
+        this.mOriginCountry = k.getOriginCountry();
+        this.mOriginalLanguage = k.getOriginalLanguage();
+        this.mOriginalName = k.getOriginalName();
+        this.mOverview = k.getOverview();
+        this.mPopularity = k.getPopularity();
+        this.mPosterPath = k.getPosterPath();
+        this.mVoteAverage = k.getVoteAverage();
+        this.mVoteCount = k.getVoteCount();
     }
 }

@@ -68,15 +68,15 @@ public class FragmentInscription extends Fragment {
                             ((MainActivity)getActivity()).goConnexion();
                         }
                         else{
-                            Toast.makeText(getActivity(), "Pseudo déjà utilisé !", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Pseudo déjà utilisé", Toast.LENGTH_LONG).show();
                         }
                     }
                     else{
-                        Toast.makeText(getActivity(), "Mot de passe incorrect !", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Mot de passe incorrect", Toast.LENGTH_LONG).show();
                     }
                 }
                 else{
-                    Toast.makeText(getActivity(), "Champs vide !", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Champs vides", Toast.LENGTH_LONG).show();
                 }
             }
         });

@@ -5,14 +5,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.yoric.projet.MainActivity;
 import com.example.yoric.projet.R;
 import com.example.yoric.projet.adapter.CustomAdapterKnownFor;
+import com.example.yoric.projet.model.Film;
 import com.example.yoric.projet.model.KnownFor;
+import com.example.yoric.projet.model.Serie;
 import com.example.yoric.projet.utils.RecyclerItemClickListener;
+import com.example.yoric.projet.utils.Serialisation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +34,7 @@ public class FragmentFavoris extends Fragment {
         if(!listFavoris.contains(knownFor)){
             listFavoris.add(knownFor);
             getAdapterKnownFor().notifyDataSetChanged();
+            Serialisation.writeJson(((MainActivity)getActivity()).getUser().getName()+".json",Serialisation.writeKnownFor(listFavoris),getActivity());
             return  true;
         }
         return false;
@@ -58,6 +64,7 @@ public class FragmentFavoris extends Fragment {
         this.favorisCallBack = list;
     }
     public interface FavorisCallBack{
+        void afficher(Object o, String type);
     }
 
 
@@ -76,17 +83,39 @@ public class FragmentFavoris extends Fragment {
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(),recyclerView,new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
+                KnownFor k = listFavoris.get(position);
+                if(k.getMediaType().equals("movie")){
+                    Film film = new Film(k);
+                    favorisCallBack.afficher(film,"0");
+                }
+                else {
+                    if(k.getMediaType().equals("tv")) {
+                        Serie serie = new Serie(k);
+                        favorisCallBack.afficher(serie, "1");
+                    }
+                }
+                ((MainActivity)getActivity()).hideFavoris();
             }
 
             @Override
             public void onLongItemClick(View view, int position) {
-
+                listFavoris.remove(position);
+                getAdapterKnownFor().notifyDataSetChanged();
+                Log.i("JSONNNNNNNNNNN",((MainActivity)getActivity()).getUser().getName());
+                Serialisation.writeJson(((MainActivity)getActivity()).getUser().getName()+".json",Serialisation.writeKnownFor(listFavoris),getActivity());
             }
         }));
 
-
-
         return v;
+    }
+
+    public void initialisationFavoris(List<KnownFor>list){
+        listFavoris.clear();
+        if(list!=null){
+            for (KnownFor knownFor : list){
+                listFavoris.add(knownFor);
+            }
+        }
+        getAdapterKnownFor().notifyDataSetChanged();
     }
 }

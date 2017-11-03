@@ -18,6 +18,7 @@ import com.example.yoric.projet.fragments.FragmentFavoris;
 import com.example.yoric.projet.fragments.FragmentInscription;
 import com.example.yoric.projet.fragments.FragmentList;
 import com.example.yoric.projet.fragments.FragmentRecherche;
+import com.example.yoric.projet.model.KnownFor;
 import com.example.yoric.projet.model.User;
 import com.example.yoric.projet.model.UserManagement;
 import com.google.gson.Gson;
@@ -30,7 +31,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements FragmentFavoris.FavorisCallBack, FragmentRecherche.RechercheCallBack, FragmentDetails.DetailsCallBack, FragmentDetails.BoucleCallBack,FragmentConnexion.ConnexionCallBack, FragmentInscription.InscriptionCallBack
+public class MainActivity extends AppCompatActivity implements FragmentRecherche.RechercheCallBack, FragmentDetails.DetailsCallBack, FragmentDetails.BoucleCallBack,FragmentConnexion.ConnexionCallBack, FragmentInscription.InscriptionCallBack
 {
     private FragmentRecherche fragmentRecherche = FragmentRecherche.getInstance();
     private FragmentList fragmentList = FragmentList.getInstance();
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
         fragmentDetails.setBoucleCallBack(this);
         fragmentConnexion.setCallBack(this);
         fragmentInscription.setCallBack(this);
-        fragmentFavoris.setFavorisCallBack(this);
+        fragmentFavoris.setFavorisCallBack(fragmentDetails);
 
         initializationList("user");
 
@@ -196,6 +197,8 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
             transaction.show(fragmentList);
             FragmentConnexion.getInstance().setFragmentConnexion();
         transaction.commit();
+
+        initializationList("favoris");
     }
     public void goConnexion(){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -205,6 +208,12 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
             FragmentInscription.getInstance().setFragmentInscription();
             m.getItem(1).setVisible(false);
             m.getItem(2).setVisible(true);
+        transaction.commit();
+    }
+    public void hideFavoris(){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.hide(fragmentFavoris);
+            transaction.replace(R.id.fl_main_fragment_details,fragmentDetails);
         transaction.commit();
     }
 
@@ -228,7 +237,8 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
             if (input != null) {
                 try {
                     input.close();
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -238,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
     public void initializationList(String type){
         if (type.equals("user")){
             String txt =readJson("User.json");
-            Log.i("USER-JSON",txt);
+            Log.i("USER-JSON",txt+"");
             Type collectionType = new TypeToken<List<User>>() {}.getType();
             List<User> userList = new Gson().fromJson(txt, collectionType);
 
@@ -247,6 +257,15 @@ public class MainActivity extends AppCompatActivity implements FragmentFavoris.F
                     UserManagement.getInstance().addUser(user);
                 }
             }
+        }
+        else if(type.equals("favoris")){
+            String txt = readJson(getUser().getName()+".json");
+            Log.i("NOMFICHIERRRRR",getUser().getName()+".json");
+            Log.i("FICHIERRRR",txt);
+            Type collectionType = new TypeToken<List<KnownFor>>() {}.getType();
+            List<KnownFor> favorisList = new Gson().fromJson(txt, collectionType);
+
+            fragmentFavoris.initialisationFavoris(favorisList);
         }
     }
     public static void hideSoftKeyboard (Activity activity, View view) {

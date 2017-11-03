@@ -151,25 +151,27 @@ public class FragmentList extends Fragment {
                     if (!type.equals("2")) {
                         if (type.equals("0")) {
                             filmOuSerie = new KnownFor(listeFragmentFilm.get(position));
-                            typeChar = "movie";
-                        } else {
-                            filmOuSerie = new KnownFor(listeFragmentSerie.get(position));
-                            typeChar = "serie";
-                        }
-                        isFavoris = fragmentFavoris.addItemInFavoris(filmOuSerie);
-                        if (isFavoris == true) {
-                            Toast.makeText(getActivity(), "Your " + typeChar + " as been added in your favorites", Toast.LENGTH_LONG).show();
+                            typeChar = filmOuSerie.getTitle();
                         }
                         else {
-                            Toast.makeText(getActivity(), "This " + typeChar + " is already in your favorites", Toast.LENGTH_LONG).show();
+                            filmOuSerie = new KnownFor(listeFragmentSerie.get(position));
+                            typeChar = filmOuSerie.getName();
+                        }
+
+                        isFavoris = fragmentFavoris.addItemInFavoris(filmOuSerie);
+                        if (isFavoris == true) {
+                            Toast.makeText(getActivity(), "\""+typeChar + "\" a été ajouté dans vos favoris", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "\""+typeChar + "\" est déjà dans vos favoris", Toast.LENGTH_LONG).show();
                         }
                     }
                     else {
-                        Toast.makeText(getActivity(), "You can't add a person to your favorites", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Vous ne pouvez pas ajouter des personnes dans vos favoris", Toast.LENGTH_LONG).show();
                     }
                 }
                 else {
-                    Toast.makeText(getActivity(), "You have to be logged to add films or series in your favorites", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Vous devez être connecté pour ajouter des films/séries dans vos favoris", Toast.LENGTH_LONG).show();
                 }
             }
         }));

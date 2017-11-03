@@ -7,20 +7,20 @@
     tools:context="com.example.yoric.projet.MainActivity">
 
     <FrameLayout
-        android:id="@+id/fl_main_fragment_connexion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></FrameLayout>
-    <FrameLayout
-        android:id="@+id/fl_main_fragment_inscription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></FrameLayout>
-
-    <FrameLayout
         android:id="@+id/fl_main_fragment_rechercher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></FrameLayout>
     <FrameLayout
         android:id="@+id/fl_main_fragment_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_main_fragment_connexion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></FrameLayout>
+    <FrameLayout
+        android:id="@+id/fl_main_fragment_inscription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></FrameLayout>
 

@@ -91,7 +91,7 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
                     }
 
                 } else {
-                    Toast.makeText(getActivity(), "Pas de connexion internet !", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Pas de connexion internet", Toast.LENGTH_LONG).show();
                 }
                 return handled;
             }
@@ -106,6 +106,7 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
         bt_personne.setOnClickListener(this);
         changeSelectedButton(bt_film,bt_serie,bt_personne);
         bt_recherche.setOnClickListener(this);
+        bt_recherche.setBackgroundColor(Color.parseColor("#b5b5b5"));
 
         return v;
     }
@@ -127,7 +128,7 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
             }
 
         } else {
-            Toast.makeText(getActivity(), "Pas de connexion internet !", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Pas de connexion internet", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -162,10 +163,10 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
 
 
     private void changeSelectedButton(Button select, Button b2, Button b3){
-        select.setBackgroundColor(Color.GREEN);
+        select.setBackgroundColor(Color.parseColor("#af000c"));
         setTypeRecherche(select.getId());
-        b2.setBackgroundColor(Color.WHITE);
-        b3.setBackgroundColor(Color.WHITE);
+        b2.setBackgroundColor(Color.parseColor("#b5b5b5"));
+        b3.setBackgroundColor(Color.parseColor("#b5b5b5"));
     }
     private void setTypeRecherche(int i){
         switch (i){

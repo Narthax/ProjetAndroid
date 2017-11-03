@@ -1,11 +1,12 @@
 
 package com.example.yoric.projet.model;
 
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 @SuppressWarnings("unused")
-public class KnownFor {
+public class KnownFor implements Serializable {
 
     @SerializedName("adult")
     private Boolean mAdult;

@@ -148,20 +148,21 @@ public class Film {
         mVoteCount = voteCount;
     }
 
-    public Film(Boolean mAdult, String mBackdropPath, List<Long> mGenreIds, Long mId, String mOriginalLanguage, String mOriginalTitle, String mOverview, Double mPopularity, String mPosterPath, String mReleaseDate, String mTitle, Boolean mVideo, Double mVoteAverage, Long mVoteCount) {
-        this.mAdult = mAdult;
-        this.mBackdropPath = mBackdropPath;
-        this.mGenreIds = mGenreIds;
-        this.mId = mId;
-        this.mOriginalLanguage = mOriginalLanguage;
-        this.mOriginalTitle = mOriginalTitle;
-        this.mOverview = mOverview;
-        this.mPopularity = mPopularity;
-        this.mPosterPath = mPosterPath;
-        this.mReleaseDate = mReleaseDate;
-        this.mTitle = mTitle;
-        this.mVideo = mVideo;
-        this.mVoteAverage = mVoteAverage;
-        this.mVoteCount = mVoteCount;
+
+    public Film(KnownFor k){
+        this.mAdult = k.getAdult();
+        this.mBackdropPath = k.getBackdropPath();
+        this.mGenreIds = k.getGenreIds();
+        this.mId = k.getId();
+        this.mOriginalLanguage = k.getOriginalLanguage();
+        this.mOriginalTitle = k.getOriginalTitle();
+        this.mOverview = k.getOverview();
+        this.mPopularity = k.getPopularity();
+        this.mPosterPath = k.getPosterPath();
+        this.mReleaseDate = k.getReleaseDate();
+        this.mTitle = k.getTitle();
+        this.mVideo = k.getVideo();
+        this.mVoteAverage = k.getVoteAverage();
+        this.mVoteCount = k.getVoteCount();
     }
 }

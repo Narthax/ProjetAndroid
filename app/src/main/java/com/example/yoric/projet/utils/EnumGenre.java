@@ -8,28 +8,28 @@ import java.util.List;
 
 public enum EnumGenre {
     Action(28,"Action"),
-    Adventure(12, "Adventure"),
+    Adventure(12, "Aventure"),
     Animation(16,"Animation"),
-    Comedy(35,"Comedy"),
+    Comedy(35,"Comédie"),
     Crime(80,"Crime"),
-    Documentary(99,"Documentary"),
-    Drama(18,"Drama"),
-    Family(10751,"Family"),
-    Fantasy(14,"Fantasy"),
-    History(36,"History"),
-    Horror(27,"Horror"),
-    Music(10402,"Music"),
-    Mystery(9648,"Mystery"),
+    Documentary(99,"Documentaire"),
+    Drama(18,"Drame"),
+    Family(10751,"Familial"),
+    Fantasy(14,"Fantastique"),
+    History(36,"Histoire"),
+    Horror(27,"Horreur"),
+    Music(10402,"Musique"),
+    Mystery(9648,"Mystère"),
     Romance(10749,"Romance"),
-    Science_Fiction(878,"Science Fiction"),
-    TV_Movie(10770,"TV Movie"),
+    Science_Fiction(878,"Science-Fiction"),
+    TV_Movie(10770,"Série"),
     Thriller(53,"Thriller"),
-    War(10752,"War"),
+    War(10752,"Guerre"),
     Western(37,"Western")
     ;
 
-    private int id=0;
-    private String genre="";
+    private int id;
+    private String genre;
 
     EnumGenre(int id, String genre){
         this.id = id;
@@ -47,8 +47,8 @@ public enum EnumGenre {
 
     public static String genresString(List<Long> list){
         String tmp="";
-        for(EnumGenre enumGenre : EnumGenre.values()){
-            for(int i=0;i<list.size();i++) {
+        for(int i=0;i<list.size();i++) {
+            for(EnumGenre enumGenre : EnumGenre.values()){
                 if (list.get(i)== enumGenre.getId()) {
                     if(i!=list.size()-1){
                         tmp += enumGenre.toString()+", ";
@@ -58,6 +58,10 @@ public enum EnumGenre {
                     }
                 }
             }
+        }
+
+        if(tmp.substring(tmp.length()-2,tmp.length()).equals(", ")){
+            tmp = tmp.substring(0,tmp.length()-2);
         }
         return tmp;
     }

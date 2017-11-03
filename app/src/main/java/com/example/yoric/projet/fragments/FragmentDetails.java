@@ -47,13 +47,13 @@ import java.util.List;
  * Created by Kista on 22-10-17.
  */
 
-public class FragmentDetails extends Fragment implements FragmentList.ListCallBack, GetResultDetails.ICallBack, GetResult.ICallBack{
+public class FragmentDetails extends Fragment implements FragmentList.ListCallBack, GetResultDetails.ICallBack, GetResult.ICallBack, FragmentFavoris.FavorisCallBack{
     private TextView tv_titre;
     private ImageView iv_Image;
     private TextView tv_date;
     private TextView tv_genre;
     private Button bt_bandeAnnonce;
-    private TextView tv_note;
+    private TextView tv_noteLieu;
     private TextView tv_description;
     private RecyclerView recyclerView;
     private TextView tv_list;
@@ -149,7 +149,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
         tv_date = (TextView) v.findViewById(R.id.tv_details_date);
         tv_genre = (TextView) v.findViewById(R.id.tv_details_genre);
         bt_bandeAnnonce = (Button) v.findViewById(R.id.bt_details_bandeAnnonce);
-        tv_note = (TextView) v.findViewById(R.id.bt_details_Note);
+        tv_noteLieu = (TextView) v.findViewById(R.id.bt_details_Note);
         tv_description = (TextView) v.findViewById(R.id.tv_details_description);
         tv_list = (TextView) v.findViewById(R.id.tv_details_list);
 
@@ -185,7 +185,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
 
                 }
                 else {
-                    Toast.makeText(getActivity(), "Pas de connexion internet !", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Pas de connexion internet", Toast.LENGTH_LONG).show();
                 }
            }
 
@@ -247,7 +247,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
             case "0":
                 KnownFor kFilm = (KnownFor) o;
 
-                film = new Film(kFilm.getAdult(),kFilm.getBackdropPath(),kFilm.getGenreIds(),kFilm.getId(),kFilm.getOriginalLanguage(),kFilm.getOriginalTitle(),kFilm.getOverview(),kFilm.getPopularity(),kFilm.getPosterPath(),kFilm.getReleaseDate(),kFilm.getTitle(),kFilm.getVideo(),kFilm.getVoteAverage(),kFilm.getVoteCount());
+                film = new Film(kFilm);
                 this.type = "0";
 
                 task.execute(
@@ -258,7 +258,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
             case "1":
                 KnownFor kSerie = (KnownFor) o;
 
-                serie = new Serie(kSerie.getBackdropPath(),kSerie.getFirstAirDate(),kSerie.getGenreIds(),kSerie.getId(),kSerie.getName(),kSerie.getOriginCountry(),kSerie.getOriginalLanguage(),kSerie.getOriginalName(),kSerie.getOverview(),kSerie.getPopularity(),kSerie.getPosterPath(),kSerie.getVoteAverage(),kSerie.getVoteCount());
+                serie = new Serie(kSerie);
                 this.type = "1";
 
                 task.execute(
@@ -295,17 +295,51 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
     private void initialiseDetails(){
         switch (type){
             case "0":
-                bt_bandeAnnonce.setText("Search Trailer");
-                tv_list.setText("Actors : ");
-                tv_titre.setText(film.getTitle());
-                Picasso.with(this.getContext()).load("https://image.tmdb.org/t/p/original"+film.getPosterPath()).into(iv_Image);
-                tv_date.setText(film.getReleaseDate());
-                tv_genre.setText(EnumGenre.genresString(film.getGenreIds()));
+                bt_bandeAnnonce.setText("Bande annonce");
+
+                if(personnes.size()==0){
+                    tv_list.setText("Les acteurs présents dans le film sont introuvables");
+                }
+                else {
+                    tv_list.setText("Acteurs présents dans le film : ");
+                }
+
+                String titre="Titre inconnu";
+                if(film.getTitle()!=null && !film.getTitle().isEmpty()){
+                    titre = film.getTitle();
+                }
+                tv_titre.setText(titre);
+
+                if(film.getPosterPath()==null || film.getPosterPath().isEmpty()) {
+                    iv_Image.setImageResource(R.drawable.noimage);
+                }
+                else {
+                    Picasso.with(this.getContext()).load("https://image.tmdb.org/t/p/original" + film.getPosterPath()).into(iv_Image);
+                }
+
+                String dateSortie="Date de sortie ";
+                if(film.getReleaseDate()==null || film.getReleaseDate().isEmpty()){
+                    dateSortie+= "inconnue";
+                }
+                else {
+                    dateSortie+= ": "+film.getReleaseDate();
+                }
+                tv_date.setText(dateSortie);
+
+                String genres ="Genre inconnu";
+                if(film.getGenreIds() != null && film.getGenreIds().size()>0) {
+                    genres = EnumGenre.genresString(film.getGenreIds());
+                    if(genres.isEmpty()){
+                        genres ="Genre inconnu";
+                    }
+                }
+                tv_genre.setText(genres);
+
                 bt_bandeAnnonce.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         String date="";
-                        if(!film.getReleaseDate().equals("")){
+                        if(film.getReleaseDate()!=null && !film.getReleaseDate().isEmpty()){
                             date = film.getReleaseDate().substring(0,4);
                         }
 
@@ -315,76 +349,141 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                         startActivity(intent);
                     }
                 });
-                tv_note.setText("Note : "+(double)Math.round(film.getVoteAverage() * 100) / 100d+" / 10");
-                tv_description.setText(film.getOverview());
+
+                if(film.getVoteAverage()==null || film.getVoteAverage() == 0){
+                    tv_noteLieu.setText("Ce film n'a pas été noté");
+                }
+                else {
+                    tv_noteLieu.setText("Note : "+(double)Math.round(film.getVoteAverage() * 100) / 100d+" / 10");
+                }
+
+                String description="\nIl n'y a pas de description pour ce film";
+                if(film.getOverview()!=null && !film.getOverview().isEmpty()){
+                    description=film.getOverview();
+                }
+                tv_description.setText(description);
 
                 break;
 
             case "1":
-                bt_bandeAnnonce.setText("Search Trailer");
-                tv_list.setText("Actors : ");
-                tv_titre.setText(serie.getName());
-                Picasso.with(this.getContext()).load("https://image.tmdb.org/t/p/original"+serie.getPosterPath()).into(iv_Image);
-                tv_date.setText(serie.getFirstAirDate());
-                tv_genre.setText(EnumGenre.genresString(serie.getGenreIds()));
+                bt_bandeAnnonce.setText("Bande annonce");
+
+                if(personnes.size()==0){
+                    tv_list.setText("Les acteurs présents dans la série sont introuvables");
+                }
+                else {
+                    tv_list.setText("Acteurs présents dans la série : ");
+                }
+
+                String name="Titre inconnu";
+                if(serie.getName()!=null && !serie.getName().isEmpty()){
+                    name = serie.getName();
+                }
+                tv_titre.setText(name);
+
+                if(serie.getPosterPath()==null || serie.getPosterPath().isEmpty()) {
+                    iv_Image.setImageResource(R.drawable.noimage);
+                }
+                else {
+                    Picasso.with(this.getContext()).load("https://image.tmdb.org/t/p/original"+serie.getPosterPath()).into(iv_Image);
+                }
+
+                String premierDiff="Première diffusion ";
+                if(serie.getFirstAirDate()==null || serie.getFirstAirDate().isEmpty()){
+                    premierDiff+= "inconnue";
+                }
+                else {
+                    premierDiff+=": "+serie.getFirstAirDate();
+                }
+                tv_date.setText(premierDiff);
+
+                String style ="Genre inconnu";
+                if(serie.getGenreIds() != null && serie.getGenreIds().size()>0) {
+                    style = EnumGenre.genresString(serie.getGenreIds());
+                    if(style.isEmpty()){
+                        style ="Genre inconnu";
+                    }
+                }
+                tv_genre.setText(style);
+
                 bt_bandeAnnonce.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         String date="";
-                        if(!serie.getFirstAirDate().equals("")){
+                        if(serie.getFirstAirDate()!=null && !serie.getFirstAirDate().isEmpty()){
                             date = serie.getFirstAirDate().substring(0,4);
                         }
 
-                        String url =YOUTUBE+film.getTitle()+"+"+date+"+trailer";
+                        String url =YOUTUBE+serie.getName()+"+"+date+"+season+1+trailer";
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setData(Uri.parse(url));
                         startActivity(intent);
                     }
                 });
-                tv_note.setText("Note : "+(double)Math.round(serie.getVoteAverage() * 100) / 100d+" / 10");
-                tv_description.setText(serie.getOverview());
+
+                if(serie.getVoteAverage()==null || serie.getVoteAverage() == 0){
+                    tv_noteLieu.setText("Cette série n'a pas été notée");
+                }
+                else {
+                    tv_noteLieu.setText("Note : "+(double)Math.round(serie.getVoteAverage() * 100) / 100d+" / 10");
+                }
+
+                String preview="\nIl n'y a pas de description pour cette série";
+                if(serie.getOverview()!=null && !serie.getOverview().isEmpty()){
+                    preview=serie.getOverview();
+                }
+                tv_description.setText(preview);
 
                 break;
 
             case "2":
-                bt_bandeAnnonce.setText("More informations");
-                tv_list.setText("Known for : ");
+                bt_bandeAnnonce.setText("Plus d'information");
 
                 tv_titre.setText(personneDetail.getName());
 
-                if(personneDetail.getProfilePath()==null){
+                if(personneDetail.getProfilePath()==null || personneDetail.getProfilePath().isEmpty()){
                     iv_Image.setImageResource(R.drawable.noimage);
                 }
                 else {
                     Picasso.with(this.getContext()).load("https://image.tmdb.org/t/p/original"+personneDetail.getProfilePath()).into(iv_Image);
                 }
 
-                String death=" , ";
-                String birth="---Birthday not found---";
-                if(personneDetail.getDeathday()!=null){
+                String genre="Homme";
+                String feminin = "";
+                if(personneDetail.getGender().equals(1L)){
+                    genre = "Femme";
+                    feminin ="e";
+                }
+                tv_genre.setText(genre);
+
+                if(knownFors.size()==0){
+                    tv_list.setText("Il n'y a pas de films ou de séries connues pour cette personne");
+                }
+                else {
+                    tv_list.setText("Connu"+feminin+" pour : ");
+                }
+
+                String death=" et mort"+feminin+" le ";
+                String birth="Date de naissance introuvable";
+                if(personneDetail.getDeathday()!=null && !personneDetail.getDeathday().isEmpty()){
                     death += personneDetail.getDeathday();
                 }
                 else {
                     death="";
                 }
-                if(personneDetail.getBirthday()!=null){
-                    birth = personneDetail.getBirthday();
+                if(personneDetail.getBirthday()!=null && !personneDetail.getBirthday().isEmpty()){
+                    birth ="Né"+feminin+" le "+ personneDetail.getBirthday();
                 }
                 tv_date.setText(birth+death);
 
-
-                String genre="Man";
-                if(personneDetail.getGender().equals(1L)){
-                    genre = "Woman";
+                String lieuNaissance="inconnu";
+                if(personneDetail.getPlaceOfBirth()!=null && !personneDetail.getPlaceOfBirth().isEmpty()){
+                    lieuNaissance = ": "+personneDetail.getPlaceOfBirth();
                 }
-                tv_genre.setText(genre);
+                tv_noteLieu.setText("Lieu de naissance "+lieuNaissance);
 
-
-                tv_note.setText("Popularity : "+(double)Math.round(personneDetail.getPopularity() * 100) / 100d+" / 10");
-
-
-                if(personneDetail.getBiography().equals("")){
-                    tv_description.setText("\n---Biography not found---");
+                if(personneDetail.getBiography().isEmpty()){
+                    tv_description.setText("\nBiographie introuvable");
                 }
                 else {
                     tv_description.setText(personneDetail.getBiography());
@@ -394,7 +493,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                     @Override
                     public void onClick(View view) {
                         String url="";
-                        if(personneDetail.getHomepage()==null || personneDetail.getHomepage().equals("")) {
+                        if(personneDetail.getHomepage()==null || personneDetail.getHomepage().isEmpty()) {
                             url = "https://www.google.be/search?&q=" + personneDetail.getName() + "+wikipedia";
                         }
                         else {
@@ -405,6 +504,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                         startActivity(intent);
                     }
                 });
+
                 break;
         }
     }
