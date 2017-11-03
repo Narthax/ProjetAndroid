@@ -136,7 +136,7 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
 
     @Override
     public void parseData(String string) throws JSONException {
-        Log.i("JSON : ",string);
+        Log.i("JSON : ",string+"");
 
         JSONObject jsonObject = new JSONObject(string);
         Type listType;
