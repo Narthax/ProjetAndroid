@@ -3,6 +3,7 @@ package com.example.yoric.projet.fragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -163,10 +164,14 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
 
 
     private void changeSelectedButton(Button select, Button b2, Button b3){
-        select.setBackgroundColor(Color.parseColor("#af000c"));
+        GradientDrawable bgSelect = (GradientDrawable)select.getBackground();
+        GradientDrawable bgB2 = (GradientDrawable)b2.getBackground();
+        GradientDrawable bgB3 = (GradientDrawable)b3.getBackground();
+
+        bgSelect.setColor(Color.parseColor("#af000c"));
         setTypeRecherche(select.getId());
-        b2.setBackgroundColor(Color.parseColor("#b5b5b5"));
-        b3.setBackgroundColor(Color.parseColor("#b5b5b5"));
+        bgB2.setColor(Color.parseColor("#b5b5b5"));
+        bgB3.setColor(Color.parseColor("#b5b5b5"));
     }
     private void setTypeRecherche(int i){
         switch (i){

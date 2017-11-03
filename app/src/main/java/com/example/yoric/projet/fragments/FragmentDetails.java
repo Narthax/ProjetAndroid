@@ -3,6 +3,7 @@ package com.example.yoric.projet.fragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -147,6 +148,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
         View v = inflater.inflate(R.layout.fragment_details,container,false);
 
         tv_titre = (TextView) v.findViewById(R.id.tv_details_titre);
+        tv_titre.setPaintFlags(tv_titre.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         iv_Image = (ImageView) v.findViewById(R.id.iv_details_image);
         tv_date = (TextView) v.findViewById(R.id.tv_details_date);
         tv_genre = (TextView) v.findViewById(R.id.tv_details_genre);
@@ -154,6 +156,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
         tv_noteLieu = (TextView) v.findViewById(R.id.bt_details_Note);
         tv_description = (TextView) v.findViewById(R.id.tv_details_description);
         tv_list = (TextView) v.findViewById(R.id.tv_details_list);
+        tv_list.setPaintFlags(tv_list.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         tv_note_entete = (TextView) v.findViewById(R.id.tv_note_entete);
 
         tv_titre.setSelected(true);

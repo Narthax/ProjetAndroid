@@ -3,14 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_margin="9dp"
 
     app:cardBackgroundColor="@android:color/white"
-    app:cardCornerRadius="2dp"
-    app:cardElevation="2dp">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    app:cardCornerRadius="20dp"
+    app:cardElevation="5dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -18,6 +15,7 @@
         android:orientation="vertical">
 
         <ImageView
+            android:layout_marginTop="10dp"
             android:id="@+id/iv_listPersonne_imagePetit"
             android:layout_width="75dp"
             android:layout_height="100dp"

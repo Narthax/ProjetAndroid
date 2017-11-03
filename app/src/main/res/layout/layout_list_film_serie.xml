@@ -21,55 +21,61 @@
             android:layout_height="150dp"
             android:layout_marginRight="5dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/noimage"/>
+            android:src="@drawable/noimage" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <TextView
                 android:id="@+id/tv_listFilmSerie_titre"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                />
+                android:layout_height="65dp"
+                android:gravity="center_vertical"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                >
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/calendrier"
-                    />
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/calendrier" />
 
                 <TextView
                     android:id="@+id/tv_listFilmSerie_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical">
             <RatingBar
                 android:id="@+id/rb_listeFilmSerie_rating"
-                style="?android:attr/ratingBarStyleSmall"
+                style="?android:attr/ratingBarStyleIndicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                android:isIndicator="true"
                 android:numStars="5"
                 android:stepSize="0.25" />
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

@@ -51,14 +51,14 @@ public class CustomAdapterKnownFor extends RecyclerView.Adapter<CustomAdapterKno
             if(!k.getReleaseDate().toString().equals("")){
                 date = k.getReleaseDate().substring(0,4);
                 title = k.getTitle();
-                type = "Movie";
+                type = "Film";
             }
         }
         else{
             if(!k.getFirstAirDate().toString().equals("")) {
                 date = k.getFirstAirDate().substring(0, 4);
                 title = k.getName();
-                type = "TV serie";
+                type = "Série";
             }
         }
         holder.tvTitre.setText(title+" ("+date+")");
