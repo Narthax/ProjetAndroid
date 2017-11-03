@@ -261,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
         else if(type.equals("favoris")){
             String txt = readJson(getUser().getName()+".json");
             Log.i("NOMFICHIERRRRR",getUser().getName()+".json");
-            Log.i("FICHIERRRR",txt);
+            Log.i("FICHIERRRR",txt+"");
             Type collectionType = new TypeToken<List<KnownFor>>() {}.getType();
             List<KnownFor> favorisList = new Gson().fromJson(txt, collectionType);
 

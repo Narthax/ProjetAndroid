@@ -4,15 +4,24 @@
     android:layout_height="match_parent"
     >
 
-    <TextView
-        android:id="@+id/tv_details_titre"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="40dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_margin="10dp"
+        <TextView
+            android:id="@+id/tv_details_titre"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="40dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_margin="10dp"
+
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:singleLine="true"
+            android:scrollHorizontally="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit ="marquee_forever"
+
         />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,21 +38,89 @@
             android:layout_width="match_parent"
             android:layout_height="220dp">
 
-            <TextView
-                android:id="@+id/tv_details_genre"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:gravity="center_vertical"
-                android:layout_height="55dp" />
-            <TextView
-                android:id="@+id/tv_details_date"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_genre_entete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:text="@string/genre"/>
+
+                <TextView
+                    android:id="@+id/tv_details_genre"
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_height="55dp"
+
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit ="marquee_forever"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:gravity="center_vertical"
-                android:layout_height="55dp" />
-            <TextView
-                android:id="@+id/bt_details_Note"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_date_entete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:text="@string/date"/>
+
+                <TextView
+                    android:id="@+id/tv_details_date"
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_height="55dp"
+
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit ="marquee_forever"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:gravity="center_vertical"
-                android:layout_height="55dp" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_note_entete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:text="@string/note"/>
+
+                <TextView
+                    android:id="@+id/bt_details_Note"
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_height="55dp"
+
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit ="marquee_forever"/>
+
+            </LinearLayout>
+
+
             <Button
                 android:id="@+id/bt_details_bandeAnnonce"
                 android:text="@string/bandeAnnonce"

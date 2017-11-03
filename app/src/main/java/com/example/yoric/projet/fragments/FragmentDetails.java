@@ -57,6 +57,8 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
     private TextView tv_description;
     private RecyclerView recyclerView;
     private TextView tv_list;
+    private TextView tv_note_entete;
+
 
 
 
@@ -152,6 +154,12 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
         tv_noteLieu = (TextView) v.findViewById(R.id.bt_details_Note);
         tv_description = (TextView) v.findViewById(R.id.tv_details_description);
         tv_list = (TextView) v.findViewById(R.id.tv_details_list);
+        tv_note_entete = (TextView) v.findViewById(R.id.tv_note_entete);
+
+        tv_titre.setSelected(true);
+        tv_date.setSelected(true);
+        tv_genre.setSelected(true);
+        tv_noteLieu.setSelected(true);
 
         getAdapterPersonnePetit();
         getAdapterKnownFor();
@@ -171,6 +179,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                     if(boucleType){
                         String test = knownFors.get(position).getMediaType();
                         if(test.equals("movie")){
+                            tv_note_entete.setText("Note :");
                             afficherBoucle(knownFors.get(position),"0");
                             Log.i("test",knownFors.get(position).getTitle());
                         }
@@ -317,12 +326,12 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                     Picasso.with(this.getContext()).load("https://image.tmdb.org/t/p/original" + film.getPosterPath()).into(iv_Image);
                 }
 
-                String dateSortie="Date de sortie ";
+                String dateSortie="";
                 if(film.getReleaseDate()==null || film.getReleaseDate().isEmpty()){
-                    dateSortie+= "inconnue";
+                    dateSortie+= " inconnue";
                 }
                 else {
-                    dateSortie+= ": "+film.getReleaseDate();
+                    dateSortie+=" "+film.getReleaseDate();
                 }
                 tv_date.setText(dateSortie);
 
@@ -330,10 +339,10 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                 if(film.getGenreIds() != null && film.getGenreIds().size()>0) {
                     genres = EnumGenre.genresString(film.getGenreIds());
                     if(genres.isEmpty()){
-                        genres ="Genre inconnu";
+                        genres =" Genre inconnu";
                     }
                 }
-                tv_genre.setText(genres);
+                tv_genre.setText(" "+genres);
 
                 bt_bandeAnnonce.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -351,10 +360,10 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                 });
 
                 if(film.getVoteAverage()==null || film.getVoteAverage() == 0){
-                    tv_noteLieu.setText("Ce film n'a pas été noté");
+                    tv_noteLieu.setText(" Ce film n'a pas été noté");
                 }
                 else {
-                    tv_noteLieu.setText("Note : "+(double)Math.round(film.getVoteAverage() * 100) / 100d+" / 10");
+                    tv_noteLieu.setText(" "+(double)Math.round(film.getVoteAverage() * 100) / 100d+" / 10");
                 }
 
                 String description="\nIl n'y a pas de description pour ce film";
@@ -388,23 +397,23 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                     Picasso.with(this.getContext()).load("https://image.tmdb.org/t/p/original"+serie.getPosterPath()).into(iv_Image);
                 }
 
-                String premierDiff="Première diffusion ";
+                String premierDiff="";
                 if(serie.getFirstAirDate()==null || serie.getFirstAirDate().isEmpty()){
-                    premierDiff+= "inconnue";
+                    premierDiff+= " Inconnue";
                 }
                 else {
-                    premierDiff+=": "+serie.getFirstAirDate();
+                    premierDiff+=" "+serie.getFirstAirDate();
                 }
                 tv_date.setText(premierDiff);
 
-                String style ="Genre inconnu";
+                String style =" Genre inconnu";
                 if(serie.getGenreIds() != null && serie.getGenreIds().size()>0) {
                     style = EnumGenre.genresString(serie.getGenreIds());
                     if(style.isEmpty()){
-                        style ="Genre inconnu";
+                        style =" Genre inconnu";
                     }
                 }
-                tv_genre.setText(style);
+                tv_genre.setText(" " +style);
 
                 bt_bandeAnnonce.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -425,7 +434,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                     tv_noteLieu.setText("Cette série n'a pas été notée");
                 }
                 else {
-                    tv_noteLieu.setText("Note : "+(double)Math.round(serie.getVoteAverage() * 100) / 100d+" / 10");
+                    tv_noteLieu.setText(" "+(double)Math.round(serie.getVoteAverage() * 100) / 100d+" / 10");
                 }
 
                 String preview="\nIl n'y a pas de description pour cette série";
@@ -437,6 +446,9 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                 break;
 
             case "2":
+
+                tv_note_entete.setText("Lieu :");
+
                 bt_bandeAnnonce.setText("Plus d'information");
 
                 tv_titre.setText(personneDetail.getName());
@@ -448,10 +460,10 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                     Picasso.with(this.getContext()).load("https://image.tmdb.org/t/p/original"+personneDetail.getProfilePath()).into(iv_Image);
                 }
 
-                String genre="Homme";
+                String genre=" Homme";
                 String feminin = "";
                 if(personneDetail.getGender().equals(1L)){
-                    genre = "Femme";
+                    genre = " Femme";
                     feminin ="e";
                 }
                 tv_genre.setText(genre);
@@ -464,7 +476,7 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                 }
 
                 String death=" et mort"+feminin+" le ";
-                String birth="Date de naissance introuvable";
+                String birth=" Introuvable";
                 if(personneDetail.getDeathday()!=null && !personneDetail.getDeathday().isEmpty()){
                     death += personneDetail.getDeathday();
                 }
@@ -472,15 +484,15 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
                     death="";
                 }
                 if(personneDetail.getBirthday()!=null && !personneDetail.getBirthday().isEmpty()){
-                    birth ="Né"+feminin+" le "+ personneDetail.getBirthday();
+                    birth =" Né"+feminin+" le "+ personneDetail.getBirthday();
                 }
                 tv_date.setText(birth+death);
 
-                String lieuNaissance="inconnu";
+                String lieuNaissance="Inconnu";
                 if(personneDetail.getPlaceOfBirth()!=null && !personneDetail.getPlaceOfBirth().isEmpty()){
-                    lieuNaissance = ": "+personneDetail.getPlaceOfBirth();
+                    lieuNaissance = ""+personneDetail.getPlaceOfBirth();
                 }
-                tv_noteLieu.setText("Lieu de naissance "+lieuNaissance);
+                tv_noteLieu.setText(" "+lieuNaissance);
 
                 if(personneDetail.getBiography().isEmpty()){
                     tv_description.setText("\nBiographie introuvable");

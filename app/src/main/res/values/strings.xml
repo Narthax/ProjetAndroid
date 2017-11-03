@@ -13,6 +13,9 @@
     <string name="submit">Connexion</string>
     <string name="confirmer">Confirmer</string>
     <string name="bandeAnnonce">Bande annonce</string>
+    <string name="genre">Genre : </string>
+    <string name="date">Date : </string>
+    <string name="note">Note : </string>
 
     <string-array name="s_choix">
         <item>Film</item>
