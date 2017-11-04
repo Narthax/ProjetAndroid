@@ -115,12 +115,12 @@ public class FragmentConnexion extends Fragment {
         if (isRemembered) {
             etPseudo.setText(preferences.getString("username", ""));
             etMDP.setText(preferences.getString("password", ""));
-            cbRemember.setSelected(preferences.getBoolean("remember_me", false));
-        }else{
+            cbRemember.setChecked(preferences.getBoolean("remember_me", false));
+        }
+        else{
             etPseudo.setText("");
             etMDP.setText("");
-            cbRemember.setSelected(false);
+            cbRemember.setChecked(false);
         }
     }
-
 }

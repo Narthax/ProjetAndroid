@@ -72,12 +72,14 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         FragmentTransaction transaction;
+
         switch (item.getItemId()){
             case R.id.menu_accueil:
                 onBackPressed();
                 fragmentList.clearAllListes();
                 fragmentRecherche.setTextToNull();
                 return true;
+
             case R.id.menu_connect:
                 transaction = getFragmentManager().beginTransaction();
                     transaction.remove(fragmentInscription);
@@ -89,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
                     m.getItem(3).setVisible(true);
                 transaction.commit();
                 return true;
+
             case R.id.menu_inscription:
                 transaction = getFragmentManager().beginTransaction();
                     transaction.remove(fragmentConnexion);
@@ -100,10 +103,12 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
                     m.getItem(2).setVisible(true);
                 transaction.commit();
                 return true;
+
             case R.id.menu_deconnection:
                 user =null;
                 onBackPressed();
                 return true;
+
             case R.id.menu_favoris:
                 transaction = getFragmentManager().beginTransaction();
                     transaction.remove(fragmentDetails);
@@ -195,8 +200,9 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
             transaction.remove(fragmentInscription);
             transaction.show(fragmentRecherche);
             transaction.show(fragmentList);
-            FragmentConnexion.getInstance().setFragmentConnexion();
         transaction.commit();
+
+        fragmentConnexion.setFragmentConnexion();
 
         initializationList("favoris");
     }
@@ -205,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
             transaction.remove(fragmentDetails);
             transaction.remove(fragmentInscription);
             transaction.add(R.id.fl_main_fragment_connexion,fragmentConnexion);
-            FragmentInscription.getInstance().setFragmentInscription();
+            fragmentInscription.setFragmentInscription();
             m.getItem(1).setVisible(false);
             m.getItem(2).setVisible(true);
         transaction.commit();
