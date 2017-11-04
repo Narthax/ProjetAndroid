@@ -231,8 +231,8 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
             transaction.remove(fragmentInscription);
             transaction.add(R.id.fl_main_fragment_connexion,fragmentConnexion);
             fragmentInscription.setFragmentInscription();
-            m.getItem(1).setVisible(false);
-            m.getItem(2).setVisible(true);
+            m.getItem(2).setVisible(false);
+            m.getItem(3).setVisible(true);
         transaction.commit();
     }
     public void hideFavoris(){

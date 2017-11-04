@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
+        android:layout_marginLeft="20dp"
         android:id="@+id/rv_favoris_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
