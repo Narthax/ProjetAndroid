@@ -2,6 +2,7 @@ package com.example.yoric.projet.asynctask;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -67,8 +68,7 @@ public class GetResult extends AsyncTask<String, Void, String> {
             e.printStackTrace();
         }
 
-
-        return null;
+        return "error";
     }
 
     @Override

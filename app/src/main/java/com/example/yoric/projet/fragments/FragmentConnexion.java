@@ -30,6 +30,13 @@ public class FragmentConnexion extends Fragment {
     private CheckBox cbRemember;
     private SharedPreferences preferences;
 
+    public CheckBox getCbRemember(){
+        if(cbRemember==null){
+            cbRemember = (CheckBox) getView().findViewById(R.id.cb_login_remember);
+        }
+        return cbRemember;
+    }
+
     private static FragmentConnexion fragmentConnexion = null;
     public static FragmentConnexion getInstance() {
         if (fragmentConnexion == null) {
@@ -122,5 +129,11 @@ public class FragmentConnexion extends Fragment {
             etMDP.setText("");
             cbRemember.setChecked(false);
         }
+    }
+
+    public void resetFormConnexion(){
+        etPseudo.setText("");
+        etMDP.setText("");
+        cbRemember.setChecked(false);
     }
 }

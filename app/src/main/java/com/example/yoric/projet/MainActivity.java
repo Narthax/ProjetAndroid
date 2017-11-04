@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
     }
 
     boolean inscription=false;
+    boolean connexion=false;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
                 if(inscription==true){
                     fragmentInscription.setFragmentInscription();
                 }
+                connexion=true;
                 transaction = getFragmentManager().beginTransaction();
                     transaction.remove(fragmentInscription);
                     transaction.remove(fragmentDetails);
@@ -96,6 +98,11 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
                 return true;
 
             case R.id.menu_inscription:
+                if(connexion==true){
+                    if(!fragmentConnexion.getCbRemember().isChecked()){
+                        fragmentConnexion.resetFormConnexion();
+                    }
+                }
                 inscription=true;
                 transaction = getFragmentManager().beginTransaction();
                     transaction.remove(fragmentConnexion);
@@ -187,6 +194,11 @@ public class MainActivity extends AppCompatActivity implements FragmentRecherche
             m.getItem(5).setVisible(false);
             if(inscription==true){
                 fragmentInscription.setFragmentInscription();
+            }
+            if(connexion==true){
+                if(!fragmentConnexion.getCbRemember().isChecked()){
+                    fragmentConnexion.resetFormConnexion();
+                }
             }
         }
         else {

@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.yoric.projet.MainActivity;
@@ -34,6 +35,7 @@ import java.util.List;
 
 public class FragmentList extends Fragment {
     private RecyclerView recyclerView;
+    private ImageView imageFond;
     private String type = "0";
     private FragmentFavoris fragmentFavoris = FragmentFavoris.getInstance();
 
@@ -64,6 +66,12 @@ public class FragmentList extends Fragment {
 
     public void setListeFilm(List<Film> list) {
         listeFragmentFilm = list;
+        if(list.size()==0){
+            imageFond.setVisibility(View.VISIBLE);
+        }
+        else {
+            imageFond.setVisibility(View.GONE);
+        }
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(getAdapterListeFilm());
         getAdapterListeFilm().updateAffichage(list);
@@ -71,6 +79,12 @@ public class FragmentList extends Fragment {
     }
     public void setListeSerie(List<Serie> list) {
         listeFragmentSerie = list;
+        if(list.size()==0){
+            imageFond.setVisibility(View.VISIBLE);
+        }
+        else {
+            imageFond.setVisibility(View.GONE);
+        }
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(getAdapterListeSerie());
         getAdapterListeSerie().updateAffichage(list);
@@ -78,6 +92,12 @@ public class FragmentList extends Fragment {
     }
     public void setListePersonne(List<Personne> list) {
         listeFragmentPersonne = list;
+        if(list.size()==0){
+            imageFond.setVisibility(View.VISIBLE);
+        }
+        else {
+            imageFond.setVisibility(View.GONE);
+        }
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         recyclerView.setAdapter(getAdapterListePersonne());
         getAdapterListePersonne().updateAffichage(list);
@@ -118,6 +138,7 @@ public class FragmentList extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_liste,container,false);
 
+        imageFond = (ImageView) v.findViewById(R.id.iv_list_fond);
         recyclerView = (RecyclerView) v.findViewById(R.id.rv_list_layout);
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(),recyclerView,new RecyclerItemClickListener.OnItemClickListener(){
 
@@ -137,7 +158,7 @@ public class FragmentList extends Fragment {
                     }
                 }
                 else {
-                    Toast.makeText(getActivity(), "Pas de connexion internet !", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Pas de connexion internet", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -188,6 +209,8 @@ public class FragmentList extends Fragment {
         listeFragmentFilm.clear();
         listeFragmentSerie.clear();
         listeFragmentPersonne.clear();
+
+        imageFond.setVisibility(View.VISIBLE);
 
         getAdapterListeFilm().notifyDataSetChanged();
         getAdapterListeSerie().notifyDataSetChanged();

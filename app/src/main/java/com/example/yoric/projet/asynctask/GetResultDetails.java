@@ -71,7 +71,7 @@ public class GetResultDetails extends AsyncTask<String, Void, String> {
         }
 
 
-        return null;
+        return "error";
     }
 
     @Override

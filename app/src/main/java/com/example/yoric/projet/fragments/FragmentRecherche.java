@@ -138,6 +138,12 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
     public void parseData(String string) throws JSONException {
         Log.i("JSON : ",string+"");
 
+        if(string.equals("error")){
+            Toast.makeText(getActivity(), "Une erreur est survenue lors de votre recherche", Toast.LENGTH_LONG).show();
+            fragmentList.clearAllListes();
+            return;
+        }
+
         JSONObject jsonObject = new JSONObject(string);
         Type listType;
 

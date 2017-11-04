@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.yoric.projet.MainActivity;
 import com.example.yoric.projet.R;
 import com.example.yoric.projet.adapter.CustomAdapterKnownFor;
 import com.example.yoric.projet.adapter.CustomAdapterPersonnePetit;
@@ -542,6 +543,11 @@ public class FragmentDetails extends Fragment implements FragmentList.ListCallBa
     }
     @Override
     public void parseDataDetail(String string) throws JSONException {
+        if(string.equals("error")){
+            Toast.makeText(getActivity(), "Une erreur est survenue lors du chargement des détails", Toast.LENGTH_LONG).show();
+            getActivity().onBackPressed();
+            return;
+        }
         JSONObject jsonObject = new JSONObject(string);
         Type listType;
 
