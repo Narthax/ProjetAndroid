@@ -60,8 +60,10 @@ public enum EnumGenre {
             }
         }
 
-        if(tmp.substring(tmp.length()-2,tmp.length()).equals(", ")){
-            tmp = tmp.substring(0,tmp.length()-2);
+        if(tmp.length()>2) {
+            if (tmp.substring(tmp.length() - 2, tmp.length()).equals(", ")) {
+                tmp = tmp.substring(0, tmp.length() - 2);
+            }
         }
         return tmp;
     }
