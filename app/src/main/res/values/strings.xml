@@ -9,7 +9,7 @@
     <string name="accueil">Accueil</string>
     <string name="label_password">Mot de passe...</string>
     <string name="label_username">Pseudo...</string>
-    <string name="label_remember">Maintenir la connexion</string>
+    <string name="label_remember">Mémoriser</string>
     <string name="submit">Connexion</string>
     <string name="confirmer">Confirmer</string>
     <string name="bandeAnnonce">Bande annonce</string>
