@@ -55,7 +55,7 @@ public class CustomAdapterSerie extends RecyclerView.Adapter<CustomAdapterSerie.
             holder.ivImage.setImageResource(R.drawable.noimage);
         }
         else {
-            Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+s.getPosterPath()).resize(100,150).into(holder.ivImage);
+            Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+s.getPosterPath()).resize(200,300).into(holder.ivImage);
         }
         holder.tvTitre.setText(s.getName());
         holder.ratingBar.setRating((Float.parseFloat(s.getVoteAverage().toString()))/2);

@@ -47,7 +47,7 @@ public class CustomAdapterPersonne extends RecyclerView.Adapter<CustomAdapterPer
             holder.ivImage.setImageResource(R.drawable.noimage);
         }
         else {
-            Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+p.getProfilePath()).resize(150,200).into(holder.ivImage);
+            Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+p.getProfilePath()).resize(300,400).into(holder.ivImage);
         }
         holder.tvNom.setText(p.getName());
     }
