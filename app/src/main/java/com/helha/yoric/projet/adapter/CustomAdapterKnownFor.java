@@ -68,7 +68,7 @@ public class CustomAdapterKnownFor extends RecyclerView.Adapter<CustomAdapterKno
             holder.ivImage.setImageResource(R.drawable.noimage);
         }
         else {
-            Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+k.getPosterPath()).into(holder.ivImage);
+            Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+k.getPosterPath()).resize(100,120).into(holder.ivImage);
         }
     }
 

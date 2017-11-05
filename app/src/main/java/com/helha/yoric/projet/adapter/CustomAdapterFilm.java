@@ -54,7 +54,7 @@ public class CustomAdapterFilm extends RecyclerView.Adapter<CustomAdapterFilm.My
             holder.ivImage.setImageResource(R.drawable.noimage);
         }
         else {
-            Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+m.getPosterPath()).into(holder.ivImage);
+            Picasso.with(this.context).load("https://image.tmdb.org/t/p/original"+m.getPosterPath()).resize(100,150).into(holder.ivImage);
         }
         holder.tvTitre.setText(m.getTitle());
         holder.ratingBar.setRating((Float.parseFloat(m.getVoteAverage().toString()))/2);
