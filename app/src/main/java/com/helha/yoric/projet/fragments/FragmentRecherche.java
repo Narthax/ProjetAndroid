@@ -139,13 +139,18 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
         Log.i("JSON : ",string+"");
 
         if(string.equals("error")){
-            Toast.makeText(getActivity(), "Une erreur est survenue lors de votre recherche", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Une erreur est survenue lors de votre recherche", Toast.LENGTH_SHORT).show();
             fragmentList.clearAllListes();
             return;
         }
 
         JSONObject jsonObject = new JSONObject(string);
         Type listType;
+
+        if(jsonObject.getJSONArray("results").toString().equals("[]")){
+            Toast.makeText(getActivity(), "Pas de résultat pour votre recherche", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         switch (typeRecherche){
             case "0" :
@@ -193,7 +198,7 @@ public class FragmentRecherche extends Fragment implements GetResult.ICallBack, 
         task.setCallback(this);
 
         if(et_recherche.getText().toString().isEmpty() || et_recherche.getText().toString()==null){
-
+            Toast.makeText(getActivity(), "La recherche est vide", Toast.LENGTH_SHORT).show();
         }
         else {
             task.execute(
