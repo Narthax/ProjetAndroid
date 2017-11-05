@@ -15,6 +15,11 @@
     <string name="bandeAnnonce">Bande annonce</string>
     <string name="genre">Genre : </string>
     <string name="date">Date : </string>
+
+    <string name="advice"><u>Astuces :</u>\n---------------\n
+           * Une fois votre recherche effectuée, restez appuyé sur un film ou une série pour l\'ajouter dans vos favoris.\n\n
+           * Afin de supprimer un élément de vos favoris, il vous suffit de rester appuyer sur ce dernier.</string>
+
     <string name="note">Note : </string>
 
     <string-array name="s_choix">

@@ -3,6 +3,28 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_favoris_titre"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:text="Vos favoris :"/>
+        <ImageButton
+            android:id="@+id/ib_favoris_info"
+            android:src="@drawable/info"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:layout_marginLeft="20dp"
         android:id="@+id/rv_favoris_layout"

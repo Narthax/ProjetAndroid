@@ -1,14 +1,21 @@
 package com.helha.yoric.projet.fragments;
 
 import android.app.Fragment;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.helha.yoric.projet.MainActivity;
 import com.helha.yoric.projet.R;
@@ -28,6 +35,8 @@ import java.util.List;
 
 public class FragmentFavoris extends Fragment {
     private RecyclerView recyclerView;
+    private ImageButton imageButton;
+    private TextView textViewTitre;
 
     private List<KnownFor> listFavoris = new ArrayList<>();
     public boolean addItemInFavoris(KnownFor knownFor){
@@ -35,6 +44,12 @@ public class FragmentFavoris extends Fragment {
             listFavoris.add(knownFor);
             getAdapterKnownFor().notifyDataSetChanged();
             Serialisation.writeJson(((MainActivity)getActivity()).getUser().getName()+".json",Serialisation.writeKnownFor(listFavoris),getActivity());
+            if(listFavoris.size()==0){
+                imageButton.setVisibility(View.VISIBLE);
+            }
+            else {
+                imageButton.setVisibility(View.GONE);
+            }
             return  true;
         }
         return false;
@@ -75,6 +90,16 @@ public class FragmentFavoris extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_favoris,container,false);
 
+        imageButton = (ImageButton) v.findViewById(R.id.ib_favoris_info);
+        textViewTitre = (TextView) v.findViewById(R.id.tv_favoris_titre);
+        textViewTitre.setPaintFlags(textViewTitre.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        imageButton.setBackgroundColor(Color.parseColor("#e9e9e9"));
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(),getString(R.string.advice),Toast.LENGTH_LONG).show();
+            }
+        });
         recyclerView = (RecyclerView) v.findViewById(R.id.rv_favoris_layout);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
         getAdapterKnownFor();
@@ -100,6 +125,12 @@ public class FragmentFavoris extends Fragment {
             @Override
             public void onLongItemClick(View view, int position) {
                 listFavoris.remove(position);
+                if(listFavoris.size()==0){
+                    imageButton.setVisibility(View.VISIBLE);
+                }
+                else {
+                    imageButton.setVisibility(View.GONE);
+                }
                 getAdapterKnownFor().notifyDataSetChanged();
                 Log.i("JSONNNNNNNNNNN",((MainActivity)getActivity()).getUser().getName());
                 Serialisation.writeJson(((MainActivity)getActivity()).getUser().getName()+".json",Serialisation.writeKnownFor(listFavoris),getActivity());
@@ -117,5 +148,11 @@ public class FragmentFavoris extends Fragment {
             }
         }
         getAdapterKnownFor().notifyDataSetChanged();
+        if(listFavoris.size()==0){
+            imageButton.setVisibility(View.VISIBLE);
+        }
+        else {
+            imageButton.setVisibility(View.GONE);
+        }
     }
 }

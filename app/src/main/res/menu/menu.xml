@@ -13,13 +13,13 @@
         android:title="Connexion"
         app:showAsAction="never" />
     <item android:id="@+id/menu_inscription"
-        android:title="S'enregistrer"
+        android:title="S'inscrire"
         app:showAsAction="never" />
     <item android:id="@+id/menu_favoris"
         android:title="Favoris"
         android:icon="@drawable/ic_action_favorite"
         app:showAsAction="ifRoom" />
     <item android:id="@+id/menu_deconnection"
-        android:title="Deconnection"
+        android:title="Déconnexion"
         app:showAsAction="never" />
 </menu>
