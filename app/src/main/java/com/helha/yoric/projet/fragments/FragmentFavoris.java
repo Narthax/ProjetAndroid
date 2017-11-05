@@ -44,12 +44,6 @@ public class FragmentFavoris extends Fragment {
             listFavoris.add(knownFor);
             getAdapterKnownFor().notifyDataSetChanged();
             Serialisation.writeJson(((MainActivity)getActivity()).getUser().getName()+".json",Serialisation.writeKnownFor(listFavoris),getActivity());
-            if(listFavoris.size()==0){
-                imageButton.setVisibility(View.VISIBLE);
-            }
-            else {
-                imageButton.setVisibility(View.GONE);
-            }
             return  true;
         }
         return false;
@@ -125,12 +119,6 @@ public class FragmentFavoris extends Fragment {
             @Override
             public void onLongItemClick(View view, int position) {
                 listFavoris.remove(position);
-                if(listFavoris.size()==0){
-                    imageButton.setVisibility(View.VISIBLE);
-                }
-                else {
-                    imageButton.setVisibility(View.GONE);
-                }
                 getAdapterKnownFor().notifyDataSetChanged();
                 Log.i("JSONNNNNNNNNNN",((MainActivity)getActivity()).getUser().getName());
                 Serialisation.writeJson(((MainActivity)getActivity()).getUser().getName()+".json",Serialisation.writeKnownFor(listFavoris),getActivity());
@@ -148,11 +136,5 @@ public class FragmentFavoris extends Fragment {
             }
         }
         getAdapterKnownFor().notifyDataSetChanged();
-        if(listFavoris.size()==0){
-            imageButton.setVisibility(View.VISIBLE);
-        }
-        else {
-            imageButton.setVisibility(View.GONE);
-        }
     }
 }
